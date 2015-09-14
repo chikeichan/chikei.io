@@ -11,7 +11,7 @@ Trio.Module.import({
         tagName: 'ck-canvas',
         fragment: frag,
         style: style,
-        addIcon: function(el) {
+        addToCanvas: function(el) {
             this.shadowRoot.appendChild(el);
         }
     });

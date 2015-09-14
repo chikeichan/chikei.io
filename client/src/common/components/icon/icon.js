@@ -62,7 +62,7 @@ Trio.Module.export('iconComponent', function() {
             this.onDragEnd = this.onDragEnd.bind(this);
             this.picture = this.shadowRoot.querySelector('.icon-pic');
             this.name = this.shadowRoot.querySelector('.icon-name');
-            this.shadowRoot.addEventListener('mousedown', this.onDragStart);
+            this.addEventListener('mousedown', this.onDragStart);
         },
 
         setIconPic: function(url) {
@@ -79,6 +79,9 @@ Trio.Module.export('iconComponent', function() {
         },
 
         onDragStart: function(e) {
+            if (e.which !== 1) {
+                return;
+            }
             this.origin.x = this.offsetLeft;
             this.origin.y = this.offsetTop;
             this.start.x = e.pageX;

@@ -15,15 +15,20 @@ Trio.Module.export('canvasService', function() {
 
         addIcon: function(iconOpts) {
             var icon = document.createElement('ck-icon');
+            icon.addEventListener('dblclick', this.openModule.bind(this, iconOpts));
             icon.setIconPic(iconOpts.iconUrl);
             icon.setIconName(iconOpts.iconName);
             icon.setPosition(iconOpts.position);
-            this.component.addIcon(icon);
-            this.component.addEventListener('dblclick', this.openModule.bind(this, iconOpts));
+            this.component.addToCanvas(icon);
         },
 
         openModule: function(iconOpts) {
-            console.log(iconOpts)
+            var module = document.createElement('ck-module');
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://treeify.herokuapp.com';
+            module.setTitle(iconOpts.iconName);
+            module.addModuleContent(iframe);
+            this.component.addToCanvas(module);
         }
     });
 
