@@ -12,8 +12,8 @@ Trio.Module.import({
         fragment: frag,
         style: style,
         onCreate: function() {
-            this.header     = this.shadowRoot.querySelector('#header');
-            this.canvas     = this.shadowRoot.querySelector('#canvas');
+            this.header   = this.shadowRoot.querySelector('#header');
+            this.canvas   = this.shadowRoot.querySelector('#canvas');
             this.main     = this.shadowRoot.querySelector('#main');
         },
 

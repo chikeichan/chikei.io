@@ -1,5 +1,4 @@
 Trio.Module.export('layoutStyle', function() {
-    var themeColor = Trio.Stylizer.getVariable('theme-color')
     var style = {
        ':host': {
            'display': 'flex',
@@ -19,10 +18,7 @@ Trio.Module.export('layoutStyle', function() {
            'display': 'flex',
            'width': '100%',
            'overflow': 'auto',
-           'flex': '1 0 auto',
-           'background-size': 'cover',
-           'background-repeat': 'no-repeat',
-           'background-position': 'center center'
+           'flex': '1 0 auto'
        },
        '#main': {
            'display': 'flex',
