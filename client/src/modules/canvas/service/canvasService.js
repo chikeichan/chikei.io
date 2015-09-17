@@ -24,10 +24,15 @@ Trio.Module.export('canvasService', function() {
 
         openModule: function(iconOpts) {
             var module = document.createElement('ck-module');
-            var iframe = document.createElement('iframe');
-            iframe.src = 'https://treeify.herokuapp.com';
             module.setTitle(iconOpts.iconName);
-            module.addModuleContent(iframe);
+            module.setSize({
+                x: this.component.clientWidth/2,
+                y: this.component.clientHeight/2
+            });
+            module.setPosition({
+                x: this.component.clientWidth/4,
+                y: this.component.clientHeight/4
+            });
             this.component.addToCanvas(module);
         }
     });

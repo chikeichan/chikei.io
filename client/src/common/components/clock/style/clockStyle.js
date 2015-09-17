@@ -1,7 +1,7 @@
 Trio.Module.export('clockStyle', function() {
       var style = {
          ':host': {
-            'color': 'white',
+            'color': Trio.Stylizer.getVariable('layout-color'),
             'display': 'inline-flex',
             'align-items': 'center',
             'height': '100%',
@@ -9,10 +9,10 @@ Trio.Module.export('clockStyle', function() {
             'cursor': 'pointer'
          },
          ':host(:hover)': {
-            'background-color': 'rgba(255, 255, 255, 0.1)'
+            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.1)
          },
          ':host(:active)': {
-            'background-color': 'rgba(0, 0, 0, 0.1)'
+            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.1)
          },
          'span': {
             '-webkit-user-select': 'none',

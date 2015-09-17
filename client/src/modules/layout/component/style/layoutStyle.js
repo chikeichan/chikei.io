@@ -9,7 +9,7 @@ Trio.Module.export('layoutStyle', function() {
        },
        '#header': {
            'display': 'flex',
-           'background-color': Trio.Stylizer.getVariable('header-color'),
+           'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.9),
            'width': '100%',
            'height': '50px',
            'flex-shrink': '0'

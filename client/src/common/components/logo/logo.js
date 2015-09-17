@@ -5,7 +5,7 @@ Trio.Module.export('logoComponent', function() {
     var frag = tmpl.render();
     var style = Trio.Stylizer.createStyleTag({
         ':host': {
-            'color': 'white',
+            'color': Trio.Stylizer.getVariable('layout-color'),
             'display': 'inline-flex',
             'align-items': 'center',
             'height': '100%',

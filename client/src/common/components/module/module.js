@@ -6,6 +6,14 @@ Trio.Module.export('moduleComponent', function() {
                 .create('div.button').addClass('close-module').append()
             .append()
         .append()
+        .create('div.resizable').addClass('north').append()
+        .create('div.resizable').addClass('south').append()
+        .create('div.resizable').addClass('east').append()
+        .create('div.resizable').addClass('west').append()
+        .create('div.resizable').addClass('north-west').append()
+        .create('div.resizable').addClass('north-east').append()
+        .create('div.resizable').addClass('south-west').append()
+        .create('div.resizable').addClass('south-east').append()
         .create('div.module-content').appendLast();
     var frag = tmpl.render();
     var style = Trio.Stylizer.createStyleTag({
@@ -15,19 +23,22 @@ Trio.Module.export('moduleComponent', function() {
             'flex-flow': 'column nowrap',
             'height': '400px',
             'width': '600px',
-            'background-color': 'rgba(0, 0, 0, 0.8)',
-            'padding': '4px',
-            'border-radius': '2px'
+            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.8),
+            'border-radius': '2px',
+            "box-shadow": '0px 0px 3px ' + Trio.Stylizer.getVariable('shadow-color')
         },
         '.module-header': {
             'display': 'flex',
             'flex-flow': 'row nowrap',
             'flex': '0 0 auto',
             'height': '30px',
-            'background-color': 'rgb(0, 0, 0)'
+            'background-color': Trio.Stylizer.getVariable('base-color'),
+            'border-top-right-radius': '2px',
+            'border-top-left-radius': '2px',
+            'cursor': 'move'
         },
         '.module-title': {
-            'color': 'white',
+            'color': Trio.Stylizer.getVariable('layout-color'),
             'font-size': '0.8em',
             'flex': '1 0 auto',
             'display': 'flex',
@@ -46,7 +57,9 @@ Trio.Module.export('moduleComponent', function() {
         },
         '.module-content': {
             'display': 'flex',
-            'flex': '1 0 auto'
+            'flex': '1 0 auto',
+            'border-bottom-right-radius': '2px',
+            'border-bottom-left-radius': '2px'
         },
         '.button': {
             'width': '12px',
@@ -67,6 +80,63 @@ Trio.Module.export('moduleComponent', function() {
         'iframe': {
             'flex': '1 1 auto',
             'border': 'none'
+        },
+        '.resizable': {
+            'position': 'absolute',
+        },
+        '.resizable.north': {
+            'height': '2px',
+            'cursor': 'n-resize',
+            'width': '100%',
+            'top': '0'
+        },
+        '.resizable.south': {
+            'height': '2px',
+            'cursor': 's-resize',
+            'width': '100%',
+            'top': '100%'
+        },
+        '.resizable.east': {
+            'width': '2px',
+            'cursor': 'e-resize',
+            'height': '100%',
+            'left': '100%',
+            'top': '0'
+        },
+        '.resizable.west': {
+            'width': '2px',
+            'cursor': 'w-resize',
+            'height': '100%',
+            'left': '0',
+            'top': '0'
+        },
+        '.resizable.south-west': {
+            'width': '6px',
+            'height': '6px',
+            'cursor': 'sw-resize',
+            'left': '0',
+            'top': 'calc(100% - 6px)'
+        },
+        '.resizable.south-east': {
+            'width': '6px',
+            'height': '6px',
+            'cursor': 'se-resize',
+            'left': 'calc(100% - 6px)',
+            'top': 'calc(100% - 6px)'
+        },
+        '.resizable.north-east': {
+            'width': '6px',
+            'height': '6px',
+            'cursor': 'ne-resize',
+            'left': 'calc(100% - 6px)',
+            'top': '0'
+        },
+        '.resizable.north-west': {
+            'width': '6px',
+            'height': '6px',
+            'cursor': 'nw-resize',
+            'left': '0',
+            'top': '0'
         }
     });
 
@@ -88,6 +158,7 @@ Trio.Module.export('moduleComponent', function() {
         },
         
         events: {
+            'mousedown .close-module': 'stopPropagation',
             'click .close-module': 'destroy'
         },
 
@@ -114,6 +185,11 @@ Trio.Module.export('moduleComponent', function() {
             this.style.left = opt.x + 'px';
         },
 
+        setSize: function(opts) {
+            this.style.height = opts.y + 'px';
+            this.style.width = opts.x + 'px';
+        },
+
         onDragStart: function(e) {
             if (e.which !== 1) {
                 return;
@@ -138,7 +214,11 @@ Trio.Module.export('moduleComponent', function() {
             window.removeEventListener('mousemove', this.onDragging);
         },
 
-        destroy: function() {
+        stopPropagation: function(e) {
+            e.stopImmediatePropagation();
+        },
+
+        destroy: function(e) {
             this.remove();
         }
     });

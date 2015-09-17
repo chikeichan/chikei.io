@@ -12,7 +12,7 @@ Trio.Module.export('headerStyle', function() {
             'align-items': 'center',
             'height': '100%',
             'flex': '1 0 auto',
-            'border': '1px solid rgba(255, 255, 255, 0.1)',
+            'border': '1px solid ' + Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.1),
             'border-top': 'none',
             'border-bottom': 'none',
          }
