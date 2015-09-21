@@ -63,64 +63,6 @@ Trio.Module.export('moduleStyle', function() {
         'iframe': {
             'flex': '1 1 auto',
             'border': 'none'
-        },
-        '.resizable': {
-            'position': 'absolute',
-            '-webkit-user-select': 'none'
-        },
-        '.resizable.north': {
-            'height': '2px',
-            'cursor': 'n-resize',
-            'width': '100%',
-            'top': '0'
-        },
-        '.resizable.south': {
-            'height': '2px',
-            'cursor': 's-resize',
-            'width': '100%',
-            'top': '100%'
-        },
-        '.resizable.east': {
-            'width': '2px',
-            'cursor': 'e-resize',
-            'height': '100%',
-            'left': '100%',
-            'top': '0'
-        },
-        '.resizable.west': {
-            'width': '2px',
-            'cursor': 'w-resize',
-            'height': '100%',
-            'left': '0',
-            'top': '0'
-        },
-        '.resizable.south-west': {
-            'width': '6px',
-            'height': '6px',
-            'cursor': 'sw-resize',
-            'left': '0',
-            'top': 'calc(100% - 6px)'
-        },
-        '.resizable.south-east': {
-            'width': '6px',
-            'height': '6px',
-            'cursor': 'se-resize',
-            'left': 'calc(100% - 6px)',
-            'top': 'calc(100% - 6px)'
-        },
-        '.resizable.north-east': {
-            'width': '6px',
-            'height': '6px',
-            'cursor': 'ne-resize',
-            'left': 'calc(100% - 6px)',
-            'top': '0'
-        },
-        '.resizable.north-west': {
-            'width': '6px',
-            'height': '6px',
-            'cursor': 'nw-resize',
-            'left': '0',
-            'top': '0'
         }
     };
 

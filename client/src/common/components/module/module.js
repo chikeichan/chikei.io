@@ -37,7 +37,7 @@ Trio.Module.import({
             this.moduleContent = this.shadowRoot.querySelector('.module-content');
             this.moduleName = this.shadowRoot.querySelector('.module-title');
             this.header.addEventListener('mousedown', this.onDragStart);
-            ret.resizable.initResizable.call(this, ['south', 'north', 'east', 'west']);
+            ret.resizable.initResizable.call(this, ['south', 'north', 'east', 'west', 'north-west', 'north-east', 'south-west', 'south-east']);
         },
 
         addModuleContent: function(el) {
