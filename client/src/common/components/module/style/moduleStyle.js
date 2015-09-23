@@ -42,7 +42,9 @@ Trio.Module.export('moduleStyle', function() {
             'display': 'flex',
             'flex': '1 0 auto',
             'border-bottom-right-radius': '2px',
-            'border-bottom-left-radius': '2px'
+            'border-bottom-left-radius': '2px',
+            'height': 'calc(100% - 30px)',
+            'overflow': 'hidden'
         },
         '.button': {
             'width': '12px',

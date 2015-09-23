@@ -3,6 +3,7 @@ Trio.Module.import({
     'moduleTemplate': './src/common/components/module/template/moduleTemplate.js',
     'resizable': './src/common/mixins/resizable.js'
 })
+
 .and.export('moduleComponent', function(ret) {
     var frag = ret.moduleTemplate.render();
     var style = Trio.Stylizer.createStyleTag(ret.moduleStyle);
@@ -54,8 +55,8 @@ Trio.Module.import({
         },
 
         setSize: function(opts) {
-            this.style.height = opts.y + 'px';
-            this.style.width = opts.x + 'px';
+            this.style.height = opts.height + 'px';
+            this.style.width = opts.width + 'px';
         },
 
         onDragStart: function(e) {
@@ -87,6 +88,7 @@ Trio.Module.import({
         },
 
         destroy: function(e) {
+            this.dispatchEvent(new Event('destroy'));
             this.remove();
         }
     });

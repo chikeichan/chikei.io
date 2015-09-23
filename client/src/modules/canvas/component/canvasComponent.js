@@ -9,8 +9,11 @@ Trio.Module.import({
 
     return Trio.Component.register({
         tagName: 'ck-canvas',
+
         fragment: frag,
+        
         style: style,
+        
         addToCanvas: function(el) {
             this.shadowRoot.appendChild(el);
         }
