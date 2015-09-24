@@ -26,7 +26,7 @@ var blogs = {
     'VGV0cmlzLmpz': {
         threadId: 'VGV0cmlzLmpz',
         title: 'Dynamic Programming – Knapsack Problem',
-        coverUrl: '',
+        coverUrl: 'http://ak4.picdn.net/shutterstock/videos/754195/preview/stock-footage-man-with-backpack-walks-on-field-sunset-sky-in-background.jpg',
         author: {
             avatarUrl: '',
             name: 'Chi Kei Chan'

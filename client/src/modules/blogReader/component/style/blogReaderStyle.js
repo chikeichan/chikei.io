@@ -10,7 +10,6 @@ Trio.Module.export('blogReaderStyle', function() {
             'width': '100%',
             'display': 'flex',
             'flex-flow': 'column nowrap',
-            'padding': '12px',
             'overflow-y': 'scroll'
         }
     };
