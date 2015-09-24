@@ -15,7 +15,7 @@ Trio.Module.import({
         style: style,
 
         onCreate: function() {
-            this.nav = this.shadowRoot.querySelector('.nav');
+            this.nav = this.shadowRoot.querySelector('ck-blog-nav');
             this.reader = this.shadowRoot.querySelector('.blog-content');
         },
 
