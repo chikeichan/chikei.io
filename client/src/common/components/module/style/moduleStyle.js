@@ -6,7 +6,7 @@ Trio.Module.export('moduleStyle', function() {
             'flex-flow': 'column nowrap',
             'height': '400px',
             'width': '600px',
-            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.8),
+            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.9),
             'border-radius': '2px',
             "box-shadow": '0px 0px 3px ' + Trio.Stylizer.getVariable('shadow-color')
         },

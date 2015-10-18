@@ -1,13 +1,13 @@
 Trio.Module.export('moduleTemplate', function() {
     var tmpl = Trio.Renderer.createTemplate();
 
-    tmpl.create('div.module-header')
-            .create('div.module-title').append()
-            .create('div.module-button')
-                .create('div.button').addClass('close-module').append()
-            .append()
-        .append()
-        .create('div.module-content').appendLast();
+    tmpl.open('div.module-header')
+            .open('div.module-title').close()
+            .open('div.module-button')
+                .open('div.button').addClass('close-module').close()
+            .close()
+        .close()
+        .open('div.module-content').close();
 
     return tmpl;
 });

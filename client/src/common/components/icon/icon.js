@@ -1,7 +1,7 @@
 Trio.Module.export('iconComponent', function() {
     var tmpl = Trio.Renderer.createTemplate();
-    tmpl.create('div.icon-pic').append()
-        .create('div.icon-name').appendLast();
+    tmpl.open('div.icon-pic').close()
+        .open('div.icon-name').close();
     var frag = tmpl.render();
     var style = Trio.Stylizer.createStyleTag({
         ':host': {

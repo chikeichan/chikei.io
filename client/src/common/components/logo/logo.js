@@ -1,7 +1,7 @@
 Trio.Module.export('logoComponent', function() {
     var tmpl = Trio.Renderer.createTemplate();
-    tmpl.create('div.logo-first').text('CHIKEI').append()
-        .create('div.logo-last').text('CHAN').appendLast();
+    tmpl.open('div.logo-first').text('CHIKEI').close()
+        .open('div.logo-last').text('CHAN').close();
     var frag = tmpl.render();
     var style = Trio.Stylizer.createStyleTag({
         ':host': {

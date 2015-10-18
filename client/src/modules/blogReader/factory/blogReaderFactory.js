@@ -37,7 +37,7 @@ var blogs = {
     'VGV0cmlzLmpz2': {
         threadId: 'VGV0cmlzLmpz',
         title: 'Create the Universe in Three.js',
-        coverUrl: '',
+        coverUrl: 'http://2.bp.blogspot.com/-c2U3HUQZVy8/UV7KI2bodLI/AAAAAAAAA4g/DJEEmv-FmNY/s1600/galaxy_universe-normal.jpg',
         author: {
             avatarUrl: '',
             name: 'Chi Kei Chan'

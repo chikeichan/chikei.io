@@ -1,9 +1,9 @@
 Trio.Module.export('blogNavFolderComponent', function(ret) {
     var folderTmpl = Trio.Renderer.createTemplate();
-        folderTmpl.create('div.nav-folder')
-                .create('div.nav-folder-name').append()
-                .create('div.nav-folder-content').append()
-            .appendLast();
+        folderTmpl.open('div.nav-folder')
+                .open('div.nav-folder-name').close()
+                .open('div.nav-folder-content').close()
+            .close();
 
     var frag = folderTmpl.render();
     var style = Trio.Stylizer.createStyleTag({
@@ -11,19 +11,19 @@ Trio.Module.export('blogNavFolderComponent', function(ret) {
             'display': 'flex',
             'margin': '1px 0',
             'font-weight': '100',
-            'background-color': 'rgba(0, 0, 0, 0.1)',
             '-webkit-user-select': 'none',
             'cursor': 'pointer',
             'flex-flow': 'column nowrap'
         },
         '.nav-folder-name:hover': {
-            'background-color': 'rgba(0, 0, 0, 0.05)'
+            'background-color': 'rgba(255, 255, 255 , 0.15)'
         },
         '.nav-folder-name:active': {
-            'background-color': 'rgba(0, 0, 0, 0.15)'
+            'background-color': 'rgba(255, 255, 255 , 0.05)'
         },
         '.nav-folder-name': {
             'color': Trio.Stylizer.getVariable('layout-color'),
+            'background-color': 'rgba(255, 255, 255 , 0.1)',
             'text-transform': 'uppercase',
             'padding': '12px'
         },

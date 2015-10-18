@@ -1,6 +1,6 @@
 Trio.Module.export('blogNavItemComponent', function(ret) {
     var itemTmpl = Trio.Renderer.createTemplate();
-        itemTmpl.create('div.nav-item').appendLast();
+        itemTmpl.open('div.nav-item').close();
     var frag = itemTmpl.render();
     var style = Trio.Stylizer.createStyleTag({
         '.nav-item': {
@@ -10,7 +10,7 @@ Trio.Module.export('blogNavItemComponent', function(ret) {
             'font-size': '0.6em',
             'text-transform': 'capitalize',
             'cursor': 'pointer',
-            'background-color': 'rgba(255, 255, 255, 0.1)',
+            'background-color': 'rgba(0, 0, 0, 0.05)',
             '-webkit-user-select': 'none',
             'white-space': 'nowrap',
             'text-overflow': 'ellipsis',
@@ -18,10 +18,10 @@ Trio.Module.export('blogNavItemComponent', function(ret) {
             'flex': '1 0 auto'
         },
         '.nav-item:hover': {
-            'background-color': 'rgba(255, 255, 255, 0.15)'
+            'background-color': 'rgba(0, 0, 0, 0)'
         },
         '.nav-item:active': {
-            'background-color': 'rgba(255, 255, 255, 0.05)'
+            'background-color': 'rgba(0, 0, 0, 0.1)'
         }
     });
 

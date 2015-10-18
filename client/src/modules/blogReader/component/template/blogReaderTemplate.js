@@ -5,8 +5,8 @@ Trio.Module.import({
 .and.export('blogReaderTemplate', function() {
     var tmpl = Trio.Renderer.createTemplate();
 
-    tmpl.create('ck-blog-nav').append()
-        .create('div.blog-content').appendLast();
+    tmpl.open('ck-blog-nav').close()
+        .open('div.blog-content').close();
 
     return tmpl;
 });

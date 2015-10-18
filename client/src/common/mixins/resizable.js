@@ -77,7 +77,7 @@ Trio.Module.export('resizable', function() {
             indicators.forEach(function(indicator) {
                 var tmpl = Trio.Renderer.createTemplate();
 
-                tmpl.create('div.resizable').addClass(indicator).appendLast();
+                tmpl.open('div.resizable').addClass(indicator).close();
 
                 this.shadowRoot.appendChild(tmpl.render());
 

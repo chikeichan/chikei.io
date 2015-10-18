@@ -5,7 +5,7 @@ Trio.Module.import({
 
 .and.export('blogNavComponent', function(ret) {
     var tmpl = Trio.Renderer.createTemplate();
-        tmpl.create('div.nav').appendLast();
+        tmpl.open('div.nav').close();
     var frag = tmpl.render();
     var style = Trio.Stylizer.createStyleTag({
         ':host': {

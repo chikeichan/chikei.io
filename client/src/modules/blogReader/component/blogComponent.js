@@ -1,17 +1,18 @@
 Trio.Module.export('blogComponent', function() {
     var blogTmpl = Trio.Renderer.createTemplate();
-        blogTmpl.create('div.blog-header')
-            .create('div.blog-title').append()
-            .create('div.blog-meta')
-                .create('div.blog-author').append()
-                .create('div.blog-date').append()
-                .create('div.fb-share-button')
+        
+        blogTmpl.open('div.blog-header')
+            .open('div.blog-title').close()
+            .open('div.blog-meta')
+                .open('div.blog-author').close()
+                .open('div.blog-date').close()
+                .open('div.fb-share-button')
                     .attr('data-href', "https://developers.facebook.com/docs/plugins/")
                     .attr('data-layout', 'button')
-                .append()
-            .append()
-        .append()
-        .create('div.blog-body').appendLast()
+                .close()
+            .close()
+        .close()
+        .open('div.blog-body').close()
 
     var frag = blogTmpl.render();
 
@@ -21,9 +22,9 @@ Trio.Module.export('blogComponent', function() {
             'font-size': '2.4em',
             'font-weight': '500',
             'min-height': '150px',
-            'color': Trio.Stylizer.getVariable('layout-color'),
+            'color': 'white',
             'padding': '24px',
-            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.4)
+            'background-color': 'rgba(0, 0, 0, 0.4)'
         },
         '.blog-header': {
             'background-repeat': 'no-repeat',
@@ -34,12 +35,12 @@ Trio.Module.export('blogComponent', function() {
             'display': 'flex',
             'font-size': '0.7em',
             'font-weight': '300',
-            'color': Trio.Stylizer.getVariable('layout-color'),
+            'color': 'white',
             'padding': '12px 24px',
 
         },
         '.blog-meta': {
-            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('base-color'), 0.5),
+            'background-color': 'rgba(0, 0, 0, 0.7)',
             'display': 'flex',
             'flex-flow': 'row nowrap',
             'border-bottom': '1px solid ' + Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.2)
@@ -47,7 +48,7 @@ Trio.Module.export('blogComponent', function() {
         '.blog-date': {
             'font-size': '0.7em',
             'font-weight': '300',
-            'color': Trio.Stylizer.getVariable('layout-color'),
+            'color': 'white',
             'padding': '12px 24px',
         },
         '.blog-body': {
