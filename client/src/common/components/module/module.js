@@ -77,11 +77,10 @@ Trio.Module.export('moduleComponent', function() {
                     'border': 'none'
                 });
 
-
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
             .open('div.module-header')
-                .open('div.module-title').close()
+                .open('div.module-title').text(function(d) { return d.moduleName; }).close()
                 .open('div.module-button')
                     .open('div.button').addClass('close-module').close()
                 .close()
@@ -116,7 +115,7 @@ Trio.Module.export('moduleComponent', function() {
             this.moduleContent = this.shadowRoot.querySelector('.module-content');
             this.moduleName = this.shadowRoot.querySelector('.module-title');
             this.header.addEventListener('mousedown', this.onDragStart);
-            ret.resizable.initResizable.call(this, ['south', 'north', 'east', 'west', 'north-west', 'north-east', 'south-west', 'south-east']);
+            // ret.resizable.initResizable.call(this, ['south', 'north', 'east', 'west', 'north-west', 'north-east', 'south-west', 'south-east']);
         },
 
         addModuleContent: function(el) {

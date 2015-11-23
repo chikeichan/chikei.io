@@ -10,9 +10,10 @@ Trio.Module.export('canvasComponent', function(ret) {
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
             .each(function(d) {return d.icons;})
-                .open('ck-icon').data(function(icon) {
-                    return icon;
-                }).close()
+                .open('ck-icon')
+                    .attr('data-module-id', function(icon) { return icon.moduleId; })
+                    .data(function(icon) { return icon; })
+                .close()
             .xeach();
 
     return Trio.Component.register({
@@ -22,6 +23,10 @@ Trio.Module.export('canvasComponent', function(ret) {
             this.on('render', function(evt) {
                 this.patch(evt.detail);
             }.bind(this));
+
+            this.on('addModuleToCanvas', function(e) {
+                this.shadowRoot.appendChild(e.detail.module);
+            }.bind(this))
         }
     });
 });

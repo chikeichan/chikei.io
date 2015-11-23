@@ -62,10 +62,15 @@ Trio.Module.export('iconComponent', function() {
         },
         
         onCreate: function() {
+            this.moduleId = this.getAttribute('data-module-id');
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragging = this.onDragging.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
+            this.openModule = this.openModule.bind(this);
+            this.name = this.shadowRoot.querySelector('.icon-name');
+            this.pic = this.shadowRoot.querySelector('.icon-pic');
             this.addEventListener('mousedown', this.onDragStart);
+            this.addEventListener('dblclick', this.openModule);
         },
 
         setPosition: function(opt) {
@@ -82,7 +87,7 @@ Trio.Module.export('iconComponent', function() {
             this.start.x = e.pageX;
             this.start.y = e.pageY;
             this.name.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-            this.picture.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+            this.pic.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
             this.style.opacity = '0.5';
             window.addEventListener('mouseup', this.onDragEnd);
             window.addEventListener('mousemove', this.onDragging);
@@ -95,10 +100,14 @@ Trio.Module.export('iconComponent', function() {
 
         onDragEnd: function() {
             this.name.style.backgroundColor = '';
-            this.picture.style.backgroundColor = '';
+            this.pic.style.backgroundColor = '';
             this.style.opacity = '1';
             window.removeEventListener('mouseup', this.onDragEnd);
             window.removeEventListener('mousemove', this.onDragging);
+        },
+
+        openModule: function() {
+            this.broadcast('module:open', { moduleId: this.moduleId });
         }
     });
 });

@@ -5,7 +5,8 @@ Trio.Module.export('headerComponent', function(ret) {
                     'display': 'flex',
                     'flex': '1 0 auto',
                     'flex-flow': 'row nowrap',
-                    'height': '100%'
+                    'height': '100%',
+                    'background-color': 'rgba($base-color, 0.9)'
                 })
             .select('.header-content')
                 .css({

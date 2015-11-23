@@ -4,18 +4,6 @@ Trio.Module.import({
 })
 
 .and.export('headerModule', function(ret) {
-    // return {
-    //     create: function() {
-    //         var factory = new ret.headerFactory({});
-    //         var component = document.createElement('ck-header');
-    //         var service = new ret.headerService({
-    //             factory: factory,
-    //             component: component
-    //         });
-    //         return service;
-    //     }
-    // };
-
     var HeaderService = Trio.Service.extend({
         onStart: function() {
             var component = ret.headerComponent.render();
