@@ -1,19 +1,20 @@
 Trio.Module.import({
     'layoutFactory'          : './src/modules/layout/factory/layoutFactory.js',
-    'layoutComponent'        : './src/modules/layout/component/layoutComponent.js',
-    'layoutService'          : './src/modules/layout/service/layoutService.js',
+    'layoutComponent'        : './src/modules/layout/component/layoutComponent.js'
 })
 
 .and.export('layoutModule', function(ret) {
-    return {
-        create: function() {
-            var factory = new ret.layoutFactory({});
-            var component = document.createElement('ck-layout');
-            var service = new ret.layoutService({
-                factory: factory,
-                component: component
-            });
-            return service;
+    var LayoutService = Trio.Service.extend({
+        onStart: function() {
+            var component = ret.layoutComponent.render();
+            var factory   = new ret.layoutFactory();
+            document.body.appendChild(component);
+            this.implement(factory);
+            this.implement(component);
+            this.emit('render', factory.attributes);
         }
-    };
+    });
+
+    var layout = new LayoutService();
+    return layout;
 });

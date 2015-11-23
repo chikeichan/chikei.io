@@ -1,21 +1,25 @@
-Trio.Module.import({
-    'canvasStyle'       : './src/modules/canvas/component/style/canvasStyle.js',
-    'canvasTemplate'    : './src/modules/canvas/component/template/canvasTemplate.js'
-})
+Trio.Module.export('canvasComponent', function(ret) {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'display': 'flex',
+                    'flex': '1 0 auto',
+                    'cursor': 'default'
+                });
 
-.and.export('canvasComponent', function(ret) {
-    var frag = ret.canvasTemplate.render();
-    var style = Trio.Stylizer.createStyleTag(ret.canvasStyle);
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .each(function(d) {return d.icons;})
+                .open('ck-icon').data(function(icon) {return icon}).close()
+            .xeach();
 
     return Trio.Component.register({
         tagName: 'ck-canvas',
-
-        fragment: frag,
-        
-        style: style,
-        
-        addToCanvas: function(el) {
-            this.shadowRoot.appendChild(el);
+        template: tmpl,
+        onCreate: function() {
+            this.on('render', function(evt) {
+                this.patch(evt.detail);
+            }.bind(this));
         }
     });
 });

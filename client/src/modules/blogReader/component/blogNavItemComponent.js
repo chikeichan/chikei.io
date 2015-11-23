@@ -1,36 +1,37 @@
 Trio.Module.export('blogNavItemComponent', function(ret) {
-    var itemTmpl = Trio.Renderer.createTemplate();
-        itemTmpl.open('div.nav-item').close();
-    var frag = itemTmpl.render();
-    var style = Trio.Stylizer.createStyleTag({
-        '.nav-item': {
-            'padding': '4px 4px 4px 16px',
-            'font-weight': '100',
-            'color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.75),
-            'font-size': '0.6em',
-            'text-transform': 'capitalize',
-            'cursor': 'pointer',
-            'background-color': 'rgba(0, 0, 0, 0.05)',
-            '-webkit-user-select': 'none',
-            'white-space': 'nowrap',
-            'text-overflow': 'ellipsis',
-            'overflow': 'hidden',
-            'flex': '1 0 auto'
-        },
-        '.nav-item:hover': {
-            'background-color': 'rgba(0, 0, 0, 0)'
-        },
-        '.nav-item:active': {
-            'background-color': 'rgba(0, 0, 0, 0.1)'
-        }
-    });
+    var style = Trio.Stylizer.create();
+        style.select('.nav-item')
+                .css({
+                    'padding': '4px 4px 4px 16px',
+                    'font-weight': '100',
+                    'color': 'rgba($layout-color, 0.75)',
+                    'font-size': '0.6em',
+                    'text-transform': 'capitalize',
+                    'cursor': 'pointer',
+                    'background-color': 'rgba(0, 0, 0, 0.05)',
+                    '-webkit-user-select': 'none',
+                    'white-space': 'nowrap',
+                    'text-overflow': 'ellipsis',
+                    'overflow': 'hidden',
+                    'flex': '1 0 auto'
+                })
+            .select('.nav-item:hover')
+                .css({
+                    'background-color': 'rgba(0, 0, 0, 0)'
+                })
+            .select('.nav-item:active')
+                .css({
+                    'background-color': 'rgba(0, 0, 0, 0.1)'
+                })
+
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.nav-item').close();
 
     return Trio.Component.register({
         tagName: 'ck-blog-item',
 
-        fragment: frag,
-
-        style: style,
+        template: tmpl,
 
         events: {
             'click .nav-item': 'didClickItem'

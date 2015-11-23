@@ -1,32 +1,35 @@
 Trio.Module.export('logoComponent', function() {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'color': '$layout-color',
+                    'display': 'inline-flex',
+                    'align-items': 'center',
+                    'height': '100%',
+                    'padding': '0 12px',
+                    'cursor': 'default'
+                 })
+            .select('.logo-first')
+                .css({
+                    'color': '$theme-color',
+                    'font-weight': '700',
+                    'font-size': '1.7em',
+                    'letter-spacing': '-2px'
+                 })
+            .select('.logo-last')
+                .css({
+                    'font-weight': '100',
+                    'font-size': '1.5em'
+                });
+
     var tmpl = Trio.Renderer.createTemplate();
-    tmpl.open('div.logo-first').text('CHIKEI').close()
-        .open('div.logo-last').text('CHAN').close();
-    var frag = tmpl.render();
-    var style = Trio.Stylizer.createStyleTag({
-        ':host': {
-            'color': Trio.Stylizer.getVariable('layout-color'),
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'height': '100%',
-            'padding': '0 12px',
-            'cursor': 'default'
-         },
-         '.logo-first': {
-            'color': Trio.Stylizer.getVariable('theme-color'),
-            'font-weight': '700',
-            'font-size': '1.7em',
-            'letter-spacing': '-2px'
-         },
-         '.logo-last': {
-            'font-weight': '100',
-            'font-size': '1.5em'
-         }
-    });
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.logo-first').text('CHIKEI').close()
+            .open('div.logo-last').text('CHAN').close();
+
 
     return Trio.Component.register({
         tagName: 'ck-logo',
-        fragment: frag,
-        style: style
+        template: tmpl,
     });
 });

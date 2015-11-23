@@ -1,45 +1,47 @@
 Trio.Module.export('blogNavFolderComponent', function(ret) {
-    var folderTmpl = Trio.Renderer.createTemplate();
-        folderTmpl.open('div.nav-folder')
+    var style = Trio.Stylizer.create();
+        style.select('.nav-folder')
+                .css({
+                    'display': 'flex',
+                    'margin': '1px 0',
+                    'font-weight': '100',
+                    '-webkit-user-select': 'none',
+                    'cursor': 'pointer',
+                    'flex-flow': 'column nowrap'
+                })
+            .select('.nav-folder-name:hover')
+                .css({
+                    'background-color': 'rgba(255, 255, 255 , 0.15)'
+                })
+            .select('.nav-folder-name:active')
+                .css({
+                    'background-color': 'rgba(255, 255, 255 , 0.05)'
+                })
+            .select('.nav-folder-name')
+                .css({
+                    'color': '$layout-color',
+                    'background-color': 'rgba(255, 255, 255 , 0.1)',
+                    'text-transform': 'uppercase',
+                    'padding': '12px'
+                })
+            .select('.nav-folder-content')
+                .css({
+                    'display': 'flex',
+                    'flex-flow': 'column nowrap',
+                    'overflow': 'hidden'
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.nav-folder')
                 .open('div.nav-folder-name').close()
                 .open('div.nav-folder-content').close()
             .close();
 
-    var frag = folderTmpl.render();
-    var style = Trio.Stylizer.createStyleTag({
-        '.nav-folder': {
-            'display': 'flex',
-            'margin': '1px 0',
-            'font-weight': '100',
-            '-webkit-user-select': 'none',
-            'cursor': 'pointer',
-            'flex-flow': 'column nowrap'
-        },
-        '.nav-folder-name:hover': {
-            'background-color': 'rgba(255, 255, 255 , 0.15)'
-        },
-        '.nav-folder-name:active': {
-            'background-color': 'rgba(255, 255, 255 , 0.05)'
-        },
-        '.nav-folder-name': {
-            'color': Trio.Stylizer.getVariable('layout-color'),
-            'background-color': 'rgba(255, 255, 255 , 0.1)',
-            'text-transform': 'uppercase',
-            'padding': '12px'
-        },
-        '.nav-folder-content': {
-            'display': 'flex',
-            'flex-flow': 'column nowrap',
-            'overflow': 'hidden'
-        }
-    });
-
     return Trio.Component.register({
         tagName: 'ck-blog-folder',
 
-        fragment: frag,
-
-        style: style,
+        template: tmpl,
 
         events: {
             'click .nav-folder-name': 'toggleFolder'

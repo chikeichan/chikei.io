@@ -10,9 +10,7 @@ Trio.Module.import({
 })
 
 .then(function(ret) {
-    var layout = ret.layoutModule.create();
-    var header = ret.headerModule.create();
-    var canvas = ret.canvasModule.create();
-    layout.addToHeader(header.component);
-    layout.addToCanvas(canvas.component);
+    var layout = ret.layoutModule.start();
+    var header = ret.headerModule.start();
+    var canvas = ret.canvasModule.start();
 });

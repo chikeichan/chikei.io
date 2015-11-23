@@ -1,7 +1,57 @@
 Trio.Module.export('blogComponent', function() {
-    var blogTmpl = Trio.Renderer.createTemplate();
+    var style = Trio.Stylizer.create();
+        style.select('.blog-title')
+                .css({
+                    'display': 'flex',
+                    'font-size': '2.4em',
+                    'font-weight': '500',
+                    'min-height': '150px',
+                    'color': 'white',
+                    'padding': '24px',
+                    'background-color': 'rgba(0, 0, 0, 0.4)'
+                })
+            .select('.blog-header')
+                .css({
+                    'background-repeat': 'no-repeat',
+                    'background-position': 'center center',
+                    'background-size': 'cover'
+                })
+            .select('.blog-author')
+                .css({
+                    'display': 'flex',
+                    'font-size': '0.7em',
+                    'font-weight': '300',
+                    'color': 'white',
+                    'padding': '12px 24px'
+                })
+            .select('.blog-meta')
+                .css({
+                    'background-color': 'rgba(0, 0, 0, 0.7)',
+                    'display': 'flex',
+                    'flex-flow': 'row nowrap',
+                    'border-bottom': '1px solid rgba($layout-color, 0.2)'
+                })
+            .select('.blog-date')
+                .css({
+                    'font-size': '0.7em',
+                    'font-weight': '300',
+                    'color': 'white',
+                    'padding': '12px 24px'
+                })
+            .select('.blog-body')
+                .css({
+                    'display': 'flex',
+                    'font-size': '0.9em',
+                    'font-weight': '100',
+                    'color': 'rgba($layout-color, 0.8)',
+                    'padding': '12px 24px',
+                    'line-height': '1.8em'
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
         
-        blogTmpl.open('div.blog-header')
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.blog-header')
             .open('div.blog-title').close()
             .open('div.blog-meta')
                 .open('div.blog-author').close()
@@ -14,59 +64,11 @@ Trio.Module.export('blogComponent', function() {
         .close()
         .open('div.blog-body').close()
 
-    var frag = blogTmpl.render();
-
-    var style = Trio.Stylizer.createStyleTag({
-        '.blog-title': {
-            'display': 'flex',
-            'font-size': '2.4em',
-            'font-weight': '500',
-            'min-height': '150px',
-            'color': 'white',
-            'padding': '24px',
-            'background-color': 'rgba(0, 0, 0, 0.4)'
-        },
-        '.blog-header': {
-            'background-repeat': 'no-repeat',
-            'background-position': 'center center',
-            'background-size': 'cover',
-        },
-        '.blog-author': {
-            'display': 'flex',
-            'font-size': '0.7em',
-            'font-weight': '300',
-            'color': 'white',
-            'padding': '12px 24px',
-
-        },
-        '.blog-meta': {
-            'background-color': 'rgba(0, 0, 0, 0.7)',
-            'display': 'flex',
-            'flex-flow': 'row nowrap',
-            'border-bottom': '1px solid ' + Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.2)
-        },
-        '.blog-date': {
-            'font-size': '0.7em',
-            'font-weight': '300',
-            'color': 'white',
-            'padding': '12px 24px',
-        },
-        '.blog-body': {
-            'display': 'flex',
-            'font-size': '0.9em',
-            'font-weight': '100',
-            'color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('layout-color'), 0.8),
-            'padding': '12px 24px',
-            'line-height': '1.8em',
-        }
-    });
 
     return Trio.Component.register({
         tagName: 'ck-blog',
 
-        fragment: frag,
-
-        style: style,
+        template: tmpl,
 
         onCreate: function() {
             this.blogTitle = this.shadowRoot.querySelector('.blog-title');

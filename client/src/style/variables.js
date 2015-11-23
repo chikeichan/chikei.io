@@ -8,8 +8,8 @@ Trio.Module.export('variables', function() {
     // var themeColor = '#FF0081';
     var shadowColor = 'rgba(0, 0, 0, 0.4)';
 
-    Trio.Stylizer.registerVariables('base-color', baseColor);
-    Trio.Stylizer.registerVariables('layout-color', layoutColor);
-    Trio.Stylizer.registerVariables('theme-color', themeColor);
-    Trio.Stylizer.registerVariables('shadow-color', shadowColor);
+    Trio.Stylizer.registerVariable('base-color', baseColor);
+    Trio.Stylizer.registerVariable('layout-color', layoutColor);
+    Trio.Stylizer.registerVariable('theme-color', themeColor);
+    Trio.Stylizer.registerVariable('shadow-color', shadowColor);
 });

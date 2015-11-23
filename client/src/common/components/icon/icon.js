@@ -1,51 +1,62 @@
 Trio.Module.export('iconComponent', function() {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+            .css({
+                'position': 'absolute',
+                'display': 'flex',
+                'flex-flow': 'column nowrap',
+                'align-items': 'center',
+                'margin': '4px'
+            })
+            .select('.icon-pic')
+                .css({
+                    'width': '48px',
+                    'height': '48px',
+                    'padding': '12px 12px 4px 12px',
+                    'background-repeat': 'no-repeat',
+                    'background-position': 'center center',
+                    'background-size': '48px',
+                    'cursor': 'default',
+                    'border-top-left-radius': '2px',
+                    'border-top-right-radius': '2px'
+                })
+        .select('.icon-name')
+            .css({
+                'font-size': '0.6em',
+                'color': 'white',
+                'text-align': 'center',
+                '-webkit-user-select': 'none',
+                'width': '72px',
+                'overflow': 'hidden',
+                'text-overflow': 'ellipsis',
+                'white-space': 'nowrap',
+                'text-shadow': '0px 1px 3px black',
+                'padding-bottom': '4px',
+                'font-weight': '600',
+                'border-bottom-left-radius': '2px',
+                'border-bottom-right-radius': '2px'
+            });
+//{
+        //     iconUrl: '/src/images/icons/icon-blog-48.png',
+        //     iconName: 'Blog Reader',
+        //     position: {
+        //         x: 4,
+        //         y: 4
+        //     },
+        //     moduleId: 'Y2hpa2VpLmlvIEJsb2dz'
+        // }
     var tmpl = Trio.Renderer.createTemplate();
-    tmpl.open('div.icon-pic').close()
-        .open('div.icon-name').close();
-    var frag = tmpl.render();
-    var style = Trio.Stylizer.createStyleTag({
-        ':host': {
-            'position': 'absolute',
-            'display': 'flex',
-            'flex-flow': 'column nowrap',
-            'align-items': 'center',
-            'margin': '4px'
-        },
-        '.icon-pic': {
-            'width': '48px',
-            'height': '48px',
-            'padding': '12px 12px 4px 12px',
-            'background-repeat': 'no-repeat',
-            'background-position': 'center center',
-            'background-size': '48px',
-            'cursor': 'default',
-            'border-top-left-radius': '2px',
-            'border-top-right-radius': '2px'
-        },
-        '.icon-name': {
-            'font-size': '0.6em',
-            'color': 'white',
-            'text-align': 'center',
-            '-webkit-user-select': 'none',
-            'width': '72px',
-            'overflow': 'hidden',
-            'text-overflow': 'ellipsis',
-            'white-space': 'nowrap',
-            'text-shadow': '0px 1px 3px black',
-            'padding-bottom': '4px',
-            'font-weight': '600',
-            'border-bottom-left-radius': '2px',
-            'border-bottom-right-radius': '2px'
-        }
-    });
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.icon-pic')
+                .style('background-image', function(d) { return d.iconUrl; })
+            .close()
+            .open('div.icon-name').text(function(d) { return d.iconName; }).close();
 
     return Trio.Component.register({
         tagName: 'ck-icon',
 
-        fragment: frag,
+        template: tmpl,
         
-        style: style,
-
         origin: {
             x: null,
             y: null
@@ -60,17 +71,7 @@ Trio.Module.export('iconComponent', function() {
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragging = this.onDragging.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
-            this.picture = this.shadowRoot.querySelector('.icon-pic');
-            this.name = this.shadowRoot.querySelector('.icon-name');
             this.addEventListener('mousedown', this.onDragStart);
-        },
-
-        setIconPic: function(url) {
-            this.picture.style['background-image'] = 'url(' + url + ')';
-        },
-
-        setIconName: function(name) {
-            this.name.textContent = name;
         },
 
         setPosition: function(opt) {

@@ -1,17 +1,50 @@
-Trio.Module.import({
-    'clockStyle': './src/common/components/clock/style/clockStyle.js',
-    'clockTemplate': './src/common/components/clock/template/clockTemplate.js'
-})
+Trio.Module.export('clockComponent', function() {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                   'color': '$layout-color',
+                   'display': 'inline-flex',
+                   'align-items': 'center',
+                   'height': '100%',
+                   'padding': '0 12px',
+                   'cursor': 'pointer'
+                })
+            .select(':host(:hover)')
+                .css({
+                   'background-color': 'rgba($layout-color, 0.1)'
+                })
+            .select(':host(:active)')
+                .css({
+                   'background-color': 'rgba($base-color, 0.1)'
+                })
+            .select('span')
+                .css({
+                   '-webkit-user-select': 'none'
+                })
+            .select('.clock-day')
+                .css({
+                   'margin-right': '0.2em',
+                   'color': '$theme-color',
+                   'font-weight': '700'
+                })
+            .select('.clock-minute')
+                .css({
+                   'margin-right': '0.1em'
+                });
 
-.and.export('clockComponent', function(ret) {
-    var frag = ret.clockTemplate.render({});
-    var style = Trio.Stylizer.createStyleTag(ret.clockStyle);
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('span.clock-day').text(function(d) {return d.day}).close()
+            .open('span.clock-hour').text(function(d) {return d.hour}).close()
+            .open('span.clock-colon').text(':').close()
+            .open('span.clock-minute').text(function(d) {return d.minute}).close()
+            .open('span.clock-meridiem').text(function(d) {return d.meridiem}).close();
+
     var dayMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     return Trio.Component.register({
         tagName: 'ck-clock',
-        fragment: frag,
-        style: style,
+        template: tmpl,
 
         onAttach: function() {
             this.updateTime();
@@ -30,8 +63,7 @@ Trio.Module.import({
         },
 
         updateTime: function() {
-            ret.clockTemplate.patch(this.shadowRoot, this.getUpdatedTime());
-            this.shadowRoot.appendChild(style);
+            this.patch(this.getUpdatedTime());
             setTimeout(this.updateTime.bind(this), 60000);
         }
     });

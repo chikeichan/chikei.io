@@ -4,25 +4,24 @@ Trio.Module.import({
 })
 
 .and.export('blogNavComponent', function(ret) {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'background-color': 'rgba($theme-color, 0.4)',
+                    'border-right': '2px solid $base-color's,
+                    'width': '200px',
+                    'position': 'relative',
+                    'flex': '0 0 auto'
+                });
+
     var tmpl = Trio.Renderer.createTemplate();
-        tmpl.open('div.nav').close();
-    var frag = tmpl.render();
-    var style = Trio.Stylizer.createStyleTag({
-        ':host': {
-            'background-color': Trio.Stylizer.toRGBa(Trio.Stylizer.getVariable('theme-color'), 0.4),
-            'border-right': '2px solid ' + Trio.Stylizer.getVariable('base-color'),
-            'width': '200px',
-            'position': 'relative',
-            'flex': '0 0 auto'
-        }
-    });
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div.nav').close();
 
     return Trio.Component.register({
         tagName: 'ck-blog-nav',
 
-        fragment: frag,
-
-        style: style,
+        template: tmpl,
 
         initStructure: function(root, list) {
             list.forEach(function(item) {

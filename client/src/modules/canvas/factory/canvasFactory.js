@@ -41,7 +41,9 @@ var modulesInfo = {
 
 Trio.Module.export('canvasFactory', function() {
     var CanvasFactory = Trio.Factory.extend({
-        activeModules: {},
+        initialize: function() {
+            this.attributes = viewConfig;
+        },
 
         fetchViewConfig: function() {
             this.set(viewConfig);
