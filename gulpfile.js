@@ -8,11 +8,11 @@ var nodemon = require('gulp-nodemon');
 gulp.task('watch', ['browser-sync'], function () {
 });
 
-gulp.task('browser-sync', ['build', 'nodemon'], function() {
-    browserSync.init(null, {
-        proxy: "http://localhost:9000",
-        files: ["dist/**/*.*"],
-        port: 7000,
+gulp.task('browser-sync', ['build'], function() {
+    browserSync.init({
+        server: {
+            baseDir: "dist/"
+        }
     });
 });
 

@@ -12,4 +12,5 @@ Trio.Module.export('variables', function() {
     Trio.Stylizer.registerVariable('layout-color', layoutColor);
     Trio.Stylizer.registerVariable('theme-color', themeColor);
     Trio.Stylizer.registerVariable('shadow-color', shadowColor);
+
 });
