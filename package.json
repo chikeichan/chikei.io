@@ -20,6 +20,9 @@
     "trio": "^0.1.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4",
     "watchify": "^3.3.1"
   }
 }
