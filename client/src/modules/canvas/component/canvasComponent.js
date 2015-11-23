@@ -10,7 +10,9 @@ Trio.Module.export('canvasComponent', function(ret) {
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
             .each(function(d) {return d.icons;})
-                .open('ck-icon').data(function(icon) {return icon}).close()
+                .open('ck-icon').data(function(icon) {
+                    return icon;
+                }).close()
             .xeach();
 
     return Trio.Component.register({

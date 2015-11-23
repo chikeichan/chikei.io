@@ -1,7 +1,7 @@
 var viewConfig = {
     icons: [
         {
-            iconUrl: '/src/images/icons/icon-blog-48.png',
+            iconUrl: './src/images/icons/icon-blog-48.png',
             iconName: 'Blog Reader',
             position: {
                 x: 4,
@@ -43,16 +43,16 @@ Trio.Module.export('canvasFactory', function() {
     var CanvasFactory = Trio.Factory.extend({
         initialize: function() {
             this.attributes = viewConfig;
-        },
-
-        fetchViewConfig: function() {
-            this.set(viewConfig);
-            return viewConfig;
-        },
-
-        fetchModule: function(id) {
-            return modulesInfo[id];
         }
+
+        // fetchViewConfig: function() {
+        //     this.set(viewConfig);
+        //     return viewConfig;
+        // },
+
+        // fetchModule: function(id) {
+        //     return modulesInfo[id];
+        // }
     });
 
     return CanvasFactory;

@@ -36,19 +36,13 @@ Trio.Module.export('iconComponent', function() {
                 'border-bottom-left-radius': '2px',
                 'border-bottom-right-radius': '2px'
             });
-//{
-        //     iconUrl: '/src/images/icons/icon-blog-48.png',
-        //     iconName: 'Blog Reader',
-        //     position: {
-        //         x: 4,
-        //         y: 4
-        //     },
-        //     moduleId: 'Y2hpa2VpLmlvIEJsb2dz'
-        // }
+
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
             .open('div.icon-pic')
-                .style('background-image', function(d) { return d.iconUrl; })
+                .style('background-image', function(d) { 
+                    return 'url(' + d.iconUrl + ')';
+                })
             .close()
             .open('div.icon-name').text(function(d) { return d.iconName; }).close();
 
