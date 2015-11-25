@@ -24,8 +24,8 @@ Trio.Module.export('logoComponent', function() {
 
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
-            .open('div.logo-first').text('CHIKEI').close()
-            .open('div.logo-last').text('CHAN').close();
+            .open('span.logo-first').text('CHIKEI').close()
+            .open('span.logo-last').text('CHAN').close();
 
 
     return Trio.Component.register({

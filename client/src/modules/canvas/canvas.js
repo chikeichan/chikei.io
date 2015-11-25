@@ -7,7 +7,7 @@ Trio.Module.import({
     var CanvasService = Trio.Service.extend({
         onStart: function(opts) {
             var factory   = new ret.canvasFactory({});
-            var component = ret.canvasComponent.render();
+            var component = ret.canvasComponent.createElement();
             this.implement(factory);
             this.implement(component);
             this.broadcast('canvas:started', {canvas:component});

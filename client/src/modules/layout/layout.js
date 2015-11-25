@@ -6,7 +6,7 @@ Trio.Module.import({
 .and.export('layoutModule', function(ret) {
     var LayoutService = Trio.Service.extend({
         onStart: function() {
-            var component = ret.layoutComponent.render();
+            var component = ret.layoutComponent.createElement();
             var factory   = new ret.layoutFactory();
             document.body.appendChild(component);
             this.implement(factory);

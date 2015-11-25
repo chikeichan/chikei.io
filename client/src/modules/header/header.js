@@ -6,7 +6,7 @@ Trio.Module.import({
 .and.export('headerModule', function(ret) {
     var HeaderService = Trio.Service.extend({
         onStart: function() {
-            var component = ret.headerComponent.render();
+            var component = ret.headerComponent.createElement();
             this.implement(new ret.headerFactory({}));
             this.implement(component);
             this.broadcast('header:started', { header: component });
