@@ -1,13 +1,11 @@
-Trio.Module.import({
-    'canvasFactory'          : './src/modules/canvas/factory/canvasFactory.js',
-    'canvasComponent'        : './src/modules/canvas/component/canvasComponent.js'
-})
-
-.and.export('canvasModule', function(ret) {
+Trio.Module.import([
+    './src/modules/canvas/factory/canvasFactory.js',
+    './src/modules/canvas/component/canvasComponent.js'
+]).and.export(function(canvasFactory, canvasComponent) {
     var CanvasService = Trio.Service.extend({
         onStart: function(opts) {
-            var factory   = new ret.canvasFactory({});
-            var component = ret.canvasComponent.createElement();
+            var factory   = new canvasFactory({});
+            var component = canvasComponent.createElement();
             this.implement(factory);
             this.implement(component);
             this.broadcast('canvas:started', {canvas:component});
@@ -38,7 +36,7 @@ Trio.Module.import({
 
             // this.component.addToCanvas(module);
             this.emit('addModuleToCanvas', { module: module});
-            // module.addModuleContent(ret.blogReaderModule.create().component);
+            // module.addModuleContent(blogReaderModule.create().component);
 
             // function setModuleSize() {
             //     if (data.size.height && data.size.width) {

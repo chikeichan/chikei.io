@@ -1,4 +1,4 @@
-Trio.Module.export('variables', function() {
+Trio.Module.export(function() {
     var baseColor = '#000000';
     var layoutColor = '#FFFFFF';
     var themeColor = '#00B8FF';

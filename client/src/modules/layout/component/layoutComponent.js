@@ -1,4 +1,4 @@
-Trio.Module.export('layoutComponent', function() {
+Trio.Module.export(function() {
     var style = Trio.Stylizer.create();
         style.select(':host')
                 .css({

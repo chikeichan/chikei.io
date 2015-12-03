@@ -1,4 +1,4 @@
-Trio.Module.export('headerComponent', function(ret) {
+Trio.Module.export(function(ret) {
     var style = Trio.Stylizer.create();
         style.select(':host')
                 .css({

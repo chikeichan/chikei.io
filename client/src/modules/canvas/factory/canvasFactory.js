@@ -39,7 +39,7 @@ var modulesInfo = {
     }
 }
 
-Trio.Module.export('canvasFactory', function() {
+Trio.Module.export(function() {
     var CanvasFactory = Trio.Factory.extend({
         initialize: function() {
             this.attributes = viewConfig;

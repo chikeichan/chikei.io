@@ -1,13 +1,11 @@
-Trio.Module.import({
-    'layoutFactory'          : './src/modules/layout/factory/layoutFactory.js',
-    'layoutComponent'        : './src/modules/layout/component/layoutComponent.js'
-})
-
-.and.export('layoutModule', function(ret) {
+Trio.Module.import([
+    './src/modules/layout/factory/layoutFactory.js',
+    './src/modules/layout/component/layoutComponent.js'
+]).and.export(function(layoutFactory, layoutComponent) {
     var LayoutService = Trio.Service.extend({
         onStart: function() {
-            var component = ret.layoutComponent.createElement();
-            var factory   = new ret.layoutFactory();
+            var component = layoutComponent.createElement();
+            var factory   = new layoutFactory();
             document.body.appendChild(component);
             this.implement(factory);
             this.implement(component);

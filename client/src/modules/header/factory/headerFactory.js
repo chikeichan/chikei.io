@@ -1,4 +1,4 @@
-Trio.Module.export('headerFactory', function() {
+Trio.Module.export(function() {
     var HeaderFactory = Trio.Factory.extend({});
 
     return HeaderFactory;
