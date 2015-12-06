@@ -34,8 +34,11 @@ Trio.Module.export(function() {
     var tmpl = Trio.Renderer.createTemplate();
         tmpl.open('style').text(style.toCSS.bind(style)).close()
             .open('div#main')
+                .doNotPatch()
                 .open('div#canvas')
-                    .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
+                    .if(function(d) { return !!d.backgroundUrl; })
+                        .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
+                    .xif()
                 .close()
                 .open('div#header').close()
             .close();
@@ -58,8 +61,12 @@ Trio.Module.export(function() {
                 this.canvas.appendChild(d.detail.canvas);
             }.bind(this));
 
-            this.on('render', function(d) {
-                this.patch(d.detail);
+            this.on('update:background', function(evt) {
+                this.canvas.style['background-image'] = 'url(' + evt.detail + ')';
+            }.bind(this));
+
+            this.on('theme:update', function(evt) {
+                this.patch(evt.detail);
             }.bind(this));
         },
 

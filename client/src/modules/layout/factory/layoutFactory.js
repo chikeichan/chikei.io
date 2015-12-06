@@ -1,7 +1,12 @@
 Trio.Module.export(function() {
     var LayoutFactory = Trio.Factory.extend({
         initialize: function() {
-            this.attributes.backgroundUrl = './src/images/wallpaper_default.jpg'
+            this.sync('ViewConfig', function(d) {
+            	if (d && d.attributes) {
+	            	this.attributes.backgroundUrl = d.attributes.backgroundUrl;
+	            	this.emit('update:background', this.attributes.backgroundUrl);
+            	}
+            }.bind(this));
         }
     });
 

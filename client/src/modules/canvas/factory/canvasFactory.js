@@ -1,7 +1,7 @@
 var viewConfig = {
     icons: [
         {
-            iconUrl: './src/images/icons/icon-blog-48.png',
+            iconUrl: './src/assets/images/icons/icon-blog-48.png',
             iconName: 'Blog Reader',
             position: {
                 x: 4,
@@ -10,7 +10,7 @@ var viewConfig = {
             moduleId: 'Y2hpa2VpLmlvIEJsb2dz'
         },
         // {
-        //     iconUrl: '/src/images/icons/icon-blog-48.png',
+        //     iconUrl: '/src/assets/images/icons/icon-blog-48.png',
         //     iconName: 'Demo',
         //     position: {
         //         x: 4,
