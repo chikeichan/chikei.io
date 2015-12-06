@@ -36,9 +36,9 @@ Trio.Module.export(function() {
             .open('div#main')
                 .doNotPatch()
                 .open('div#canvas')
-                    .if(function(d) { return !!d.backgroundUrl; })
+                    // .if(function(d) { console.log('hi', d); return !!d.backgroundUrl; })
                         .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
-                    .xif()
+                    // .xif()
                 .close()
                 .open('div#header').close()
             .close();

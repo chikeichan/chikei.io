@@ -9,7 +9,7 @@ Trio.Module.import([
             document.body.appendChild(component);
             this.implement(factory);
             this.implement(component);
-            this.emit('render', factory.attributes);
+            this.emit('update:background', factory.attributes.backgroundUrl);
         }
     });
 
