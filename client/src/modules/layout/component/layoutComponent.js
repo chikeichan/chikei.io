@@ -36,9 +36,7 @@ Trio.Module.export(function() {
             .open('div#main')
                 .doNotPatch()
                 .open('div#canvas')
-                    // .if(function(d) { console.log('hi', d); return !!d.backgroundUrl; })
-                        .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
-                    // .xif()
+                    .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
                 .close()
                 .open('div#header').close()
             .close();
@@ -66,7 +64,7 @@ Trio.Module.export(function() {
             }.bind(this));
 
             this.on('theme:update', function(evt) {
-                this.patch(evt.detail);
+                this.patch();
             }.bind(this));
         },
 
