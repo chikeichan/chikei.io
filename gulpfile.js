@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var nodemon = require('gulp-nodemon');
+var trioConcat = require('./build/trioConcat.js');
 
 
 gulp.task('browser-sync', function() {
@@ -27,4 +28,10 @@ gulp.task('build', function() {
             'client/**/*.*'
         ])
         .pipe(gulp.dest('dist'));
+});
+
+gulp.task('trio-concat', function() {
+    return gulp.src('client/src/app.js')
+        .pipe(trioConcat())
+        .pipe(gulp.dest('dist/src'));
 });

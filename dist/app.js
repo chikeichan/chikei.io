@@ -1,4 +1,259 @@
-Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
+(function(dXJs){
+Trio.Module.export(function(ret) {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'display': 'flex',
+                    'flex': '1 0 auto',
+                    'flex-flow': 'row nowrap',
+                    'height': '100%',
+                    'background-color': 'rgba($base-color, 0.9)'
+                })
+            .select('.header-content')
+                .css({
+                    'color': 'white',
+                    'display': 'inline-flex',
+                    'align-items': 'center',
+                    'height': '100%',
+                    'flex': '1 0 auto',
+                    'border': '1px solid rgba($layout-color, 0.1)',
+                    'border-top': 'none',
+                    'border-bottom': 'none',
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
+
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('ck-logo').close()
+            .open('span.header-content').close()
+            .open('ck-clock').close();
+
+    return Trio.Component.register({
+        tagName: 'ck-header',
+        template: tmpl
+    });
+});
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/component/headerComponent.js');
+(function(dXJs){
+Trio.Module.export(function() {
+	var ThemeFactory = Trio.Factory.extend({
+		initialize: function() {
+			this.sync('ViewConfig', function(d) {
+				if (d && d.attributes) {
+					var theme = d.attributes.theme;
+					this.theme = theme;
+					this.updateCSSVariables(theme);
+				}
+			}.bind(this))
+		},
+		updateCSSVariables: function(theme) {
+			Trio.Stylizer.registerVariable('base-color', theme.baseColor);
+			Trio.Stylizer.registerVariable('layout-color', theme.layoutColor);
+			Trio.Stylizer.registerVariable('theme-color', theme.themeColor);
+			this.broadcast('theme:update');
+		}
+	});
+
+	return ThemeFactory;
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/theme/factory/themeFactory.js');
+(function(dXJs){
+Trio.Module.export(function() {
+    var HeaderFactory = Trio.Factory.extend({});
+
+    return HeaderFactory;
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/factory/headerFactory.js');
+(function(dXJs){
+Trio.Module.export(function(ret) {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'display': 'flex',
+                    'flex': '1 0 auto',
+                    'cursor': 'default'
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .each(function(d) {return d.icons;})
+                .open('ck-icon')
+                    .attr('data-module-id', function(icon) { return icon.moduleId; })
+                    .data(function(icon) { return icon; })
+                .close()
+            .xeach();
+
+    return Trio.Component.register({
+        tagName: 'ck-canvas',
+        template: tmpl,
+        onCreate: function() {
+            this.on('render', function(evt) {
+                this.patch(evt.detail);
+            }.bind(this));
+
+            this.on('addModuleToCanvas', function(e) {
+                this.shadowRoot.appendChild(e.detail.module);
+            }.bind(this))
+        }
+    });
+});
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/component/canvasComponent.js');
+(function(dXJs){
+var viewConfig = {
+    icons: [
+        {
+            iconUrl: './src/assets/images/icons/icon-blog-48.png',
+            iconName: 'Blog Reader',
+            position: {
+                x: 4,
+                y: 4
+            },
+            moduleId: 'Y2hpa2VpLmlvIEJsb2dz'
+        },
+        // {
+        //     iconUrl: '/src/assets/images/icons/icon-blog-48.png',
+        //     iconName: 'Demo',
+        //     position: {
+        //         x: 4,
+        //         y: 104
+        //     }
+        // }
+    ]
+}
+
+var modulesInfo = {
+    'Y2hpa2VpLmlvIEJsb2dz': {
+        moduleName: 'Blog Reader',
+        moduleId: 'Y2hpa2VpLmlvIEJsb2dz',
+        moduleType: 'application',
+        size: {
+            minWidth: 800,
+            minHeight: 600,
+            width: null,
+            height: null,
+            maxWidth: null,
+            maxHeight: null
+        },
+        context: {
+            appType: 'blog'
+        }
+    }
+}
+
+Trio.Module.export(function() {
+    var CanvasFactory = Trio.Factory.extend({
+        initialize: function() {
+            this.attributes = viewConfig;
+        }
+
+        // fetchViewConfig: function() {
+        //     this.set(viewConfig);
+        //     return viewConfig;
+        // },
+
+        // fetchModule: function(id) {
+        //     return modulesInfo[id];
+        // }
+    });
+
+    return CanvasFactory;
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/factory/canvasFactory.js');
+(function(dXJs){
+Trio.Module.export(function() {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'display': 'flex',
+                    'flex': '1 1 auto',
+                    'width': '100%',
+                    'height': '100%',
+                    'flex-flow': 'column nowrap'
+               })
+            .select('#header')
+                .css({
+                    'display': 'flex',
+                    'background-color': 'rgba($base-color, 0.9)',
+                    'width': '100%',
+                    'height': '50px',
+                    'flex-shrink': '0'
+                })
+            .select('#canvas')
+                .css({
+                    'display': 'flex',
+                    'width': '100%',
+                    'overflow': 'auto',
+                    'flex': '1 0 auto'
+                })
+            .select('#main')
+                .css({
+                    'display': 'flex',
+                    'flex': '0 1 auto',
+                    'flex-flow': 'column nowrap',
+                    'height': '100%'
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('div#main')
+                .doNotPatch()
+                .open('div#canvas')
+                    .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
+                .close()
+                .open('div#header').close()
+            .close();
+
+    var LayoutComponent = Trio.Component.register({
+        tagName: 'ck-layout',
+        template: tmpl,
+        onCreate: function() {
+            this.header   = this.shadowRoot.querySelector('#header');
+            this.canvas   = this.shadowRoot.querySelector('#canvas');
+            this.main     = this.shadowRoot.querySelector('#main');
+
+            this.on('header:started', function(d) {
+                this.header.innerHTML = '';
+                this.header.appendChild(d.detail.header);
+            }.bind(this));
+
+            this.on('canvas:started', function(d) {
+                this.canvas.innerHTML = '';
+                this.canvas.appendChild(d.detail.canvas);
+            }.bind(this));
+
+            this.on('update:background', function(evt) {
+                this.canvas.style['background-image'] = 'url(' + evt.detail + ')';
+            }.bind(this));
+
+            this.on('theme:update', function(evt) {
+                this.patch();
+            }.bind(this));
+        },
+
+        changeBackground: function(url) {
+            this.main.style['background-image'] = 'url(' + url + ')';
+        }
+    });
+
+    return LayoutComponent;
+
+});
+
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/component/layoutComponent.js');
+(function(dXJs){
+Trio.Module.export(function() {
+    var LayoutFactory = Trio.Factory.extend({
+        initialize: function() {
+            this.sync('ViewConfig', function(d) {
+            	if (d && d.attributes) {
+	            	this.attributes.backgroundUrl = d.attributes.backgroundUrl;
+	            	this.emit('update:background', this.attributes.backgroundUrl);
+            	}
+            }.bind(this));
+        }
+    });
+
+    return LayoutFactory;
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/factory/layoutFactory.js');
+(function(dXJs){
+Trio.Module.export(function() {
     var style = Trio.Stylizer.create();
         style.select(':host')
                 .css({
@@ -169,7 +424,9 @@ Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',functio
             this.remove();
         }
     });
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/common/components/module/module.js');
+(function(dXJs){
+Trio.Module.export(function() {
     var style = Trio.Stylizer.create();
         style.select(':host')
             .css({
@@ -281,7 +538,45 @@ Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',functio
             this.broadcast('module:open', { moduleId: this.moduleId });
         }
     });
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/common/components/icon/icon.js');
+(function(dXJs){
+Trio.Module.export(function() {
+    var style = Trio.Stylizer.create();
+        style.select(':host')
+                .css({
+                    'color': '$layout-color',
+                    'display': 'inline-flex',
+                    'align-items': 'center',
+                    'height': '100%',
+                    'padding': '0 12px',
+                    'cursor': 'default'
+                 })
+            .select('.logo-first')
+                .css({
+                    'color': '$theme-color',
+                    'font-weight': '700',
+                    'font-size': '1.7em',
+                    'letter-spacing': '-2px'
+                 })
+            .select('.logo-last')
+                .css({
+                    'font-weight': '100',
+                    'font-size': '1.5em'
+                });
+
+    var tmpl = Trio.Renderer.createTemplate();
+        tmpl.open('style').text(style.toCSS.bind(style)).close()
+            .open('span.logo-first').text('CHIKEI').close()
+            .open('span.logo-last').text('CHAN').close();
+
+
+    return Trio.Component.register({
+        tagName: 'ck-logo',
+        template: tmpl,
+    });
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/common/components/logo/logo.js');
+(function(dXJs){
+Trio.Module.export(function() {
     var style = Trio.Stylizer.create();
         style.select(':host')
                 .css({
@@ -350,281 +645,9 @@ Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',functio
             setTimeout(this.updateTime.bind(this), 60000);
         }
     });
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    var style = Trio.Stylizer.create();
-        style.select(':host')
-                .css({
-                    'color': '$layout-color',
-                    'display': 'inline-flex',
-                    'align-items': 'center',
-                    'height': '100%',
-                    'padding': '0 12px',
-                    'cursor': 'default'
-                 })
-            .select('.logo-first')
-                .css({
-                    'color': '$theme-color',
-                    'font-weight': '700',
-                    'font-size': '1.7em',
-                    'letter-spacing': '-2px'
-                 })
-            .select('.logo-last')
-                .css({
-                    'font-weight': '100',
-                    'font-size': '1.5em'
-                });
-
-    var tmpl = Trio.Renderer.createTemplate();
-        tmpl.open('style').text(style.toCSS.bind(style)).close()
-            .open('span.logo-first').text('CHIKEI').close()
-            .open('span.logo-last').text('CHAN').close();
-
-
-    return Trio.Component.register({
-        tagName: 'ck-logo',
-        template: tmpl,
-    });
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-	var ThemeFactory = Trio.Factory.extend({
-		initialize: function() {
-			this.sync('ViewConfig', function(d) {
-				if (d && d.attributes) {
-					var theme = d.attributes.theme;
-					this.theme = theme;
-					this.updateCSSVariables(theme);
-				}
-			}.bind(this))
-		},
-		updateCSSVariables: function(theme) {
-			Trio.Stylizer.registerVariable('base-color', theme.baseColor);
-			Trio.Stylizer.registerVariable('layout-color', theme.layoutColor);
-			Trio.Stylizer.registerVariable('theme-color', theme.themeColor);
-			this.broadcast('theme:update');
-		}
-	});
-
-	return ThemeFactory;
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(ret) {
-    var style = Trio.Stylizer.create();
-        style.select(':host')
-                .css({
-                    'display': 'flex',
-                    'flex': '1 0 auto',
-                    'cursor': 'default'
-                });
-
-    var tmpl = Trio.Renderer.createTemplate();
-        tmpl.open('style').text(style.toCSS.bind(style)).close()
-            .each(function(d) {return d.icons;})
-                .open('ck-icon')
-                    .attr('data-module-id', function(icon) { return icon.moduleId; })
-                    .data(function(icon) { return icon; })
-                .close()
-            .xeach();
-
-    return Trio.Component.register({
-        tagName: 'ck-canvas',
-        template: tmpl,
-        onCreate: function() {
-            this.on('render', function(evt) {
-                this.patch(evt.detail);
-            }.bind(this));
-
-            this.on('addModuleToCanvas', function(e) {
-                this.shadowRoot.appendChild(e.detail.module);
-            }.bind(this))
-        }
-    });
-});
-var viewConfig = {
-    icons: [
-        {
-            iconUrl: './src/assets/images/icons/icon-blog-48.png',
-            iconName: 'Blog Reader',
-            position: {
-                x: 4,
-                y: 4
-            },
-            moduleId: 'Y2hpa2VpLmlvIEJsb2dz'
-        },
-        // {
-        //     iconUrl: '/src/assets/images/icons/icon-blog-48.png',
-        //     iconName: 'Demo',
-        //     position: {
-        //         x: 4,
-        //         y: 104
-        //     }
-        // }
-    ]
-}
-
-var modulesInfo = {
-    'Y2hpa2VpLmlvIEJsb2dz': {
-        moduleName: 'Blog Reader',
-        moduleId: 'Y2hpa2VpLmlvIEJsb2dz',
-        moduleType: 'application',
-        size: {
-            minWidth: 800,
-            minHeight: 600,
-            width: null,
-            height: null,
-            maxWidth: null,
-            maxHeight: null
-        },
-        context: {
-            appType: 'blog'
-        }
-    }
-}
-
-Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    var CanvasFactory = Trio.Factory.extend({
-        initialize: function() {
-            this.attributes = viewConfig;
-        }
-
-        // fetchViewConfig: function() {
-        //     this.set(viewConfig);
-        //     return viewConfig;
-        // },
-
-        // fetchModule: function(id) {
-        //     return modulesInfo[id];
-        // }
-    });
-
-    return CanvasFactory;
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(ret) {
-    var style = Trio.Stylizer.create();
-        style.select(':host')
-                .css({
-                    'display': 'flex',
-                    'flex': '1 0 auto',
-                    'flex-flow': 'row nowrap',
-                    'height': '100%',
-                    'background-color': 'rgba($base-color, 0.9)'
-                })
-            .select('.header-content')
-                .css({
-                    'color': 'white',
-                    'display': 'inline-flex',
-                    'align-items': 'center',
-                    'height': '100%',
-                    'flex': '1 0 auto',
-                    'border': '1px solid rgba($layout-color, 0.1)',
-                    'border-top': 'none',
-                    'border-bottom': 'none',
-                });
-
-    var tmpl = Trio.Renderer.createTemplate();
-
-        tmpl.open('style').text(style.toCSS.bind(style)).close()
-            .open('ck-logo').close()
-            .open('span.header-content').close()
-            .open('ck-clock').close();
-
-    return Trio.Component.register({
-        tagName: 'ck-header',
-        template: tmpl
-    });
-});
-Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    var style = Trio.Stylizer.create();
-        style.select(':host')
-                .css({
-                    'display': 'flex',
-                    'flex': '1 1 auto',
-                    'width': '100%',
-                    'height': '100%',
-                    'flex-flow': 'column nowrap'
-               })
-            .select('#header')
-                .css({
-                    'display': 'flex',
-                    'background-color': 'rgba($base-color, 0.9)',
-                    'width': '100%',
-                    'height': '50px',
-                    'flex-shrink': '0'
-                })
-            .select('#canvas')
-                .css({
-                    'display': 'flex',
-                    'width': '100%',
-                    'overflow': 'auto',
-                    'flex': '1 0 auto'
-                })
-            .select('#main')
-                .css({
-                    'display': 'flex',
-                    'flex': '0 1 auto',
-                    'flex-flow': 'column nowrap',
-                    'height': '100%'
-                });
-
-    var tmpl = Trio.Renderer.createTemplate();
-        tmpl.open('style').text(style.toCSS.bind(style)).close()
-            .open('div#main')
-                .doNotPatch()
-                .open('div#canvas')
-                    .style('background-image', function(d) { return 'url(' + d.backgroundUrl + ')';})
-                .close()
-                .open('div#header').close()
-            .close();
-
-    var LayoutComponent = Trio.Component.register({
-        tagName: 'ck-layout',
-        template: tmpl,
-        onCreate: function() {
-            this.header   = this.shadowRoot.querySelector('#header');
-            this.canvas   = this.shadowRoot.querySelector('#canvas');
-            this.main     = this.shadowRoot.querySelector('#main');
-
-            this.on('header:started', function(d) {
-                this.header.innerHTML = '';
-                this.header.appendChild(d.detail.header);
-            }.bind(this));
-
-            this.on('canvas:started', function(d) {
-                this.canvas.innerHTML = '';
-                this.canvas.appendChild(d.detail.canvas);
-            }.bind(this));
-
-            this.on('update:background', function(evt) {
-                this.canvas.style['background-image'] = 'url(' + evt.detail + ')';
-            }.bind(this));
-
-            this.on('theme:update', function(evt) {
-                this.patch();
-            }.bind(this));
-        },
-
-        changeBackground: function(url) {
-            this.main.style['background-image'] = 'url(' + url + ')';
-        }
-    });
-
-    return LayoutComponent;
-
-});
-
-Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    var LayoutFactory = Trio.Factory.extend({
-        initialize: function() {
-            this.sync('ViewConfig', function(d) {
-            	if (d && d.attributes) {
-	            	this.attributes.backgroundUrl = d.attributes.backgroundUrl;
-	            	this.emit('update:background', this.attributes.backgroundUrl);
-            	}
-            }.bind(this));
-        }
-    });
-
-    return LayoutFactory;
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    var HeaderFactory = Trio.Factory.extend({});
-
-    return HeaderFactory;
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/common/components/clock/clock.js');
+(function(dXJs){
+Trio.Module.export(function() {
 	Trio.Resource.register({
 		name: 'ViewConfig',
 		initialize: function() {
@@ -655,9 +678,11 @@ Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',functio
 		}
 	})
 });
+})('/Users/jacky.chan/Projects/chikei.io/client/src/resources/ViewConfig/ViewConfig.js');
+(function(dXJs){
 Trio.Module.import([
-	'undefined'
-]).and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(ThemeFactory) {
+	'./src/modules/theme/factory/themeFactory.js'
+]).and.export(function(ThemeFactory) {
 	var ThemeService = Trio.Service.extend({
 		onStart: function() {
 			this.factory = new ThemeFactory();
@@ -665,10 +690,30 @@ Trio.Module.import([
 	});
 
 	new ThemeService().start();
-});Trio.Module.import([
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/factory/canvasFactory.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/component/canvasComponent.js'
-]).and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(canvasFactory, canvasComponent) {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/theme/theme.js');
+(function(dXJs){
+Trio.Module.import([
+    './src/modules/header/factory/headerFactory.js',
+    './src/modules/header/component/headerComponent.js'
+]).and.export(function(headerFactory, headerComponent) {
+    var HeaderService = Trio.Service.extend({
+        onStart: function() {
+            var component = headerComponent.createElement();
+            this.implement(new headerFactory({}));
+            this.implement(component);
+            this.broadcast('header:started', { header: component });
+        }
+    });
+
+    var header = new HeaderService();
+    return header;
+});
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/header.js');
+(function(dXJs){
+Trio.Module.import([
+    './src/modules/canvas/factory/canvasFactory.js',
+    './src/modules/canvas/component/canvasComponent.js'
+]).and.export(function(canvasFactory, canvasComponent) {
     var CanvasService = Trio.Service.extend({
         onStart: function(opts) {
             var factory   = new canvasFactory({});
@@ -737,10 +782,12 @@ Trio.Module.import([
 
     return new CanvasService();
 });
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/canvas.js');
+(function(dXJs){
 Trio.Module.import([
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/factory/layoutFactory.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/component/layoutComponent.js'
-]).and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(layoutFactory, layoutComponent) {
+    './src/modules/layout/factory/layoutFactory.js',
+    './src/modules/layout/component/layoutComponent.js'
+]).and.export(function(layoutFactory, layoutComponent) {
     var LayoutService = Trio.Service.extend({
         onStart: function() {
             var component = layoutComponent.createElement();
@@ -755,29 +802,28 @@ Trio.Module.import([
     var layout = new LayoutService();
     return layout;
 });
+})('/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/layout.js');
+(function(dXJs){
 Trio.Module.import([
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/factory/headerFactory.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/component/headerComponent.js'
-]).and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(headerFactory, headerComponent) {
-    var HeaderService = Trio.Service.extend({
-        onStart: function() {
-            var component = headerComponent.createElement();
-            this.implement(new headerFactory({}));
-            this.implement(component);
-            this.broadcast('header:started', { header: component });
-        }
-    });
+    './src/common/components/clock/clock.js',
+    './src/common/components/logo/logo.js',
+    './src/common/components/icon/icon.js',
+    './src/common/components/module/module.js'
+])
 
-    var header = new HeaderService();
-    return header;
-});
+.and.export(function() {
+    return ;
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/common/components/index.js');
+(function(dXJs){
 Trio.Module.import([
-	'undefined'
-]).and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function(ViewConfig) {
+	'./src/resources/ViewConfig/ViewConfig.js'
+]).and.export(function(ViewConfig) {
 	return {
 		ViewConfig: ViewConfig
 	};
-});Trio.Module.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/resources/index.js');
+(function(dXJs){
+Trio.Module.export(function() {
     var baseColor = '#000000';
     var layoutColor = '#FFFFFF';
     var themeColor = '#00B8FF';
@@ -792,26 +838,20 @@ Trio.Module.import([
     Trio.Stylizer.registerVariable('theme-color', themeColor);
     Trio.Stylizer.registerVariable('shadow-color', shadowColor);
 
-});Trio.Module.import([
-    '/Users/jacky.chan/Projects/chikei.io/client/src/common/components/clock/clock.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/common/components/logo/logo.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/common/components/icon/icon.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/common/components/module/module.js'
-])
-
-.and.export('/Users/jacky.chan/Projects/chikei.io/clienundefined',function() {
-    return ;
-});Trio.Module.import([
-    '/Users/jacky.chan/Projects/chikei.io/client/src/style/variables.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/resources/index.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/common/components/index.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/layout/layout.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/header/header.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/canvas/canvas.js',
-    '/Users/jacky.chan/Projects/chikei.io/client/src/modules/theme/theme.js'
-]).and.then('/Users/jacky.chan/Projects/chikei.io/client/src/app.js',function(variables, resources, components, layoutModule, headerModule, canvasModule) {
+});})('/Users/jacky.chan/Projects/chikei.io/client/src/style/variables.js');
+(function(dXJs){
+Trio.Module.import([
+    './src/style/variables.js',
+    './src/resources/index.js',
+    './src/common/components/index.js',
+    './src/modules/layout/layout.js',
+    './src/modules/header/header.js',
+    './src/modules/canvas/canvas.js',
+    './src/modules/theme/theme.js'
+]).and.then(function(variables, resources, components, layoutModule, headerModule, canvasModule) {
     var layout = layoutModule.start();
     var header = headerModule.start();
     var canvas = canvasModule.start();
 
 });
+})('/Users/jacky.chan/Projects/chikei.io/client/src/app.js');
