@@ -1,25 +1,106 @@
+require('babel-polyfill');
+
 var path = require('path');
 var webpack = require('webpack');
- 
-module.exports = {
-    entry: {
-        server: './src/client/index.js',
-        client: './src/server/index.js'
-    },
-    output: { 
-        path: __dirname,
-        filename: './public/[name].bundle.js' 
-    },
-    module: {
-        loaders: [
-            {
-                test: /.jsx?$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                query: {
-                    presets: ['es2015', 'react']
+
+module.exports = [
+    {
+        name: 'server',
+        entry: './src/server/index.js',
+        target: 'node',
+        output: {
+            path: __dirname + '/public/server',
+            filename: 'bundle.js',
+        },
+        module: {
+            loaders: [
+                {
+                    test: /.js/,
+                    loader: 'babel',
+                    exclude: /node_modules/,
+                    query: {
+                        presets: ['es2015', 'react']
+                    }
+                },
+                {
+                    test: /\.json?$/,
+                    loader: 'json'
                 }
-            }
-        ]
+            ]
+        }
     },
-};
+    {
+        name: 'client',
+        entry: './src/client/index.js',
+        output: {
+            path: __dirname + '/public/client',
+            filename: 'bundle.js',
+        },
+        module: {
+            loaders: [
+                {
+                    test: /.js/,
+                    loader: 'babel',
+                    exclude: /node_modules/,
+                    query: {
+                        presets: ['es2015', 'react']
+                    }
+                },
+                {
+                    test: /\.json?$/,
+                    loader: 'json'
+                }
+            ]
+        }
+    },
+    {
+        name: 'test-client',
+        entry: './src/test/client.js',
+        target: 'node',
+        output: {
+            path: __dirname + '/public/test',
+            filename: 'client-test.js',
+        },
+        module: {
+            loaders: [
+                {
+                    test: /.js/,
+                    loader: 'babel',
+                    exclude: /node_modules/,
+                    query: {
+                        presets: ['es2015', 'react']
+                    }
+                },
+                {
+                    test: /\.json?$/,
+                    loader: 'json'
+                }
+            ]
+        }
+    },
+    {
+        name: 'test-server',
+        entry: './src/test/server.js',
+        target: 'node',
+        output: {
+            path: __dirname + '/public/test',
+            filename: 'server-test.js',
+        },
+        module: {
+            loaders: [
+                {
+                    test: /.js/,
+                    loader: 'babel',
+                    exclude: /node_modules/,
+                    query: {
+                        presets: ['es2015', 'react']
+                    }
+                },
+                {
+                    test: /\.json?$/,
+                    loader: 'json'
+                }
+            ]
+        }
+    }
+];
