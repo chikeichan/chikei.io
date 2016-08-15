@@ -1,21 +1,29 @@
 {
-  "name": "noman-boilerplate",
+  "name": "chikei.io",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "public/server/bundle.js",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
   "scripts": {
     "pretest": "npm run compile",
     "test-client": "./node_modules/.bin/tape public/test/client-test.js",
     "test-server": "./node_modules/.bin/tape public/test/server-test.js",
     "test": "npm run test-client | ./node_modules/.bin/tap-spec && npm run test-server | ./node_modules/.bin/tap-spec",
     "clean": "rm -rf ./public",
-    "compile": "./node_modules/.bin/webpack --color --progress",
+    "compile": "./node_modules/.bin/webpack",
     "build": "npm run compile && node public/server/bundle.js",
-    "style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css",
+    "style": "npm run compile-style",
+    "compile-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css",
+    "prefix": "./node_modules/.bin/postcss --use autoprefixer ./public/styles/bundle.css -d ./public/styles/bundle.css",
     "watch-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css -w",
     "watch-compile": "./node_modules/.bin/webpack --color --progress --watch",
     "watch-server": "./node_modules/.bin/nodemon public/server/bundle.js",
-    "prewatch-all": "npm run clean && npm run style && npm run build",
+    "prewatch-all": "npm run clean && npm run style && npm run compile",
     "watch-all": "npm run watch-style & npm run watch-compile & npm run watch-server",
     "watch": "npm run watch-all"
   },
@@ -33,15 +41,19 @@
     "redux-thunk": "^1.0.3"
   },
   "devDependencies": {
+    "autoprefixer": "^6.4.0",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.6.4",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "^6.5.0",
+    "eslint": "^3.3.0",
     "json-loader": "^0.5.4",
     "ncp": "^2.0.0",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.0",
+    "postcss-cli": "^2.5.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
     "webpack": "^1.12.14"

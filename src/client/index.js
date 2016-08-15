@@ -2,13 +2,17 @@ import 'babel-polyfill';
 
 import React from 'react';
 import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 
-const rootElement = document.querySelector('#root');
+import rootReducer from './reducers';
+import App from './app';
+
+let store = createStore(rootReducer);
 
 render(
-  <div>
-    <h1>Hello World</h1>
-    <img src="images/HelloWorld.png" />
-  </div>,
-  rootElement
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector('#root')
 );
