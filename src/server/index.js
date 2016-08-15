@@ -1,30 +1,20 @@
 import 'babel-polyfill';
 
 import express from 'express';
-import React from 'react';
-import {renderToStaticMarkup} from 'react-dom/server';
+
+import commonRoutes from './routers/common-routes';
+import devRoutes from './routers/dev-routes';
 
 const app = express();
+const {NODE_ENV} = process.env;
 
 app.use(express.static('public'));
 app.use(express.static('src/assets'));
 
-app.get('/', (req, res) => {
-  const html = renderToStaticMarkup(
-    <html>
-      <head>
-        <title>Hello World</title>
-        <link rel="stylesheet" type="text/css"  href="./styles/bundle.css" />
-      </head>
-      <body>
-        <div id="root" />
-        <script src="./client/bundle.js" />
-      </body>
-    </html>
-  );
+commonRoutes(app);
 
-  res.end(html);
-});
-
+if (NODE_ENV === 'development') {
+  devRoutes(app);
+}
 
 app.listen(8000, () => console.log('Listening on Port 8000...'));

@@ -101,3 +101,11 @@ $navigation-bar-color: #bfb8bf;
   align-items: center;
   padding: 0 8px;
 }
+
+.minesweeper--icon {
+  width: 36px;
+  height: 36px;
+  background-image: url(../images/minesweeper-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}

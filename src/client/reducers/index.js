@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
+import layout from './layout/layout';
+
 const rootReducer = combineReducers({
-  placeHolder: (state={}) => state
+  layout
 });
 
 export default rootReducer;

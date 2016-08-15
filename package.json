@@ -25,7 +25,7 @@
     "watch-server": "./node_modules/.bin/nodemon public/server/bundle.js",
     "prewatch-all": "npm run clean && npm run style && npm run compile",
     "watch-all": "npm run watch-style & npm run watch-compile & npm run watch-server",
-    "watch": "npm run watch-all"
+    "watch": "NODE_ENV=development npm run watch-all"
   },
   "author": "Chi Kei Chan",
   "license": "ISC",
