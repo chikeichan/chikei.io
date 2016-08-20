@@ -1,0 +1,10 @@
+.desktop {
+  @media #{$desktop} {
+    background-color: $default-desktop-background-color;
+    flex: 1 0 auto;
+  }
+  @media #{$mobile} {
+    flex: 1 0 auto;
+    background-color: $default-mobile-background-color
+  }
+}

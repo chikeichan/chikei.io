@@ -1,6 +1,17 @@
+const icons =[
+  {
+    id: 'FOLDER',
+    name: 'My Blogs'
+  },
+  {
+    id: 'MINESWEEPER',
+    name: 'Minesweeper'
+  }
+]; 
+
 function layout(req, res) {
   const fixture = {
-    icons: ['MINESWEEPER']
+    icons: icons
   };
 
   res.send(fixture);
