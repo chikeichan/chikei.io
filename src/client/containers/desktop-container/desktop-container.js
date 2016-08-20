@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {addIcon} from '../../actions/layout/layout';
+import {fetchIcons} from '../../actions/layout/layout';
 import Desktop from '../../components/desktop/desktop';
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadIcons: () => dispatch(addIcon('MINESWEEPER'))
+    fetchIcons: () => dispatch(fetchIcons())
   }
 }
 

@@ -3,15 +3,21 @@ import {ICON_TO_CLASSNAME} from '../../enums/icon-types';
 
 class Icon extends Component {
   render() {
-    const {iconType, name} = this.props;
+    const {iconId, name, style} = this.props;
     return (
-      <div className={ICON_TO_CLASSNAME[iconType]}></div>
+      <div
+        className="icon-container"
+        style={style}>
+        <div className={`icon-image ${ICON_TO_CLASSNAME[iconId]}`} />
+        <span className="icon-name">{name}</span>
+      </div>
     );
   }
 }
 
 Icon.propTypes = {
-  iconType: PropTypes.string.isRequired,
+  iconId: PropTypes.string.isRequired,
+  name: PropTypes.string,
   positionX: PropTypes.number,
   positionY: PropTypes.number,
 };

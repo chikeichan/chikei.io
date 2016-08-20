@@ -6,6 +6,7 @@ function index(req, res) {
     <html>
       <head>
         <title>Hello World</title>
+        <link href="https://fonts.googleapis.com/css?family=Lekton" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"  href="./styles/bundle.css" />
       </head>
       <body>
