@@ -1,6 +1,6 @@
 export const ICON_TYPES = {
-  'MINESWEEPER': 'MINESWEEPER',
-  'FOLDER': 'FOLDER'
+  MINESWEEPER: 'MINESWEEPER',
+  FOLDER: 'FOLDER'
 };
 
 export const ICON_TO_CLASSNAME = {

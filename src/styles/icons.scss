@@ -4,7 +4,6 @@
   align-items: center;
   width: 65px;
   padding: 12px 8px;
-  position: absolute;
 }
 
 .icon-name {
@@ -13,6 +12,10 @@
   color: white;
   margin: 4px 0;
   font-family: $icon-font;
+  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .icon-image {
