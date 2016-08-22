@@ -4,8 +4,7 @@ import {ICON_TO_CLASSNAME} from '../../enums/icon-types';
 class Icon extends Component {
   static propTypes = {
     iconId: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    style: PropTypes.object
+    name: PropTypes.string
   };
 
   render() {
