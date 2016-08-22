@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Icon from '../icon/icon-dnd';
+import Icon from '../../containers/icon-container/icon-container';
 
 const ICON_POS = [
   {x: 0, y: 0},
@@ -9,6 +9,10 @@ const ICON_POS = [
 ];
 
 class Desktop extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return Object.keys(this.props.icons).join('-') !== Object.keys(nextProps.icons).join('-');
+  }
+
   componentWillMount() {
     this.props.fetchIcons();
   }
@@ -23,10 +27,8 @@ class Desktop extends Component {
           <Icon
             key={iconId}
             iconId={iconId}
-            style={{
-              top: icon.y || pos.y,
-              left: icon.x || pos.x
-            }}
+            defaultX={pos.x}
+            defaultY={pos.y}
             name={name}/>
         );
       });
