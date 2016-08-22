@@ -1,6 +1,4 @@
-import layoutActionTypes from '../../enums/layout-action-types';
-
-const {ADD_ICON, ADD_ICONS, MOVE_ICON} = layoutActionTypes;
+import {ADD_ICON, ADD_ICONS, MOVE_ICON} from '../../enums/icon-action-types';
 
 export const addIcon = (icon) => {
   return {

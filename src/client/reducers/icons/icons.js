@@ -1,18 +1,11 @@
-import actionTypes from '../../enums/layout-action-types';
+import {ADD_ICON, ADD_ICONS, MOVE_ICON} from '../../enums/icon-action-types';
 
-const {ADD_ICON, ADD_ICONS, MOVE_ICON} = actionTypes;
-
-const initialState = {
-  icons: {}
-}
+const initialState = {};
 
 function addIcon(state, icon) {
   return {
     ...state,
-    icons: {
-      ...state.icons,
-      [icon.id]: icon
-    }
+    [icon.id]: icon
   };
 }
 
@@ -21,13 +14,10 @@ function addIcons(state, icons) {
 }
 
 function moveIcon(state, id, x, y) {
-  const icon = state.icons[id];
+  const icon = state[id];
   return {
     ...state,
-    icons: {
-      ...state.icons,
-      [id]: {...icon, x, y}
-    }
+    [id]: {...icon, x, y}
   };
 }
 

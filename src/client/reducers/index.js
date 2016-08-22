@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import layout from './layout/layout';
+import icons from './icons/icons';
 
 const rootReducer = combineReducers({
-  layout
+  icons
 });
 
 export default rootReducer;

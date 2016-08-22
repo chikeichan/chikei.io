@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
-import {fetchIcons, moveIcon} from '../../actions/layout/layout';
+import {fetchIcons, moveIcon} from '../../actions/icons/icons';
 import Icon from '../../components/icon/icon-dnd';
 
 const mapStateToProps = (state, ownProps) => {
-  const icon = state.layout.icons[ownProps.iconId];
+  const icon = state.icons[ownProps.iconId];
   return {...icon};
 }
 

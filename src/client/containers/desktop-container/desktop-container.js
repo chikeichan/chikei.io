@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import {fetchIcons, moveIcon} from '../../actions/layout/layout';
+import {fetchIcons, moveIcon} from '../../actions/icons/icons';
 import Desktop from '../../components/desktop/desktop-dnd';
 
 const mapStateToProps = (state) => {
   return {
-    icons: state.layout.icons
+    icons: state.icons
   };
 }
 
