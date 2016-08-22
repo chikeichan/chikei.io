@@ -19,6 +19,7 @@ module.exports = [
                     loader: 'babel',
                     exclude: /node_modules/,
                     query: {
+                        plugins: ['transform-decorators-legacy'],
                         presets: ['es2015', 'react', 'stage-2']
                     }
                 },
@@ -43,6 +44,7 @@ module.exports = [
                     loader: 'babel',
                     exclude: /node_modules/,
                     query: {
+                        plugins: ['transform-decorators-legacy'],
                         presets: ['es2015', 'react', 'stage-2']
                     }
                 },
@@ -68,6 +70,7 @@ module.exports = [
                     loader: 'babel',
                     exclude: /node_modules/,
                     query: {
+                        plugins: ['transform-decorators-legacy'],
                         presets: ['es2015', 'react', 'stage-2']
                     }
                 },
@@ -93,6 +96,7 @@ module.exports = [
                     loader: 'babel',
                     exclude: /node_modules/,
                     query: {
+                        plugins: ['transform-decorators-legacy'],
                         presets: ['es2015', 'react', 'stage-2']
                     }
                 },

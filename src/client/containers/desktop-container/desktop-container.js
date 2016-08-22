@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import {fetchIcons} from '../../actions/layout/layout';
-import Desktop from '../../components/desktop/desktop';
+import {fetchIcons, moveIcon} from '../../actions/layout/layout';
+import Desktop from '../../components/desktop/desktop-dnd';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchIcons: () => dispatch(fetchIcons())
+    fetchIcons: () => dispatch(fetchIcons()),
+    moveIcon: (id, x, y) => dispatch(moveIcon(id, x, y))
   }
 }
 
