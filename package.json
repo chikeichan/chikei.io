@@ -19,7 +19,7 @@
     "build": "npm run compile && node public/server/bundle.js",
     "style": "npm run compile-style",
     "compile-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css",
-    "prefix": "./node_modules/.bin/postcss --use autoprefixer ./public/styles/bundle.css -d ./public/styles/bundle.css",
+    "poststyle": "node ./autoprefix.js",
     "watch-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css -w",
     "watch-compile": "./node_modules/.bin/webpack --color --progress --watch",
     "watch-server": "./node_modules/.bin/nodemon public/server/bundle.js",

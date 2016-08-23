@@ -19,13 +19,4 @@ export const moveIcon = (id, x=0, y=0) => {
     type: MOVE_ICON,
     id, x, y
   }
-} 
-
-export const fetchIcons = () => {
-  const req = new Request('/layout');
-  return dispatch => {
-    fetch(req, {method: 'GET'})
-      .then(res => res.json())
-      .then(json => dispatch(addIcons(json.icons)));
-  }
 }

@@ -15,7 +15,7 @@ function addIcons(state, icons) {
 
 function moveIcon(state, id, x, y) {
   const icon = state[id];
-  return {
+  return !icon ? state : {
     ...state,
     [id]: {...icon, x, y}
   };

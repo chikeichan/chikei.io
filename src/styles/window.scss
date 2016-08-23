@@ -1,0 +1,123 @@
+.window-container {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  width: 300px;
+  height: 200px;
+  background-color: $window-base-color;
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+}
+
+.window-header,
+.window-action-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 1px;
+  height: 24px;
+  align-items: center;
+}
+
+.window-header {
+  background-color: $window-header-color;
+}
+
+.window-header__name {
+  flex: 1 0 auto;
+  color: white;
+  font-family: $icon-font;
+  font-size: 14px;
+  padding: 0 4px;
+  font-weight: bold;
+}
+
+.window-header__buttons {
+  margin-right: 4px;
+}
+
+.window-header__button {
+  border-radius: 1px;
+  outline: none;
+  width: 18px;
+  height: 18px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background-color: $window-base-color;
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+  position: relative;
+
+  & + .window-header__button {
+    margin-left: 1px;
+  }
+
+  &:active {
+    border-top: 2px solid rgba(0, 0, 0, 0.8);
+    border-left: 2px solid rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    border-right: 1px solid rgba(255, 255, 255, 0.6);
+    &:before {
+      background-color: rgba(0, 0, 0, 0.1);
+      left: 1px;
+      top: 1px;
+    }
+  }
+}
+
+.window-header__button--minimize,
+.window-header__button--maximize,
+.window-header__button--close {
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+  }
+} 
+.window-header__button--minimize {
+  &:before {
+    border-bottom: 2px solid black;
+    width: 14px;
+    height: 12px;
+  }
+}
+
+.window-header__button--maximize {
+  &:before {
+    border: 1px solid black;
+    border-top: 3px solid black;
+    width: 12px;
+    height: 10px;
+  }
+}
+
+.window-header__button--close {
+  margin-left: 2px !important;
+  &:before {
+    font-family: Arial;
+    content: "X";
+    text-align: center;
+    font-size: 13px; 
+  }
+}
+
+.window-action-bar__action {
+  font-family: Lekton;
+  font-size: 14px;
+  margin: 0 8px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:first-letter {
+    text-decoration: underline;
+  }
+}

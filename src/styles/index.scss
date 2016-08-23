@@ -10,6 +10,10 @@ $icon-font: 'Lekton';
 // Navigation Bar
 $navigation-bar-color: #bfb8bf;
 
+// Window
+$window-base-color: #bebebe;
+$window-header-color: #000080;
+
 // Base Reset
 body {
   margin: 0;
@@ -27,3 +31,4 @@ body {
 @import './icons.scss';
 @import './desktop.scss';
 @import './navigation.scss';
+@import './window.scss';
