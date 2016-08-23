@@ -7,11 +7,20 @@ const icons =[
     id: 'MINESWEEPER',
     name: 'Minesweeper'
   }
+];
+
+const windows = [
+  {
+    id: 'MINESWEEPER',
+    name: 'Minesweeper',
+    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+    actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
+  }
 ]; 
 
 function layout(req, res) {
   const fixture = {
-    icons: icons
+    icons, windows
   };
 
   res.send(fixture);

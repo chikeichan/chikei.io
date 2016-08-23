@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {DropTarget, DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Desktop from './desktop';
-import {ICON} from '../../enums/item-types.js';
+import {ICON, WINDOW} from '../../enums/item-types.js';
 
 const spec = {
   drop(props, monitor, component) {
@@ -10,7 +10,14 @@ const spec = {
     const delta = monitor.getDifferenceFromInitialOffset();
     const x = Math.round(item.x + delta.x);
     const y = Math.round(item.y + delta.y);
-    props.moveIcon(item.id, x, y);
+    switch(item.type) {
+      case ICON:
+        return props.moveIcon(item.id, x, y);
+      case WINDOW:
+        return props.moveWindow(item.id, x, y);
+      default:
+        return;
+    }
   }
 };
 
@@ -19,7 +26,7 @@ const connect = connect => ({
 });
 
 @DragDropContext(HTML5Backend)
-@DropTarget(ICON, spec, connect)
+@DropTarget([ICON, WINDOW], spec, connect)
 class DesktopDnD extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired

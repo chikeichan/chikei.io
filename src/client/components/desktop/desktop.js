@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Icon from '../../containers/icon-container/icon-container';
-import Window from '../../components/window/window';
+import Window from '../../containers/window-container/window-container';
 
 const ICON_POS = [
   {x: 0, y: 0},
@@ -9,7 +9,23 @@ const ICON_POS = [
   {x: 0, y: 240},
 ];
 
+const WINDOW_POS = {
+  startX: 250,
+  startY: 250
+};
+
 class Desktop extends Component {
+  static propTypes = {
+    bootstrap: PropTypes.func.isRequired,
+    icons: PropTypes.object,
+    windows: PropTypes.object
+  };
+
+  static defaultProps = {
+    icons: {},
+    windows: {}
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,12 +36,13 @@ class Desktop extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (Object.keys(this.props.icons).join('-') !== Object.keys(nextProps.icons).join('-')) ||
-      this.state.isLoading !== nextState.isLoading;
+      (Object.keys(this.props.windows).join('-') !== Object.keys(nextProps.windows).join('-')) ||
+      (this.state.isLoading !== nextState.isLoading);
   }
 
   componentWillMount() {
     this.startUp();
-    this.props.fetchIcons();
+    this.props.bootstrap();
     setTimeout(() => this.setState({isLoading: false}), 500);
   }
 
@@ -35,7 +52,7 @@ class Desktop extends Component {
   }
 
   renderIcons() {
-    const {icons} = this.props;
+    const {icons=[]} = this.props;
     return Object.keys(icons)
       .map((iconId, i) => {
         const icon = icons[iconId];
@@ -53,16 +70,22 @@ class Desktop extends Component {
   }
 
   renderWindows() {
-    const {windows = ['a']} = this.props;
+    const {windows=[]} = this.props;
     return Object.keys(windows)
       .map((windowId, i) => {
+        const appWindow = windows[windowId];
+        const {name, actions, buttons} = appWindow;
+        const x = WINDOW_POS.startX + (i * 50);
+        const y = WINDOW_POS.startY + (i * 50);
         return (
           <Window
-            windowId="1"
-            key={i}
-            name="Minesweeper"
-            buttons={['MINIMIZE', 'MAXIMIZE', 'CLOSE']}
-            actions={['FILE', 'EDIT', 'VIEW', 'HELP']} />
+            windowId={windowId}
+            key={windowId}
+            name={name}
+            defaultX={x}
+            defaultY={y}
+            buttons={buttons}
+            actions={actions} />
         );        
       });
   }
