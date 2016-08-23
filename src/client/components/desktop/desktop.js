@@ -61,6 +61,7 @@ class Desktop extends Component {
             windowId="1"
             key={i}
             name="Minesweeper"
+            buttons={['MINIMIZE', 'MAXIMIZE', 'CLOSE']}
             actions={['FILE', 'EDIT', 'VIEW', 'HELP']} />
         );        
       });
