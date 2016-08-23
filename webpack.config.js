@@ -3,9 +3,12 @@ require('babel-polyfill');
 var path = require('path');
 var webpack = require('webpack');
 
+var sourcemap = process.env.NODE_ENV === 'development' ? 'sourcemap' : '';
+
 module.exports = [
     {
         name: 'server',
+        devtool: sourcemap,
         entry: './src/server/index.js',
         target: 'node',
         output: {
@@ -32,6 +35,7 @@ module.exports = [
     },
     {
         name: 'client',
+        devtool: sourcemap,
         entry: './src/client/index.js',
         output: {
             path: __dirname + '/public/client',
@@ -57,6 +61,7 @@ module.exports = [
     },
     {
         name: 'test-client',
+        devtool: sourcemap,
         entry: './src/test/client.js',
         target: 'node',
         output: {
@@ -83,6 +88,7 @@ module.exports = [
     },
     {
         name: 'test-server',
+        devtool: sourcemap,
         entry: './src/test/server.js',
         target: 'node',
         output: {

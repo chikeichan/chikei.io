@@ -42,8 +42,8 @@ class Desktop extends Component {
 
   componentWillMount() {
     this.startUp();
-    this.props.bootstrap();
-    setTimeout(() => this.setState({isLoading: false}), 500);
+    this.props.bootstrap()
+      .then(() => this.setState({isLoading: false}));
   }
 
   startUp() {
