@@ -20,13 +20,23 @@
   align-items: center;
 }
 
+.window--selected {
+  z-index: 100;
+  .window-header {
+    background-color: $window-header-active-color;
+  }
+  .window-header__name {
+    color: $window-header-title-active-color;
+  }
+}
+
 .window-header {
-  background-color: $window-header-color;
+  background-color: $window-header-inactive-color;
 }
 
 .window-header__name {
   flex: 1 0 auto;
-  color: white;
+  color: $window-header-title-inactive-color;
   font-family: $icon-font;
   font-size: 14px;
   padding: 0 4px;

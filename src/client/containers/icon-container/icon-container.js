@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {selectIcon, deselectIcon, openApp} from '../../actions/icons/icons';
+import {selectIcon, openApp} from '../../actions/icons/icons';
 import Icon from '../../components/icon/icon-dnd';
 
 const mapStateToProps = (state, ownProps) => {
