@@ -10,7 +10,7 @@ class NavigationBar extends Component {
         </button>
         <div className="navigation-bar--divider" />
         <div className="navigation-bar--application-dock" />
-        <div className="navigation-bar--clock">10:37 PM</div>
+        <div className="navigation-bar--clock">10:14 PM</div>
       </div>
     );
   }

@@ -6,7 +6,9 @@ class Window extends Component {
     windowId: PropTypes.string.isRequired,
     name: PropTypes.string,
     actions: PropTypes.array,
-    buttons: PropTypes.array
+    buttons: PropTypes.array,
+    height: PropTypes.number,
+    width: PropTypes.number
   };
 
   static defaultProps = {
@@ -41,14 +43,17 @@ class Window extends Component {
   }
 
   render() {
-    const {windowId, name} = this.props;
+    const {windowId, name, children, height, width} = this.props;
     return (
-      <div className="window-container">
+      <div
+        className="window-container"
+        style={{height, width}}>
         <div className="window-header">
           <span className="window-header__name">{name}</span>
           {this.renderButtons()}
         </div>
         {this.renderActions()}
+        {children}
       </div>
     );
   }

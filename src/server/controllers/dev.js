@@ -13,8 +13,8 @@ const windowsMap = {
   'MINESWEEPER': {
     id: 'MINESWEEPER',
     name: 'Minesweeper',
-    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
+    buttons: ['MINIMIZE', 'CLOSE'],
+    actions: ['FILE', 'HELP']
   },
   'FOLDER': {
     id: 'FOLDER',
