@@ -26,6 +26,7 @@ const collect = (connect, monitor) => ({
 class WindowDnD extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
+    selectWindow: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     defaultX: PropTypes.number,
     defaultY: PropTypes.number,
@@ -33,17 +34,25 @@ class WindowDnD extends Component {
     y: PropTypes.number,
     actions: PropTypes.array.isRequired,
     buttons: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    isSelected: PropTypes.bool
+  };
+
+  static defaultProps = {
+    isSelected: false
   };
 
   render() {
     const {
-      connectDragSource, isDragging, 
-      defaultX, defaultY, x, y
+      connectDragSource, isDragging, selectWindow,
+      defaultX, defaultY, x, y, windowId, isSelected
     } = this.props;
 
     return connectDragSource(
-      <div 
+      <div
+        onClick={e => e.stopPropagation()}
+        onMouseDown={() => selectWindow(windowId)}
+        className={isSelected && 'window--selected'}
         style={{
           position: 'absolute',
           top: y || defaultY,

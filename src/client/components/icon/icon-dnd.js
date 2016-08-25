@@ -27,25 +27,45 @@ class IconDnD extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
+    selectIcon: PropTypes.func.isRequired,
     defaultX: PropTypes.number,
     defaultY: PropTypes.number,
     x: PropTypes.number,
     y: PropTypes.number
   };
 
+  static defaultProps = {
+    isSelected: false
+  };
+
+  constructor(props) {
+    super(props);
+    this.selectIcon = this.selectIcon.bind(this);
+  }
+
+  selectIcon(e) {
+    const {iconId, selectIcon} = this.props;
+    e.stopPropagation();
+    selectIcon(iconId);
+  }
+
   render() {
     const {
-      connectDragSource, isDragging, 
+      connectDragSource, isDragging, isSelected,
       defaultX, defaultY, x, y
     } = this.props;
 
     return connectDragSource(
-      <div style={{
-        position: 'absolute',
-        top: y || defaultY,
-        left: x || defaultX,
-        opacity: isDragging ? 0.5 : 1
-      }}>
+      <div
+        className={isSelected && 'icon--selected'}
+        onClick={e => e.stopPropagation()}
+        onMouseDown={this.selectIcon}
+        style={{
+          position: 'absolute',
+          top: y || defaultY,
+          left: x || defaultX,
+          opacity: isDragging ? 0.5 : 1
+        }}>
         <Icon {...this.props} />
       </div>
     );

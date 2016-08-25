@@ -1,3 +1,5 @@
 export const ADD_WINDOW = 'ADD_WINDOW';
 export const ADD_WINDOWS = 'ADD_WINDOWS';
+export const SELECT_WINDOW = 'SELECT_WINDOW';
+export const DESELECT_WINDOWS = 'DESELECT_WINDOWS';
 export const MOVE_WINDOW = 'MOVE_WINDOW';
