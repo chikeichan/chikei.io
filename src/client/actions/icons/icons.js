@@ -1,4 +1,7 @@
-import {ADD_ICON, ADD_ICONS, MOVE_ICON} from '../../enums/icon-action-types';
+import {
+  ADD_ICON, ADD_ICONS, MOVE_ICON,
+  SELECT_ICON, DESELECT_ICONS
+} from '../../enums/icon-action-types';
 
 export const addIcon = (icon) => {
   return {
@@ -19,4 +22,17 @@ export const moveIcon = (id, x=0, y=0) => {
     type: MOVE_ICON,
     id, x, y
   }
+}
+
+export const selectIcon = id => {
+  return {
+    type: SELECT_ICON,
+    id
+  };
+}
+
+export const deselectIcons = () => {
+  return {
+    type: DESELECT_ICONS
+  };
 }

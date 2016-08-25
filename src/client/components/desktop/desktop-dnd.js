@@ -29,13 +29,15 @@ const connect = connect => ({
 @DropTarget([ICON, WINDOW], spec, connect)
 class DesktopDnD extends Component {
   static propTypes = {
-    connectDropTarget: PropTypes.func.isRequired
+    connectDropTarget: PropTypes.func.isRequired,
+    deselectIcons: PropTypes.func.isRequired
   };
 
   render() {
     const {connectDropTarget} = this.props;
     return connectDropTarget(
-      <div className="desktop">
+      <div className="desktop"
+        onClick={this.props.deselectIcons}>
         <Desktop {...this.props} />
       </div>
     );

@@ -3,10 +3,10 @@ import Icon from '../../containers/icon-container/icon-container';
 import Window from '../../containers/window-container/window-container';
 
 const ICON_POS = [
-  {x: 0, y: 0},
-  {x: 0, y: 80},
-  {x: 0, y: 160},
-  {x: 0, y: 240},
+  {x: 10, y: 0},
+  {x: 10, y: 80},
+  {x: 10, y: 160},
+  {x: 10, y: 240},
 ];
 
 const WINDOW_POS = {

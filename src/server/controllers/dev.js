@@ -10,12 +10,12 @@ const icons =[
 ];
 
 const windows = [
-  {
-    id: 'MINESWEEPER',
-    name: 'Minesweeper',
-    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
-  }
+  // {
+  //   id: 'MINESWEEPER',
+  //   name: 'Minesweeper',
+  //   buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+  //   actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
+  // }
 ]; 
 
 function layout(req, res) {
