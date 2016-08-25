@@ -1,3 +1,4 @@
+import {OPEN_APP} from '../../enums/icon-action-types';
 import {ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW} from '../../enums/window-action-types';
 
 const initialState = {};
@@ -21,6 +22,13 @@ function moveWindow(state, id, x, y) {
   };
 }
 
+function openApp(state, appWindow) {
+  if (state[appWindow.id]) {
+    return state;
+  }
+  return addWindow(state, appWindow);
+}
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case ADD_WINDOW:
@@ -29,6 +37,8 @@ export default function(state=initialState, action) {
       return addWindows(state, action.windows);
     case MOVE_WINDOW:
       return moveWindow(state, action.id, action.x, action.y);
+    case OPEN_APP:
+      return openApp(state, action.window);
     default:
       return state;
   }

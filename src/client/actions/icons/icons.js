@@ -1,16 +1,16 @@
 import {
   ADD_ICON, ADD_ICONS, MOVE_ICON,
-  SELECT_ICON, DESELECT_ICONS
+  SELECT_ICON, DESELECT_ICONS, OPEN_APP
 } from '../../enums/icon-action-types';
 
-export const addIcon = (icon) => {
+export const addIcon = icon => {
   return {
     type: ADD_ICON,
     icon
   };
 }
 
-export const addIcons = (icons) => {
+export const addIcons = icons => {
   return {
     type: ADD_ICONS,
     icons
@@ -34,5 +34,19 @@ export const selectIcon = id => {
 export const deselectIcons = () => {
   return {
     type: DESELECT_ICONS
+  };
+}
+
+export const openApp = id => {
+  const req = new Request(`/windows/${id}`);
+  return dispatch => {
+    return fetch(req, {method: 'GET'})
+      .then(res => res.json())
+      .then(json => {
+        dispatch({
+          type: OPEN_APP,
+          window: json
+        });
+      });
   };
 }

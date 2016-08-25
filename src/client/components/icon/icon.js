@@ -4,17 +4,16 @@ import {ICON_TO_CLASSNAME} from '../../enums/icon-types';
 class Icon extends Component {
   static propTypes = {
     iconId: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    isSelected: PropTypes.bool
+    name: PropTypes.string
   };
 
   render() {
-    const {iconId, name, selectIcon, deselectIcon, isSelected} = this.props;
+    const {iconId, name, deselectIcon, isSelected, openApp} = this.props;
 
     return (
       <div
         className="icon-container"
-        onClick={this.selectIcon}>
+        onDoubleClick={() => openApp(iconId)}>
         <div className={`icon-image ${ICON_TO_CLASSNAME[iconId]}`} />
         <span className="icon-name">{name}</span>
       </div>
