@@ -17,33 +17,35 @@ const WINDOW_POS = {
 class Desktop extends Component {
   static propTypes = {
     bootstrap: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired,
     icons: PropTypes.object,
-    windows: PropTypes.object
+    windows: PropTypes.object,
+    system: PropTypes.object,
   };
 
   static defaultProps = {
     icons: {},
-    windows: {}
+    windows: {},
+    system: {}
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true
-    };
     this.startUp = this.startUp.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (Object.keys(this.props.icons).join('-') !== Object.keys(nextProps.icons).join('-')) ||
-      (Object.keys(this.props.windows).join('-') !== Object.keys(nextProps.windows).join('-')) ||
-      (this.state.isLoading !== nextState.isLoading);
+    const {icons, windows, system} = this.props;
+    return (Object.keys(icons).join('-') !== Object.keys(nextProps.icons).join('-')) ||
+      (Object.keys(windows).join('-') !== Object.keys(nextProps.windows).join('-')) ||
+      system.isLoading !== nextProps.system.isLoading;
   }
 
   componentWillMount() {
     this.startUp();
+    this.props.setLoading(true);
     this.props.bootstrap()
-      .then(() => this.setState({isLoading: false}));
+      .then(() => this.props.setLoading(false));
   }
 
   startUp() {
@@ -91,10 +93,6 @@ class Desktop extends Component {
   }
 
   render() {
-    if (this.state.isLoading) {
-      return null;
-    }
-
     return (
       <div>
         {this.renderIcons()}

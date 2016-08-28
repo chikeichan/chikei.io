@@ -30,7 +30,7 @@ function layout(req, res) {
     windows: []
   };
 
-  res.send(fixture);
+  setTimeout(() => res.send(fixture), 500);
 }
 
 function windows(req, res) {

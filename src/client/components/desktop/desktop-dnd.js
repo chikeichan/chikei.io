@@ -34,9 +34,12 @@ class DesktopDnD extends Component {
   };
 
   render() {
-    const {connectDropTarget} = this.props;
+    const {connectDropTarget, system} = this.props;
+
     return connectDropTarget(
-      <div className="desktop"
+      <div
+        className="desktop"
+        style={{cursor: system.isLoading ? 'progress' : ''}}
         onClick={this.props.deselectIcons}>
         <Desktop {...this.props} />
       </div>
