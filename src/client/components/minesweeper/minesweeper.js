@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
 import Cell from '../../containers/minesweeper-container/minesweeper-cell-container';
+import Header from '../../containers/minesweeper-container/minesweeper-header-container';
 
 class Minesweeper extends Component {
   constructor(props) {
@@ -36,11 +37,7 @@ class Minesweeper extends Component {
     return (
       <Window {...this.props}>
         <div className="minesweeper-container">
-          <div className="minesweeper-header">
-            <div className="minesweeper-counter minesweeper-counter__bombs">010</div>
-            <div className="minesweeper-status" />
-            <div className="minesweeper-counter minesweeper-counter__bombs">025</div>
-          </div>
+          <Header />
           <div className="minesweeper-gameboard">
             {this.renderRows()}
           </div>
