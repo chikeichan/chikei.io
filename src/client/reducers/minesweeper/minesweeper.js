@@ -44,8 +44,13 @@ function mutateCells(state, index) {
 }
 
 function toggleFlag(state, index) {
-  const {isFlag} = state;
+  const {isFlag, isOpen} = state;
   const flagged = isFlag[index];
+
+  if (isOpen[index]) {
+    return state;
+  }
+
   return {
     ...state,
     isFlag: isFlag.map((n, i) => i === index ? !flagged : n)

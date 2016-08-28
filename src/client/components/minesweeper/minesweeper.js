@@ -4,8 +4,15 @@ import Cell from '../../containers/minesweeper-container/minesweeper-cell-contai
 import Header from '../../containers/minesweeper-container/minesweeper-header-container';
 
 class Minesweeper extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    startGame: PropTypes.func.isRequired,
+    row: PropTypes.number.isRequired,
+    col: PropTypes.number.isRequired,
+    fields: PropTypes.array.isRequired
+  };
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.fields !== this.props.fields;
   }
 
   componentDidMount() {
@@ -34,6 +41,7 @@ class Minesweeper extends Component {
 
 
   render() {
+    console.log('render wrapper')
     return (
       <Window {...this.props}>
         <div className="minesweeper-container">
