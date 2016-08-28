@@ -47,7 +47,6 @@ class MinesweeperCell extends Component {
   }
 
   onRightClick(e) {
-    e.preventDefault();
     const {toggleFlag, id, status} = this.props;
     
     if (status !== PENDING) {

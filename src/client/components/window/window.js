@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {ACTIONS_TO_CLASS, ACTIONS_TO_DISPLAY_NAME, BUTTONS_TO_CLASS} from '../../enums/window-element-types';
+import {
+  ACTIONS_TO_CLASS, ACTIONS_TO_DISPLAY_NAME, BUTTONS_TO_CLASS,
+  CLOSE, MINIMIZE
+} from '../../enums/window-element-types';
 import {ID_TO_WINDOW_ICON} from '../../enums/icon-types.js';
 
 class Window extends Component {
@@ -9,13 +12,42 @@ class Window extends Component {
     actions: PropTypes.array,
     buttons: PropTypes.array,
     height: PropTypes.number,
-    width: PropTypes.number
+    width: PropTypes.number,
+    isMinimized: PropTypes.bool,
+    minimizeWindow: PropTypes.func.isRequired,
+    closeWindow: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     actions: [],
-    buttons: []
+    buttons: [],
+    isMinimized: false
   };
+
+  constructor(props) {
+    super(props);
+    this.closeWindow = this.closeWindow.bind(this);
+    this.minimizeWindow = this.minimizeWindow.bind(this);
+  }
+
+  closeWindow(e) {
+    const {closeWindow, windowId} = this.props;
+    e.stopPropagation();
+    closeWindow(windowId);
+  }
+
+  minimizeWindow(e) {
+    const {minimizeWindow, windowId} = this.props;
+    e.stopPropagation();
+    minimizeWindow(windowId);
+  }
+
+  getButtonClickHandler(button) {
+    return {
+      [CLOSE]: this.closeWindow,
+      [MINIMIZE]: this.minimizeWindow
+    }[button];
+  }
 
   renderActions() {
     return (
@@ -37,15 +69,21 @@ class Window extends Component {
         {this.props.buttons.map(button => (
           <button 
             key={button}
-            className={`window-header__button ${BUTTONS_TO_CLASS[button]}`} />
+            className={`window-header__button ${BUTTONS_TO_CLASS[button]}`}
+            onMouseDown={e => e.stopPropagation()}
+            onClick={this.getButtonClickHandler(button)}/>
         ))}
       </span>
     );
   }
 
   render() {
-    const {windowId, name, children, height, width} = this.props;
-    return (
+    const {
+      windowId, name, children,
+      height, width, isMinimized
+    } = this.props;
+
+    return isMinimized ? null : (
       <div
         className="window-container"
         style={{height, width}}>

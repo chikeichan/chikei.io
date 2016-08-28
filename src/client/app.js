@@ -6,7 +6,9 @@ import NavigationBar from './containers/navigation-bar-container/navigation-bar-
 class App extends Component {
   render() {
     return (
-      <div className="app-wrapper">
+      <div
+        className="app-wrapper"
+        onContextMenu={e => e.preventDefault()}>
         <Desktop />
         <NavigationBar />
       </div>

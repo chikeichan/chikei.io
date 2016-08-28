@@ -3,6 +3,10 @@ import {
   RESTART_GAME, TOGGLE_FLAG, STATUS
 } from '../../enums/minesweeper-action-types';
 
+import {CLOSE_WINDOW} from '../../enums/window-action-types';
+import {MINESWEEPER} from '../../enums/icon-types';
+
+
 const {WIN, LOSE, PENDING} = STATUS;
 
 const initialState = {
@@ -55,6 +59,13 @@ function toggleFlag(state, index) {
   };
 }
 
+function closeApp(state, id) {
+  if (id === MINESWEEPER) {
+    return initialState;
+  }
+  return state;
+} 
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case START_GAME:
@@ -65,6 +76,8 @@ export default function(state=initialState, action) {
       return clickCell(state, action.index);
     case TOGGLE_FLAG:
       return toggleFlag(state, action.index);
+    case CLOSE_WINDOW:
+      return closeApp(state, action.id);
     default:
       return state;
   }
