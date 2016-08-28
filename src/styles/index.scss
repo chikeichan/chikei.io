@@ -20,6 +20,11 @@ $window-header-title-inactive-color: #b9b9b9;
 $icon-active-color: #000080;
 $icon-dotted-color: #98a632;
 
+@font-face{
+  font-family: "Digital";
+  src: url(/fonts/digital.ttf);
+}
+
 // Base Reset
 body {
   margin: 0;
@@ -38,3 +43,4 @@ body {
 @import './desktop.scss';
 @import './navigation.scss';
 @import './window.scss';
+@import './minesweeper.scss';

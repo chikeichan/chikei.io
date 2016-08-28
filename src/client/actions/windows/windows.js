@@ -3,14 +3,14 @@ import {
   SELECT_WINDOW, DESELECT_WINDOWS
 } from '../../enums/window-action-types';
 
-export const addWindow = (appWindow) => {
+export const addWindow = appWindow => {
   return {
     type: ADD_WINDOW,
     window: appWindow
   };
 }
 
-export const addWindows = (appWindows) => {
+export const addWindows = appWindows => {
   return {
     type: ADD_WINDOWS,
     windows: appWindows

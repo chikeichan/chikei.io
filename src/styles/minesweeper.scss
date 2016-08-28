@@ -1,0 +1,116 @@
+.minesweeper-container {
+  margin: 4px;
+  padding: 12px;
+  border-top: 4px solid rgba(255, 255, 255, 0.7);
+  border-left: 4px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  border-right: 4px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.minesweeper-gameboard,
+.minesweeper-header {
+  border-bottom: 4px solid rgba(255, 255, 255, 0.7);
+  border-right: 4px solid rgba(255, 255, 255, 0.7);
+  border-top: 4px solid rgba(0, 0, 0, 0.3);
+  border-left: 4px solid rgba(0, 0, 0, 0.3);
+}
+
+.minesweeper-header {
+  margin-bottom: 12px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.minesweeper-status {
+  height: 35px;
+  width: 35px;
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-left: 2px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url(/images/smiley.png);
+  cursor: pointer;
+}
+
+.minesweeper-status__win {
+  background-image: url(/images/sunglass.png);
+}
+
+.minesweeper-status__lose {
+  background-image: url(/images/sad.png);
+}
+
+.minesweeper-counter {
+  background-color: #1a1a1a;
+  color: red;
+  font-size: 40px;
+  height: 30px;
+  padding: 2px;
+  font-family: "Digital";
+  margin: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+  border-right: 1px solid rgba(255, 255, 255, 1);
+  border-top: 1px solid rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.7);
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    opacity: 0.3;
+    content: "888";
+  }
+}
+
+.minesweeper-cell {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
+  font-size: 17px;
+  cursor: pointer;
+  outline: none;
+  font-family: Monospace;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.minesweeper-cell__closed:active {
+  border-top: 2px solid rgba(0, 0, 0, 0.5);
+  border-left: 2px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  border-right: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.minesweeper-cell__opened {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  width: 22px;
+  height: 22px;
+}
+
+.minesweeper-cell__flagged {
+  background-image: url(/images/flag.png);
+}
+
+.minesweeper-cell__bombed {
+  background-image: url(/images/minesweeper-icon.png);
+}
+
+.minesweeper-row {
+  white-space: nowrap;
+}

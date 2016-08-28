@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Icon from '../../containers/icon-container/icon-container';
-import Window from '../../containers/window-container/window-container';
+import Application from '../application';
 
 const ICON_POS = [
   {x: 10, y: 0},
@@ -10,8 +10,8 @@ const ICON_POS = [
 ];
 
 const WINDOW_POS = {
-  startX: 250,
-  startY: 250
+  startX: window ? window.innerWidth/4 : 100,
+  startY: window ? window.innerHeight/4 : 100
 };
 
 class Desktop extends Component {
@@ -78,7 +78,7 @@ class Desktop extends Component {
         const x = WINDOW_POS.startX + (i * 50);
         const y = WINDOW_POS.startY + (i * 50);
         return (
-          <Window
+          <Application
             windowId={windowId}
             key={windowId}
             name={name}
