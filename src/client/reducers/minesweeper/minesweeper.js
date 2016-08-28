@@ -1,4 +1,9 @@
-import {START_GAME, CLICK_CELL, POWER_CLICK_CELL, TOGGLE_FLAG} from '../../enums/minesweeper-action-types';
+import {
+  START_GAME, CLICK_CELL, POWER_CLICK_CELL,
+  RESTART_GAME, TOGGLE_FLAG, STATUS
+} from '../../enums/minesweeper-action-types';
+
+const {WIN, LOSE, PENDING} = STATUS;
 
 const initialState = {
   col: 0,
@@ -6,11 +11,13 @@ const initialState = {
   bombs: 0,
   fields: [],
   isOpen: [],
-  isFlag: []
+  isFlag: [],
+  lastClicked: null,
+  status: PENDING
 };
 
 function clickCell(state, index) {
-  const {isFlag} = state;
+  const {isFlag, col, row, bombs, fields} = state;
 
   if (isFlag[index]) {
     return state;
@@ -18,30 +25,21 @@ function clickCell(state, index) {
 
   mutateCells(state, index);
 
+  const mutatedIsOpen = state.isOpen;
+  const openedCounter = mutatedIsOpen.reduce((sum, n) => n ? sum + 1 : sum, 0);
+  const hasWon = openedCounter === col * row - bombs;
+  const hasLost = mutatedIsOpen.reduce((acc, n, i) => {
+    return acc || (n ? fields[i] < 0 : acc);
+  }, false);
+
   return {
     ...state,
-    isOpen: [...state.isOpen]
+    lastClicked: index,
+    status: hasWon ? WIN : hasLost ? LOSE : PENDING,
+    isOpen: [...mutatedIsOpen]
   };
 }
 
-function mutateCells(state, index) {
-  const {isOpen, isFlag, fields, col, row} = state;
-  const content = fields[index];
-
-  switch(true) {
-    case isOpen[index]:
-    case isFlag[index]:
-      return;
-    case Boolean(content):
-      return isOpen[index] = true;
-    case !content:
-      isOpen[index] = true;
-      return getSurroundIndex(index, col, row)
-        .forEach(i => mutateCells(state, i));
-    default:
-      return;
-  }
-}
 
 function toggleFlag(state, index) {
   const {isFlag, isOpen} = state;
@@ -61,6 +59,8 @@ export default function(state=initialState, action) {
   switch(action.type) {
     case START_GAME:
       return createField(action.col, action.row, action.bombs);
+    case RESTART_GAME:
+      return createField(state.col, state.row, state.bombs);
     case CLICK_CELL:
       return clickCell(state, action.index);
     case TOGGLE_FLAG:
@@ -72,6 +72,25 @@ export default function(state=initialState, action) {
 
 
 // Helper Methods
+function mutateCells(state, index) {
+  const {isOpen, isFlag, fields, col, row} = state;
+  const content = fields[index];
+
+  switch(true) {
+    case isOpen[index]:
+    case isFlag[index]:
+      return;
+    case Boolean(content):
+      return isOpen[index] = true;
+    case !content:
+      isOpen[index] = true;
+      return getSurroundIndex(index, col, row)
+        .forEach(i => mutateCells(state, i));
+    default:
+      return;
+  }
+}
+
 function createField(x, y, n) {
   const mines = Array(n).fill(-1);
   const empties = Array(x * y - n).fill(0);
@@ -100,7 +119,8 @@ function createField(x, y, n) {
     bombs: n,
     fields: finished,
     isOpen: Array(x * y).fill(false),
-    isFlag: Array(x * y).fill(false)
+    isFlag: Array(x * y).fill(false),
+    status: STATUS.PENDING
   };
 }
 

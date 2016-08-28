@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import {STATUS} from '../../enums/minesweeper-action-types';
+const {WIN, LOSE, PENDING} = STATUS;
 
 const CONTENT_TO_COLOR = [
   null,
@@ -30,6 +32,7 @@ class MinesweeperCell extends Component {
   constructor(props) {
     super(props);
     this.onRightClick = this.onRightClick.bind(this);
+    this.onLeftClick = this.onLeftClick.bind(this);
   }
 
   getContent() {
@@ -44,20 +47,41 @@ class MinesweeperCell extends Component {
   }
 
   onRightClick(e) {
-    const {toggleFlag, id} = this.props;
     e.preventDefault();
+    const {toggleFlag, id, status} = this.props;
+    
+    if (status !== PENDING) {
+      return;
+    }
+
     toggleFlag(id);
-  } 
+  }
+
+  onLeftClick(e) {
+    const {clickCell, id, status} = this.props;
+    
+    if (status !== PENDING) {
+      return;
+    }
+
+    clickCell(id);
+  }
 
   render() {
-    const {isOpen, isFlag, id, content, clickCell, toggleFlag} = this.props;
+    const {
+      isOpen, isFlag, id, content,
+      status, lastClicked
+    } = this.props;
     const className = classnames(
       'minesweeper-cell',
       {
         'minesweeper-cell__flagged': !isOpen && isFlag,
         'minesweeper-cell__opened': isOpen,
         'minesweeper-cell__bombed': isOpen && content < 0,
-        'minesweeper-cell__closed': !isOpen && !isFlag
+        'minesweeper-cell__closed': !isOpen && !isFlag,
+        'minesweeper-cell__gameover': status === LOSE && lastClicked,
+        'minesweeper-cell__defused': status !== PENDING && !isOpen && isFlag && content < 0,
+        'minesweeper-cell__defused--incorrect': status !== PENDING && !isOpen && isFlag && content > -1
       }
     );
     return (
@@ -65,7 +89,7 @@ class MinesweeperCell extends Component {
         className={className}
         style={this.getStyle()}
         draggable={false}
-        onClick={() => clickCell(id)}
+        onClick={this.onLeftClick}
         onContextMenu={this.onRightClick} >
         {this.getContent()}
       </div>

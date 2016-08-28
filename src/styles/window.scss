@@ -66,20 +66,23 @@
   }
 
   &:active {
-    border-top: 2px solid rgba(0, 0, 0, 0.8);
-    border-left: 2px solid rgba(0, 0, 0, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    border-right: 1px solid rgba(255, 255, 255, 0.6);
-    &:before {
-      background-color: rgba(0, 0, 0, 0.1);
-      left: 1px;
-      top: 1px;
+    &:not(.window-header__button--no-maximize) {
+      border-top: 2px solid rgba(0, 0, 0, 0.8);
+      border-left: 2px solid rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      border-right: 1px solid rgba(255, 255, 255, 0.6);
+      &:before {
+        background-color: rgba(0, 0, 0, 0.1);
+        left: 1px;
+        top: 1px;
+      }
     }
   }
 }
 
 .window-header__button--minimize,
 .window-header__button--maximize,
+.window-header__button--no-maximize,
 .window-header__button--close {
   &:before {
     content: "";
@@ -103,6 +106,15 @@
   &:before {
     border: 1px solid black;
     border-top: 3px solid black;
+    width: 12px;
+    height: 10px;
+  }
+}
+
+.window-header__button--no-maximize {
+  &:before {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 3px solid rgba(0, 0, 0, 0.2);
     width: 12px;
     height: 10px;
   }

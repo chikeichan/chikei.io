@@ -107,8 +107,20 @@
   background-image: url(/images/flag.png);
 }
 
+.minesweeper-cell__defused {
+  background-image: url(/images/minesweeper-icon.png);
+}
+
+.minesweeper-cell__defused--incorrect {
+  background-color: red;
+}
+
 .minesweeper-cell__bombed {
   background-image: url(/images/minesweeper-icon.png);
+}
+
+.minesweeper-cell__gameover {
+  background-color: red;
 }
 
 .minesweeper-row {

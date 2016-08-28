@@ -13,8 +13,8 @@ const windowsMap = {
   'MINESWEEPER': {
     id: 'MINESWEEPER',
     name: 'Minesweeper',
-    buttons: ['MINIMIZE', 'CLOSE'],
-    actions: ['FILE', 'HELP']
+    buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
+    actions: ['GAME', 'HELP']
   },
   'FOLDER': {
     id: 'FOLDER',
@@ -36,7 +36,7 @@ function layout(req, res) {
 function windows(req, res) {
   const {windowId} = req.params;
   const fixture = windowsMap[windowId];
-  res.send(fixture);
+  setTimeout(() => res.send(fixture), 250);
 }
 
 export default {

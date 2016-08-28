@@ -41,7 +41,6 @@ class Minesweeper extends Component {
 
 
   render() {
-    console.log('render wrapper')
     return (
       <Window {...this.props}>
         <div className="minesweeper-container">
