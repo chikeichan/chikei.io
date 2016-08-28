@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {MINESWEEPER} from '../enums/icon-types';
 import Window from '../containers/window-container/window-container';
-import Minesweeper from './minesweeper/minesweeper';
+import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
 
 const ID_TO_COMPONENT = {
   [MINESWEEPER]: Minesweeper

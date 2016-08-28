@@ -1,65 +1,19 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
+import Cell from '../../containers/minesweeper-container/minesweeper-cell-container';
 
 class Minesweeper extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numOfCols: 10,
-      numOfRows: 10,
-      numOfMines: 10,
-      fields: this.makeInitialField(10, 10, 10),
-      isOpen: [],
-      isFlag: []
-    };
   }
 
-  makeInitialField(x, y, n) {
-    const mines = Array(n).fill('M');
-    const empties = Array(x * y - n).fill(0);
-    const field = [...mines, ...empties];
-
-    const shuffled = field
-      .reduce((newField, n, i) => {
-        var rand = Math.floor(Math.random() * x * y);
-        var tmp = newField[i];
-        newField[i] = newField[rand];
-        newField[rand] = tmp;
-        return newField;
-      }, field);
-
-    const finished = shuffled
-      .map((cell, i) => {
-        return cell === 'M' ? 'M' : 
-          this.getSurroundIndex(i, x, y)
-            .map(index => shuffled[index])
-            .reduce((sum, n) => n === 'M' ? sum + 1 : sum, 0);
-      });
-
-    return finished;
-  }
-
-  getSurroundIndex(i, numOfCols, numOfRows) {
-    const rightEdge = !((i + 1) % numOfCols);
-    const leftEdge = !(i % numOfCols);
-    const upEdge = i < numOfCols;
-    const downEdge = i >= numOfCols * (numOfRows - 1);
-
-    return [
-      !rightEdge && i + 1,
-      !downEdge && i + numOfRows,
-      !rightEdge && !downEdge && i + 1 + numOfRows,
-      !rightEdge && !upEdge && i + 1 - numOfRows,
-      !leftEdge && i - 1,
-      !upEdge && i - numOfRows,
-      !leftEdge && !upEdge && i - 1 - numOfRows,
-      !leftEdge && !downEdge && i - 1 + numOfRows
-    ];
+  componentDidMount() {
+    this.props.startGame(10, 10, 10);
   }
 
   renderRows() {
-    const {numOfRows} = this.state;
-    return Array(numOfRows)
+    const {row} = this.props;
+    return row && Array(row)
       .fill()
       .map((n, i) => (
         <div
@@ -71,23 +25,14 @@ class Minesweeper extends Component {
   }
 
   renderColumns(i) {
-    const {numOfCols, fields} = this.state;
-    return Array(numOfCols)
+    const {col, fields} = this.props;
+    return col && Array(col)
       .fill(0)
-      .map((m, j) => {
-        const cellIndex = i * numOfCols + j;
-        const cellContent = fields[cellIndex];
-        return (
-          <div 
-            className={`minesweeper-cell minesweeper-cell--${cellContent}`}
-            key={cellIndex} />
-        );
-      });
+      .map((m, j) => <Cell key={i * col + j} id={i * col + j} />);
   }
 
 
   render() {
-    const {numOfRows, numOfCols, fields} = this.state;
     return (
       <Window {...this.props}>
         <div className="minesweeper-container">
