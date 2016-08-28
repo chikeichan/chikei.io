@@ -41,6 +41,23 @@
   font-weight: bold;
 }
 
+.window-header__icon {
+  height: 16px;
+  width: 16px;
+  margin: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.window-header__icon--minesweeper {
+  background-image: url(/images/minesweeper-icon.png);
+}
+
+.window-header__icon--folder {
+  background-image: url(/images/folder-icon.png);
+}
+
 .window-header__buttons {
   margin-right: 4px;
 }

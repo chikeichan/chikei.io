@@ -80,7 +80,7 @@ class MinesweeperCell extends Component {
         'minesweeper-cell__bombed': isOpen && content < 0,
         'minesweeper-cell__closed': !isOpen && !isFlag,
         'minesweeper-cell__gameover': status === LOSE && lastClicked,
-        'minesweeper-cell__defused': status !== PENDING && !isOpen && isFlag && content < 0,
+        'minesweeper-cell__defused': status !== PENDING && !isOpen && content < 0,
         'minesweeper-cell__defused--incorrect': status !== PENDING && !isOpen && isFlag && content > -1
       }
     );

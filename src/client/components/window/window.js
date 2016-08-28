@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {ACTIONS_TO_CLASS, ACTIONS_TO_DISPLAY_NAME, BUTTONS_TO_CLASS} from '../../enums/window-element-types';
+import {ID_TO_WINDOW_ICON} from '../../enums/icon-types.js';
 
 class Window extends Component {
   static propTypes = {
@@ -49,6 +50,7 @@ class Window extends Component {
         className="window-container"
         style={{height, width}}>
         <div className="window-header">
+          <span className={`window-header__icon ${ID_TO_WINDOW_ICON[windowId]}`} />
           <span className="window-header__name">{name}</span>
           {this.renderButtons()}
         </div>

@@ -56,6 +56,8 @@
 
 .navigation-bar--application-dock {
   flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .navigation-bar--clock {
@@ -74,3 +76,49 @@
   font-family: $icon-font;
   font-weight: bold;
 }
+
+.nav-app-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-left: 2px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+  border-right: 2px solid rgba(0, 0, 0, 0.6);
+  margin: 2px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.nav-app-wrapper--selected {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  border-right: 2px solid rgba(255, 255, 255, 0.8);
+  border-top: 2px solid rgba(0, 0, 0, 0.6);
+  border-left: 2px solid rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.nav-app__icon {
+  height: 16px;
+  width: 16px;
+  margin: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.nav-app__icon--MINESWEEPER {
+  background-image: url(/images/minesweeper-icon.png);
+}
+
+.nav-app__icon--FOLDER {
+  background-image: url(/images/folder-icon.png);
+}
+
+.nav-app__name {
+  font-family: $icon-font;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 4px;
+}
+
