@@ -1,6 +1,6 @@
 import {OPEN_APP} from '../../enums/icon-action-types';
 import {
-  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW,
+  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW, MAXIMIZE_WINDOW,
   CLOSE_WINDOW, MINIMIZE_WINDOW, SELECT_WINDOW
 } from '../../enums/window-action-types';
 
@@ -52,6 +52,14 @@ function setMinize(state, id, isMinimized) {
   };
 }
 
+function setMaximize(state, id, isMaximized) {
+  const appWindow = state[id];
+  return !appWindow ? state : {
+    ...state,
+    [id]: {...appWindow, isMaximized}
+  };
+}
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case ADD_WINDOW:
@@ -64,6 +72,8 @@ export default function(state=initialState, action) {
       return closeWindow(state, action.id);
     case MINIMIZE_WINDOW:
       return setMinize(state, action.id, true);
+    case MAXIMIZE_WINDOW:
+      return setMaximize(state, action.id, true);
     case SELECT_WINDOW:
       return setMinize(state, action.id, false);
     case OPEN_APP:

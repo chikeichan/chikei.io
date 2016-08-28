@@ -44,8 +44,8 @@ class WindowDnD extends Component {
 
   render() {
     const {
-      connectDragSource, isDragging, selectWindow,
-      defaultX, defaultY, x, y, windowId, isSelected
+      connectDragSource, isDragging, selectWindow, isMaximized,
+      defaultX, defaultY, x, y, windowId, isSelected, isMinimized
     } = this.props;
 
     return connectDragSource(
@@ -55,9 +55,12 @@ class WindowDnD extends Component {
         className={isSelected && 'window--selected'}
         style={{
           position: 'absolute',
-          top: y || defaultY,
-          left: x || defaultX,
-          opacity: isDragging ? 0 : 1
+          display: isMinimized ? 'none' : null,
+          top: isMaximized ? 0 : y || defaultY,
+          left: isMaximized ? 0 : x || defaultX,
+          opacity: isDragging ? 0 : 1,
+          height: isMaximized ? '100%' : null,
+          width: isMaximized ? '100%' : null
         }}>
         <Window {...this.props} />
       </div>
