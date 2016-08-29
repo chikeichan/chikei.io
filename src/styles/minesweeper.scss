@@ -50,6 +50,8 @@
   background-color: #1a1a1a;
   color: red;
   font-size: 40px;
+  width: 55px;
+  line-height: 0.85;
   height: 30px;
   padding: 2px;
   font-family: "Digital";
@@ -66,6 +68,14 @@
     left: 2px;
     opacity: 0.3;
     content: "888";
+  }
+
+}
+
+@media screen and (min--moz-device-pixel-ratio:0) {
+  .minesweeper-counter {
+    line-height: 0.5;
+    height: 30px;
   }
 }
 

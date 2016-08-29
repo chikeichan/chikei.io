@@ -1,26 +1,71 @@
 const icons =[
   {
-    id: 'FOLDER',
-    name: 'My Blogs'
+    id: 'TUTORIALS',
+    type: 'FOLDER',
+    name: 'Tutorials'
   },
   {
     id: 'MINESWEEPER',
+    type: 'MINESWEEPER',
     name: 'Minesweeper'
+  }
+];
+
+const blogs = [
+  {
+    id: 'HELLO_WORLD',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD1',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD2',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD3',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD4',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD5',
+    type: 'BLOG',
+    name: 'Hello World!'
+  },
+  {
+    id: 'HELLO_WORLD6',
+    type: 'BLOG',
+    name: 'Hello World!'
   }
 ];
 
 const windowsMap = {
   'MINESWEEPER': {
     id: 'MINESWEEPER',
+    type: 'MINESWEEPER',
     name: 'Minesweeper',
     buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
     actions: ['GAME', 'HELP']
   },
-  'FOLDER': {
-    id: 'FOLDER',
-    name: 'My Blogs',
+  'TUTORIALS': {
+    id: 'TUTORIALS',
+    type: 'FOLDER',
+    name: 'Tutorials',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
+    actions: ['FILE', 'EDIT', 'VIEW', 'HELP'],
+    appData: {
+      blogs: blogs
+    }
   },
 } 
 

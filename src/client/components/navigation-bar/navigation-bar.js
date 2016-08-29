@@ -20,7 +20,7 @@ class NavigationBar extends Component {
     return (
       <div className="navigation-bar--application-dock">
         {Object.keys(windows).map(appKey => {
-          const {id, name} = windows[appKey];
+          const {id, name, type} = windows[appKey];
           const className = classnames(
             'nav-app-wrapper',
             {'nav-app-wrapper--selected': Boolean(selectedWindow[id])}
@@ -30,7 +30,7 @@ class NavigationBar extends Component {
               className={className}
               onClick={() => selectWindow(id)}
               key={id}>
-              <span className={`nav-app__icon nav-app__icon--${id}`}/>
+              <span className={`nav-app__icon nav-app__icon--${type}`}/>
               <span className="nav-app__name">{name}</span>
             </div>
           );
@@ -42,10 +42,10 @@ class NavigationBar extends Component {
   render() {
     return (
       <div className="navigation-bar">
-        <button className="navigation-bar-start-button">
+        <div className="navigation-bar-start-button">
           <div className="navigation-bar-start-button__logo" />
           Start
-        </button>
+        </div>
         <div className="navigation-bar--divider" />
         {this.renderAppDocks()}
         <div className="navigation-bar--clock">10:14 PM</div>

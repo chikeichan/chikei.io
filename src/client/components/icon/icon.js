@@ -8,14 +8,17 @@ class Icon extends Component {
   };
 
   render() {
-    const {iconId, name, deselectIcon, isSelected, openApp} = this.props;
+    const {
+      iconId, name, type, color,
+      deselectIcon, isSelected, openApp
+    } = this.props;
 
     return (
       <div
         className="icon-container"
         onDoubleClick={() => openApp(iconId)}>
-        <div className={`icon-image ${ICON_TO_CLASSNAME[iconId]}`} />
-        <span className="icon-name">{name}</span>
+        <div className={`icon-image ${ICON_TO_CLASSNAME[type]}`} />
+        <span className="icon-name" style={{color}}>{name}</span>
       </div>
     );
   }

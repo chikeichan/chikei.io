@@ -41,6 +41,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: bold;
 }
 
 .icon-image {
@@ -58,4 +59,8 @@
 
 .folder--icon {
   background-image: url(../images/folder-icon.png);
+}
+
+.blog--icon {
+  background-image: url(../images/note-icon.png);
 }

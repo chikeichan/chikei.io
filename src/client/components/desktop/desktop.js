@@ -58,11 +58,12 @@ class Desktop extends Component {
     return Object.keys(icons)
       .map((iconId, i) => {
         const icon = icons[iconId];
-        const {name} = icon;
+        const {name, type} = icon;
         const pos = ICON_POS[i];
         return (
           <Icon
             key={iconId}
+            type={type}
             iconId={iconId}
             defaultX={pos.x}
             defaultY={pos.y}
@@ -76,18 +77,15 @@ class Desktop extends Component {
     return Object.keys(windows)
       .map((windowId, i) => {
         const appWindow = windows[windowId];
-        const {name, actions, buttons} = appWindow;
         const x = WINDOW_POS.startX + (i * 50);
         const y = WINDOW_POS.startY + (i * 50);
         return (
           <Application
             windowId={windowId}
             key={windowId}
-            name={name}
             defaultX={x}
             defaultY={y}
-            buttons={buttons}
-            actions={actions} />
+            {...appWindow} />
         );        
       });
   }

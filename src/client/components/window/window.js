@@ -90,13 +90,16 @@ class Window extends Component {
   }
 
   render() {
-    const {windowId, name, children, isMinimized} = this.props;
+    const {
+      windowId, name, type,
+      children, isMinimized
+    } = this.props;
 
     return isMinimized ? null : (
       <div
         className="window-container">
         <div className="window-header">
-          <span className={`window-header__icon ${ID_TO_WINDOW_ICON[windowId]}`} />
+          <span className={`window-header__icon ${ID_TO_WINDOW_ICON[type]}`} />
           <span className="window-header__name">{name}</span>
           {this.renderButtons()}
         </div>

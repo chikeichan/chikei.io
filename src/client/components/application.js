@@ -1,15 +1,17 @@
 import React, {Component, PropTypes} from 'react';
-import {MINESWEEPER} from '../enums/icon-types';
+import {MINESWEEPER, FOLDER} from '../enums/icon-types';
 import Window from '../containers/window-container/window-container';
 import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
+import Folder from '../components/folder/folder';
 
-const ID_TO_COMPONENT = {
-  [MINESWEEPER]: Minesweeper
+const TYPE_TO_COMPONENT = {
+  [MINESWEEPER]: Minesweeper,
+  [FOLDER]: Folder
 };
 
 class Application extends Component {
   render() {
-    const App = ID_TO_COMPONENT[this.props.windowId] || Window;
+    const App = TYPE_TO_COMPONENT[this.props.type] || Window;
     return <App {...this.props} />;
   }
 }

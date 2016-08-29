@@ -34,11 +34,11 @@ class MinesweeperHeader extends Component {
     return (
       <div className="minesweeper-header">
         <div className="minesweeper-counter minesweeper-counter__bombs">
-          {this.makeCounterText(bombs)}
+          <span className="minesweeper-counter--text">{this.makeCounterText(bombs)}</span>
         </div>
         <div className={className} onClick={() => restartGame()}/>
         <div className="minesweeper-counter minesweeper-counter__opened">
-          {this.makeCounterText(opened)}
+          <span className="minesweeper-counter--text">{this.makeCounterText(opened)}</span>
         </div>
       </div>
     );
