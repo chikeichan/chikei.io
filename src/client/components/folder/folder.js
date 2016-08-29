@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
-import Icon from '../icon/icon';
+import Icon from '../../containers/icon-container/blog-icon-container';
 
 class Folder extends Component {
   static propTypes = {
@@ -12,6 +12,7 @@ class Folder extends Component {
     return blogs.map(blog => (
       <Icon
         iconId={blog.id}
+        key={blog.id}
         color={'#000000'}
         {...blog} />
     ))

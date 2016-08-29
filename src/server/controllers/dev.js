@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 const icons =[
   {
     id: 'TUTORIALS',
@@ -16,48 +19,18 @@ const blogs = [
     id: 'HELLO_WORLD',
     type: 'BLOG',
     name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD1',
-    type: 'BLOG',
-    name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD2',
-    type: 'BLOG',
-    name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD3',
-    type: 'BLOG',
-    name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD4',
-    type: 'BLOG',
-    name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD5',
-    type: 'BLOG',
-    name: 'Hello World!'
-  },
-  {
-    id: 'HELLO_WORLD6',
-    type: 'BLOG',
-    name: 'Hello World!'
   }
 ];
 
 const windowsMap = {
-  'MINESWEEPER': {
+  MINESWEEPER: {
     id: 'MINESWEEPER',
     type: 'MINESWEEPER',
     name: 'Minesweeper',
     buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
     actions: ['GAME', 'HELP']
   },
-  'TUTORIALS': {
+  TUTORIALS: {
     id: 'TUTORIALS',
     type: 'FOLDER',
     name: 'Tutorials',
@@ -67,6 +40,13 @@ const windowsMap = {
       blogs: blogs
     }
   },
+  HELLO_WORLD: {
+    id: 'HELLO_WORLD',
+    type: 'BLOG',
+    name: 'Hellow World!',
+    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+    actions: ['FILE', 'VIEW', 'HELP']
+  }
 } 
 
 function layout(req, res) {
@@ -78,10 +58,26 @@ function layout(req, res) {
   setTimeout(() => res.send(fixture), 500);
 }
 
-function windows(req, res) {
+function windows(req, res, next) {
   const {windowId} = req.params;
-  const fixture = windowsMap[windowId];
-  setTimeout(() => res.send(fixture), 250);
+  const fixture = windowsMap[windowId] || {};
+
+  if (windowId === 'HELLO_WORLD') {
+    fs.readFile(`${process.cwd()}/blogs/hellow-world.md`, {encoding: "utf-8"}, (err, data) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.send({
+        ...windowsMap.HELLO_WORLD,
+        appData: {
+          markdown: data
+        }
+      });
+    });
+  } else {
+    setTimeout(() => res.send(fixture), 250);
+  }
 }
 
 export default {

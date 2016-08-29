@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import {MINESWEEPER, FOLDER} from '../enums/icon-types';
+import {MINESWEEPER, FOLDER, BLOG} from '../enums/icon-types';
 import Window from '../containers/window-container/window-container';
 import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
 import Folder from '../components/folder/folder';
+import Blog from '../components/blog/blog';
 
 const TYPE_TO_COMPONENT = {
   [MINESWEEPER]: Minesweeper,
-  [FOLDER]: Folder
+  [FOLDER]: Folder,
+  [BLOG]: Blog
 };
 
 class Application extends Component {

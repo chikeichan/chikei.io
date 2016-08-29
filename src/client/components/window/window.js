@@ -21,10 +21,10 @@ class Window extends Component {
   };
 
   static defaultProps = {
-    actions: [],
-    buttons: [],
     isMinimized: false,
-    isMaximized: false
+    isMaximized: false,
+    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+    actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
   };
 
   constructor(props) {
