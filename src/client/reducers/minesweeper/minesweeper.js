@@ -85,7 +85,7 @@ export default function(state=initialState, action) {
 
 
 // Helper Methods
-function mutateCells(state, index) {
+function mutateCells(state, index, isSpread) {
   const {isOpen, isFlag, fields, col, row} = state;
   const content = fields[index];
 
@@ -93,12 +93,14 @@ function mutateCells(state, index) {
     case isOpen[index]:
     case isFlag[index]:
       return;
-    case Boolean(content):
+    case content < 0 && isSpread:
+      return;
+    case content !== 0:
       return isOpen[index] = true;
     case !content:
       isOpen[index] = true;
-      return getSurroundIndex(index, col, row)
-        .forEach(i => mutateCells(state, i));
+      return getSurroundIndex(index, row, col)
+        .forEach(i => mutateCells(state, i, true));
     default:
       return;
   }
@@ -137,7 +139,7 @@ function createField(x, y, n) {
   };
 }
 
-function getSurroundIndex(i, numOfCols, numOfRows) {
+function getSurroundIndex(i, numOfRows, numOfCols) {
   const rightEdge = !((i + 1) % numOfCols);
   const leftEdge = !(i % numOfCols);
   const upEdge = i < numOfCols;
@@ -147,7 +149,7 @@ function getSurroundIndex(i, numOfCols, numOfRows) {
     !rightEdge ? i + 1 : null,
     !downEdge ? i + numOfRows : null,
     !rightEdge && !downEdge ? i + 1 + numOfRows : null,
-    !rightEdge && !upEdge ?i + 1 - numOfRows : null,
+    !rightEdge && !upEdge ? i + 1 - numOfRows : null,
     !leftEdge ? i - 1 : null,
     !upEdge ? i - numOfRows : null,
     !leftEdge && !upEdge ? i - 1 - numOfRows : null,

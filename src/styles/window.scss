@@ -190,11 +190,18 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   border-right: 1px solid rgba(0, 0, 0, 0.6);
   box-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+
   div {
     color: black;
     padding: 4px 20px;
     font-weight: bold;
     position: relative;
+
+    &:hover {
+      background-color: $window-header-active-color;
+      color: white;
+      font-weight: normal;
+    }
 
     &:first-letter {
       text-decoration: underline;
