@@ -42,6 +42,14 @@ class WindowDnD extends Component {
     isSelected: false
   };
 
+  onMouseDown(e) {
+    const {isSelected, selectWindow, windowId} = this.props;
+    e.stopPropagation();
+    if (!isSelected) {
+      selectWindow(windowId);
+    }
+  }
+
   render() {
     const {
       connectDragSource, isDragging, selectWindow, isMaximized,
@@ -51,7 +59,7 @@ class WindowDnD extends Component {
     return connectDragSource(
       <div
         onClick={e => e.stopPropagation()}
-        onMouseDown={() => selectWindow(windowId)}
+        onMouseDown={e => this.onMouseDown(e)}
         className={isSelected && 'window--selected'}
         style={{
           position: 'absolute',

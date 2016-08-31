@@ -1,3 +1,4 @@
+# Trio
 Trio.Renderer is the rendering library for Trio. It is designed to:
  1. Expose a set of API for creating HTML template in JavaScript
  2. Expose a patching function to efficiently diff and update DOM incrementally

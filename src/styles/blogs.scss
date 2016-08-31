@@ -1,15 +1,16 @@
-.folder-container {
-  width: 400px;
-  height: 300px;
+.blog-container {
+  width: 600px;
+  height: 400px;
   background: $window-base-color;
-  margin: 2px 4px 4px 4px;
+  margin: 4px;
+  font-family: Open Sans;
   border-top: 2px solid rgba(0, 0, 0, 0.7);
   border-left: 2px solid rgba(0, 0, 0, 0.7);
   border-bottom: 2px solid rgba(255, 255, 255, 0.7);
   border-right: 2px solid rgba(255, 255, 255, 0.7);
 }
 
-.folder-content {
+.blog-content {
   padding: 4px 8px;
   background-color: white;
   height: 100%;

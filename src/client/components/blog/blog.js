@@ -1,23 +1,24 @@
 import React, {Component, PropTypes} from 'react';
-import marked from 'marked';
 import Window from '../../containers/window-container/window-container';
-
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true
-});
+import ActionBar from '../window/window-action-bar';
+import Markdown from '../markdown/markdown';
 
 class Folder extends Component {
   static propTypes = {
     appData: PropTypes.object.isRequired
   };
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.appData.markdown !== nextProps.markdown;
+  }
+
   render() {
     return (
       <Window {...this.props}>
+        <ActionBar actions={this.props.actions} />
         <div className="blog-container">
           <div className="blog-content">
-            <div dangerouslySetInnerHTML={{__html: marked(this.props.appData.markdown)}} />
+            <Markdown markdown={this.props.appData.markdown} />
           </div>
         </div>
       </Window>

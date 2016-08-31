@@ -10,8 +10,8 @@ const ICON_POS = [
 ];
 
 const WINDOW_POS = {
-  startX: window ? window.innerWidth/4 : 100,
-  startY: window ? window.innerHeight/4 : 100
+  startX: window ? window.innerWidth/8 : 25,
+  startY: window ? window.innerHeight/8 : 25
 };
 
 class Desktop extends Component {

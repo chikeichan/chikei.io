@@ -12,7 +12,7 @@ const initialState = {
 function selectIcon(state, iconId) {
   return {
     ...state,
-    selectedWindow: {},
+    // selectedWindow: {},
     selectedIcon: {[iconId]: true}
   };
 }

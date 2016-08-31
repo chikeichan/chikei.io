@@ -36,6 +36,12 @@
   background-position: center center;
   background-image: url(/images/smiley.png);
   cursor: pointer;
+  &:active {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
+    border-left: 2px solid rgba(0, 0, 0, 0.5);
+  }
 }
 
 .minesweeper-status__win {

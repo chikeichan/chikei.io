@@ -42,6 +42,7 @@ body {
 ::-webkit-scrollbar {
   background-color: #DDD;
   width: 20px;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar-button {
@@ -84,29 +85,12 @@ body {
   background-color: $window-base-color;
 }
 
+@import './highlight.scss';
+@import './markdown-air.scss';
 @import './icons.scss';
 @import './desktop.scss';
 @import './navigation.scss';
 @import './window.scss';
 @import './minesweeper.scss';
 @import './folders.scss';
-
-.blog-container {
-  width: 400px;
-  height: 300px;
-  background: $window-base-color;
-  margin: 4px;
-  font-family: monospace;
-  border-top: 2px solid rgba(0, 0, 0, 0.7);
-  border-left: 2px solid rgba(0, 0, 0, 0.7);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-  border-right: 2px solid rgba(255, 255, 255, 0.7);
-}
-
-.blog-content {
-  padding: 4px 8px;
-  background-color: white;
-  height: inherit;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+@import './blogs.scss';

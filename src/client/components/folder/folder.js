@@ -1,10 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
+import ActionBar from '../window/window-action-bar';
 import Icon from '../../containers/icon-container/blog-icon-container';
+
 
 class Folder extends Component {
   static propTypes = {
-    appData: PropTypes.object.isRequired
+    appData: PropTypes.object.isRequired,
+    actions: PropTypes.array.isRequired
   };
 
   renderIcons() {
@@ -21,6 +24,7 @@ class Folder extends Component {
   render() {
     return (
       <Window {...this.props}>
+        <ActionBar actions={this.props.actions} />
         <div className="folder-container">
           <div className="folder-content">
             {this.renderIcons()}
