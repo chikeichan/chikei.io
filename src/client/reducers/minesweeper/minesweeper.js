@@ -13,6 +13,7 @@ const initialState = {
   col: 0,
   row: 0,
   bombs: 0,
+  totalOpen: 0,
   fields: [],
   isOpen: [],
   isFlag: [],
@@ -21,42 +22,53 @@ const initialState = {
 };
 
 function clickCell(state, index) {
-  const {isFlag, col, row, bombs, fields} = state;
+  const {isFlag, isOpen, col, row, bombs, fields} = state;
+  const r = Math.floor(index / col);
+  const c = index % col;
 
-  if (isFlag[index]) {
+  if (isFlag[r][c] || isOpen[r][c]) {
     return state;
   }
-
-  mutateCells(state, index);
+  
+  mutateCells(state, r, c);  
 
   const mutatedIsOpen = state.isOpen;
-  const openedCounter = mutatedIsOpen.reduce((sum, n) => n ? sum + 1 : sum, 0);
+  const openedCounter = mutatedIsOpen
+    .reduce((sum, row) => {
+      return row.reduce((rowSum, opened) => {
+        return opened ? rowSum + 1: rowSum;
+      }, sum);
+    }, 0);
   const hasWon = openedCounter === col * row - bombs;
-  const hasLost = mutatedIsOpen.reduce((acc, n, i) => {
-    return acc || (n ? fields[i] < 0 : acc);
-  }, false);
+  const hasLost = fields[r][c] < 0;
 
   return {
     ...state,
     lastClicked: index,
     status: hasWon ? WIN : hasLost ? LOSE : PENDING,
-    isOpen: [...mutatedIsOpen]
+    totalOpen: openedCounter,
+    isOpen: mutatedIsOpen
+      .map(row => row.map(cell => cell))
   };
 }
 
+function openCell(isOpen, r, c) {
+  isOpen[r] = isOpen[r].map((n, i) => i === c ? true : n);
+  return isOpen;
+}
 
 function toggleFlag(state, index) {
-  const {isFlag, isOpen} = state;
-  const flagged = isFlag[index];
+  const {isFlag, isOpen, col} = state;
+  const r = Math.floor(index / col);
+  const c = index % col;
+  const flagged = isFlag[r][c];
 
-  if (isOpen[index]) {
+  if (isOpen[r][c]) {
     return state;
   }
 
-  return {
-    ...state,
-    isFlag: isFlag.map((n, i) => i === index ? !flagged : n)
-  };
+  isFlag[r] = isFlag[r].map((n, i) => i === c ? !flagged : n);
+  return {...state, isFlag};
 }
 
 function closeApp(state, id) {
@@ -69,9 +81,9 @@ function closeApp(state, id) {
 export default function(state=initialState, action) {
   switch(action.type) {
     case START_GAME:
-      return createField(action.col, action.row, action.bombs);
+      return initializeGame(action.row, action.col, action.bombs);
     case RESTART_GAME:
-      return createField(state.col, state.row, state.bombs);
+      return initializeGame(state.row, state.col, state.bombs);
     case CLICK_CELL:
       return clickCell(state, action.index);
     case TOGGLE_FLAG:
@@ -85,74 +97,98 @@ export default function(state=initialState, action) {
 
 
 // Helper Methods
-function mutateCells(state, index, isSpread) {
-  const {isOpen, isFlag, fields, col, row} = state;
-  const content = fields[index];
+function mutateCells(state, r, c, isSpread) {
+  const {isOpen, isFlag, fields} = state;
+  const content = fields[r] && fields[r][c];
+
+  if (typeof content === 'undefined') {
+    return ;
+  }
 
   switch(true) {
-    case isOpen[index]:
-    case isFlag[index]:
+    case isOpen[r][c]:
+    case isFlag[r][c]:
       return;
     case content < 0 && isSpread:
       return;
     case content !== 0:
-      return isOpen[index] = true;
-    case !content:
-      isOpen[index] = true;
-      return getSurroundIndex(index, row, col)
-        .forEach(i => mutateCells(state, i, true));
+      isOpen[r][c] = true;
+      return;
+    case content === 0:
+      isOpen[r][c] = true;
+      forEachSurrounding(r, c, (i, j) => mutateCells(state, i, j, true));
+      return;
     default:
       return;
   }
 }
 
-function createField(x, y, n) {
+function initializeGame(row, col, n) {
   const mines = Array(n).fill(-1);
-  const empties = Array(x * y - n).fill(0);
+  const empties = Array(row * col - n).fill(0);
   const field = [...mines, ...empties];
 
   const shuffled = field
     .reduce((newField, n, i) => {
-      var rand = Math.floor(Math.random() * x * y);
+      var rand = Math.floor(Math.random() * row * col);
       var tmp = newField[i];
       newField[i] = newField[rand];
       newField[rand] = tmp;
       return newField;
     }, field);
 
-  const finished = shuffled
-    .map((cell, i) => {
-      return cell < 0 ? -1 : 
-        getSurroundIndex(i, x, y)
-          .map(index => shuffled[index])
-          .reduce((sum, n) => n < 0 ? sum + 1 : sum, 0);
-    });
+  const raw = makeFields(row, col, shuffled)
+  const finished = raw
+    .map((row, i) => {
+      return row.map((cell, j) => {
+        let count = 0;
+
+        if (cell < 0) {
+          return cell;
+        }
+
+        forEachSurrounding(i, j, (r, c) => {
+          const val = raw[r] && raw[r][c];
+          if (val < 0) {
+            count++
+          }
+        });
+
+        return count;
+      });
+    })
+
 
   return {
-    col: x,
-    row: y,
+    row, col,
     bombs: n,
+    totalOpen: 0,
     fields: finished,
-    isOpen: Array(x * y).fill(false),
-    isFlag: Array(x * y).fill(false),
+    isOpen: makeFields(row, col, false),
+    isFlag: makeFields(row, col, false),
     status: STATUS.PENDING
   };
 }
 
-function getSurroundIndex(i, numOfRows, numOfCols) {
-  const rightEdge = !((i + 1) % numOfCols);
-  const leftEdge = !(i % numOfCols);
-  const upEdge = i < numOfCols;
-  const downEdge = i >= numOfCols * (numOfRows - 1);
+function makeFields(row, col, val) {
+  return Array(row)
+    .fill('')
+    .map((n, i) => {
+      return Array(col)
+        .fill('')
+        .map((m, j) => typeof val === 'object' ? val[i * col + j] : val)
+    });
+}
 
+function forEachSurrounding(r, c, cb) {
   return [
-    !rightEdge ? i + 1 : null,
-    !downEdge ? i + numOfRows : null,
-    !rightEdge && !downEdge ? i + 1 + numOfRows : null,
-    !rightEdge && !upEdge ? i + 1 - numOfRows : null,
-    !leftEdge ? i - 1 : null,
-    !upEdge ? i - numOfRows : null,
-    !leftEdge && !upEdge ? i - 1 - numOfRows : null,
-    !leftEdge && !downEdge ? i - 1 + numOfRows : null
-  ].filter(v => typeof v === 'number');
+    [r - 1, c],
+    [r - 1, c - 1],
+    [r - 1, c + 1],
+    [r, c - 1],
+    [r, c + 1],
+    [r + 1, c],
+    [r + 1, c - 1],
+    [r + 1, c + 1]
+  ].forEach(tup => cb(tup[0], tup[1]));
 }

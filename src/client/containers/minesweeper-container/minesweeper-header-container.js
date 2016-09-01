@@ -3,13 +3,16 @@ import {restartGame} from '../../actions/minesweeper/minesweeper';
 import Header from '../../components/minesweeper/minesweeper-header';
 
 const mapStateToProps = (state, ownProps) => {
-  const {isOpen, isFlag, bombs, status} = state.minesweeper;
-  const bombsCounter = bombs - isFlag.reduce((sum, n) => n ? sum + 1 : sum, 0);
-  const openedCounter = isOpen.reduce((sum, n) => n ? sum + 1 : sum, 0);
+  const {isOpen, isFlag, bombs, status, totalOpen} = state.minesweeper;
+  const bombsCounter = bombs - isFlag.reduce((sum, row) => {
+      return row.reduce((rowSum, flagged) => {
+        return flagged ? rowSum + 1: rowSum;
+      }, sum);
+    }, 0);;
 
   return {
     bombs: Math.max(0, bombsCounter),
-    opened: openedCounter,
+    opened: totalOpen,
     status
   };
 }

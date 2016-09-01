@@ -9,7 +9,7 @@ import {GAME, HELP} from '../../enums/window-element-types';
 const LEVEL = {
   BEGINNER: [10, 10, 15],
   INTERMEDIATE: [16, 16, 40],
-  EXPERT: [33, 20, 99]
+  EXPERT: [20, 33, 99]
 };
 const {BEGINNER, INTERMEDIATE, EXPERT} = LEVEL;
 
@@ -19,6 +19,10 @@ class Minesweeper extends Component {
     row: PropTypes.number.isRequired,
     col: PropTypes.number.isRequired,
     fields: PropTypes.array.isRequired
+  };
+
+  static defaultProps = {
+    fields: []
   };
 
   constructor(props) {
@@ -32,27 +36,29 @@ class Minesweeper extends Component {
   }
 
   componentDidMount() {
-    this.props.startGame(20, 10, 15);
+    this.props.startGame.apply(this, BEGINNER);
   }
 
   renderRows() {
-    const {row} = this.props;
-    return row && Array(row)
-      .fill()
-      .map((n, i) => (
+    const {fields} = this.props;
+    return fields
+      .map((row, i) => (
         <div
-          key={i}
+          key={`row-${i}`}
           className="minesweeper-row">
-          {this.renderColumns(i)}
+          {this.renderRow(row, i)}
         </div>
       ));
   }
 
-  renderColumns(i) {
-    const {col, fields} = this.props;
-    return col && Array(col)
-      .fill(0)
-      .map((m, j) => <Cell key={i * col + j} id={i * col + j} />);
+  renderRow(row, i) {
+    const {col} = this.props;
+    return row
+      .map((cell, j) => (
+        <Cell
+          key={`cell-${j}__${i}`}
+          id={i * col + j} />
+      ));
   }
 
   getCurrentLevel() {
@@ -118,6 +124,7 @@ class Minesweeper extends Component {
   }
 
   render() {
+    const {fields} = this.props;
     return (
       <Window {...this.props}>
         <ActionBar actions={this.mapMenuToActions(this.props.actions)} />
