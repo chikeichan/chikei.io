@@ -1,0 +1,21 @@
+.blog-container {
+  width: 600px;
+  height: 400px;
+  background: $window-base-color;
+  margin: 4px;
+  font-family: Open Sans;
+  border-top: 2px solid rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.7);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.blog-content {
+  padding: 4px 8px;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}

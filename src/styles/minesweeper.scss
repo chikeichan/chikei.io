@@ -36,6 +36,12 @@
   background-position: center center;
   background-image: url(/images/smiley.png);
   cursor: pointer;
+  &:active {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
+    border-left: 2px solid rgba(0, 0, 0, 0.5);
+  }
 }
 
 .minesweeper-status__win {
@@ -50,6 +56,8 @@
   background-color: #1a1a1a;
   color: red;
   font-size: 40px;
+  width: 55px;
+  line-height: 0.85;
   height: 30px;
   padding: 2px;
   font-family: "Digital";
@@ -66,6 +74,14 @@
     left: 2px;
     opacity: 0.3;
     content: "888";
+  }
+
+}
+
+@media screen and (min--moz-device-pixel-ratio:0) {
+  .minesweeper-counter {
+    line-height: 0.5;
+    height: 30px;
   }
 }
 
@@ -107,8 +123,20 @@
   background-image: url(/images/flag.png);
 }
 
+.minesweeper-cell__defused {
+  background-image: url(/images/minesweeper-icon.png);
+}
+
+.minesweeper-cell__defused--incorrect {
+  background-color: red;
+}
+
 .minesweeper-cell__bombed {
   background-image: url(/images/minesweeper-icon.png);
+}
+
+.minesweeper-cell__gameover {
+  background-color: red;
 }
 
 .minesweeper-row {

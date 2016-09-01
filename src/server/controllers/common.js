@@ -7,7 +7,7 @@ function index(req, res) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Hello World</title>
-        <link href="https://fonts.googleapis.com/css?family=Lekton" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lekton|Open+Sans" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"  href="./styles/bundle.css" />
       </head>
       <body>

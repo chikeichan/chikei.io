@@ -1,5 +1,8 @@
 import {SELECT_ICON, DESELECT_ICONS, OPEN_APP} from '../../enums/icon-action-types';
-import {SELECT_WINDOW, DESELECT_WINDOWS} from '../../enums/window-action-types';
+import {
+  SELECT_WINDOW, DESELECT_WINDOWS, CLOSE_WINDOW,
+  MINIMIZE_WINDOW
+} from '../../enums/window-action-types';
 
 const initialState = {
   selectedIcon: {},
@@ -9,7 +12,7 @@ const initialState = {
 function selectIcon(state, iconId) {
   return {
     ...state,
-    selectedWindow: {},
+    // selectedWindow: {},
     selectedIcon: {[iconId]: true}
   };
 }
@@ -30,6 +33,14 @@ function selectWindow(state, windowId) {
   }
 }
 
+function closeWindow(state, id) {
+  return {
+    ...state,
+    selectedIcon: {},
+    selectedWindow: {}
+  };
+}
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case SELECT_ICON:
@@ -38,6 +49,10 @@ export default function(state=initialState, action) {
       return deselectIcons(state);
     case SELECT_WINDOW:
       return selectWindow(state, action.id);
+    case CLOSE_WINDOW:
+      return closeWindow(state, action.id);
+    case MINIMIZE_WINDOW:
+      return closeWindow(state, action.id);
     case OPEN_APP:
       return selectWindow(state, action.window.id);
     default:

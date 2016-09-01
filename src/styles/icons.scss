@@ -10,7 +10,7 @@
   .icon-name {
     background-color: $icon-active-color;
     border: 1px dotted $icon-dotted-color;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9) !important;
   }
 
   .icon-image {
@@ -41,6 +41,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: bold;
 }
 
 .icon-image {
@@ -58,4 +59,8 @@
 
 .folder--icon {
   background-image: url(../images/folder-icon.png);
+}
+
+.blog--icon {
+  background-image: url(../images/note-icon.png);
 }

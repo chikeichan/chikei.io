@@ -10,40 +10,42 @@ const ICON_POS = [
 ];
 
 const WINDOW_POS = {
-  startX: window ? window.innerWidth/4 : 100,
-  startY: window ? window.innerHeight/4 : 100
+  startX: window ? window.innerWidth/8 : 25,
+  startY: window ? window.innerHeight/8 : 25
 };
 
 class Desktop extends Component {
   static propTypes = {
     bootstrap: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired,
     icons: PropTypes.object,
-    windows: PropTypes.object
+    windows: PropTypes.object,
+    system: PropTypes.object,
   };
 
   static defaultProps = {
     icons: {},
-    windows: {}
+    windows: {},
+    system: {}
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true
-    };
     this.startUp = this.startUp.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (Object.keys(this.props.icons).join('-') !== Object.keys(nextProps.icons).join('-')) ||
-      (Object.keys(this.props.windows).join('-') !== Object.keys(nextProps.windows).join('-')) ||
-      (this.state.isLoading !== nextState.isLoading);
+    const {icons, windows, system} = this.props;
+    return (Object.keys(icons).join('-') !== Object.keys(nextProps.icons).join('-')) ||
+      (Object.keys(windows).join('-') !== Object.keys(nextProps.windows).join('-')) ||
+      system.isLoading !== nextProps.system.isLoading;
   }
 
   componentWillMount() {
     this.startUp();
+    this.props.setLoading(true);
     this.props.bootstrap()
-      .then(() => this.setState({isLoading: false}));
+      .then(() => this.props.setLoading(false));
   }
 
   startUp() {
@@ -56,11 +58,12 @@ class Desktop extends Component {
     return Object.keys(icons)
       .map((iconId, i) => {
         const icon = icons[iconId];
-        const {name} = icon;
+        const {name, type} = icon;
         const pos = ICON_POS[i];
         return (
           <Icon
             key={iconId}
+            type={type}
             iconId={iconId}
             defaultX={pos.x}
             defaultY={pos.y}
@@ -74,27 +77,20 @@ class Desktop extends Component {
     return Object.keys(windows)
       .map((windowId, i) => {
         const appWindow = windows[windowId];
-        const {name, actions, buttons} = appWindow;
         const x = WINDOW_POS.startX + (i * 50);
         const y = WINDOW_POS.startY + (i * 50);
         return (
           <Application
             windowId={windowId}
             key={windowId}
-            name={name}
             defaultX={x}
             defaultY={y}
-            buttons={buttons}
-            actions={actions} />
+            {...appWindow} />
         );        
       });
   }
 
   render() {
-    if (this.state.isLoading) {
-      return null;
-    }
-
     return (
       <div>
         {this.renderIcons()}

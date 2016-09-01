@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import {STATUS} from '../../enums/minesweeper-action-types';
+const {WIN, LOSE, PENDING} = STATUS;
 
 class MinesweeperHeader extends Component {
   static propTypes = {
     bombs: PropTypes.number.isRequired,
     opened: PropTypes.number.isRequired,
-    status: PropTypes.number.isRequired,
-    startGame: PropTypes.func.isRequired
+    status: PropTypes.string.isRequired,
+    restartGame: PropTypes.func.isRequired
   };
 
   makeCounterText(number) {
@@ -21,22 +23,22 @@ class MinesweeperHeader extends Component {
   }
 
   render() {
-    const {bombs, opened, status, startGame} = this.props;
+    const {bombs, opened, status, restartGame} = this.props;
     const className = classnames(
       'minesweeper-status',
       {
-        'minesweeper-status__win': status === 1,
-        'minesweeper-status__lose': status === -1
+        'minesweeper-status__win': status === WIN,
+        'minesweeper-status__lose': status === LOSE
       }
     );
     return (
       <div className="minesweeper-header">
         <div className="minesweeper-counter minesweeper-counter__bombs">
-          {this.makeCounterText(bombs)}
+          <span className="minesweeper-counter--text">{this.makeCounterText(bombs)}</span>
         </div>
-        <div className={className} onClick={() => startGame(15, 15, 45)}/>
+        <div className={className} onClick={() => restartGame()}/>
         <div className="minesweeper-counter minesweeper-counter__opened">
-          {this.makeCounterText(opened)}
+          <span className="minesweeper-counter--text">{this.makeCounterText(opened)}</span>
         </div>
       </div>
     );

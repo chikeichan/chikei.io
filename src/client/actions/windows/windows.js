@@ -1,6 +1,6 @@
 import {
-  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW,
-  SELECT_WINDOW, DESELECT_WINDOWS
+  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW, MINIMIZE_WINDOW,
+  SELECT_WINDOW, DESELECT_WINDOWS, CLOSE_WINDOW, MAXIMIZE_WINDOW
 } from '../../enums/window-action-types';
 
 export const addWindow = appWindow => {
@@ -34,5 +34,26 @@ export const selectWindow = id => {
 export const deselectWindows = () => {
   return {
     type: DESELECT_WINDOWS
+  };
+}
+
+export const closeWindow = id => {
+  return {
+    type: CLOSE_WINDOW,
+    id
+  };
+}
+
+export const minimizeWindow = id => {
+  return {
+    type: MINIMIZE_WINDOW,
+    id
+  };
+}
+
+export const maximizeWindow = id => {
+  return {
+    type: MAXIMIZE_WINDOW,
+    id
   };
 }

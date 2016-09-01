@@ -3,6 +3,8 @@ import {
   SELECT_ICON, DESELECT_ICONS, OPEN_APP
 } from '../../enums/icon-action-types';
 
+import {setLoading} from '../system/system';
+
 export const addIcon = icon => {
   return {
     type: ADD_ICON,
@@ -40,9 +42,11 @@ export const deselectIcons = () => {
 export const openApp = id => {
   const req = new Request(`/windows/${id}`);
   return dispatch => {
+    dispatch(setLoading(true));
     return fetch(req, {method: 'GET'})
       .then(res => res.json())
       .then(json => {
+        dispatch(setLoading(false));
         dispatch({
           type: OPEN_APP,
           window: json

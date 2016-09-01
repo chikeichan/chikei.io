@@ -3,13 +3,19 @@ import {clickCell, toggleFlag, powerClickCell} from '../../actions/minesweeper/m
 import Cell from '../../components/minesweeper/minesweeper-cell';
 
 const mapStateToProps = (state, ownProps) => {
-  const {isOpen, isFlag, fields} = state.minesweeper;
+  const {isOpen, isFlag, fields, lastClicked, status, row, col} = state.minesweeper;
   const {id} = ownProps;
-  return {
-    isOpen: isOpen[id],
-    isFlag: isFlag[id],
-    content: fields[id]
-  };
+
+  const r = Math.floor(id / col);
+  const c = id % col;
+
+  return fields.length ? {
+    isOpen: isOpen[r][c],
+    isFlag: isFlag[r][c],
+    content: fields[r][c],
+    lastClicked: lastClicked === id,
+    status
+  } : {};
 }
 
 const mapDispatchToProps = dispatch => {

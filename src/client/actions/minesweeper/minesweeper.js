@@ -1,12 +1,18 @@
 import {
-  START_GAME, CLICK_CELL,
+  START_GAME, RESTART_GAME, CLICK_CELL,
   POWER_CLICK_CELL, TOGGLE_FLAG
 } from '../../enums/minesweeper-action-types';
 
-export const startGame = (col, row, bombs) => {
+export const startGame = (row, col, bombs) => {
   return {
     type: START_GAME,
     col, row, bombs
+  };
+};
+
+export const restartGame = () => {
+  return {
+    type: RESTART_GAME
   };
 };
 
