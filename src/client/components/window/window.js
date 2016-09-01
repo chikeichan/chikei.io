@@ -22,6 +22,10 @@ class Window extends Component {
     actions: ['FILE', 'EDIT', 'VIEW', 'HELP']
   };
 
+  static childContextTypes = {
+    closeWindow: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
     this.closeWindow = this.closeWindow.bind(this);
@@ -32,9 +36,15 @@ class Window extends Component {
     };
   }
 
+  getChildContext() {
+    return {
+      closeWindow: this.closeWindow
+    };
+  }
+
   closeWindow(e) {
     const {closeWindow, windowId} = this.props;
-    e.stopPropagation();
+    e && e.stopPropagation();
     closeWindow(windowId);
   }
 

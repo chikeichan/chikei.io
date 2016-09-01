@@ -54,3 +54,19 @@ export const openApp = id => {
       });
   };
 }
+
+export const openBlog = id => {
+  const req = new Request(`/tutorials/${id}`);
+  return dispatch => {
+    dispatch(setLoading(true));
+    return fetch(req, {method: 'GET'})
+      .then(res => res.json())
+      .then(json => {
+        dispatch(setLoading(false));
+        dispatch({
+          type: OPEN_APP,
+          window: json
+        });
+      });
+  };
+}
