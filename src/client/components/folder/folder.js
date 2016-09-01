@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
-import ActionBar from '../window/window-action-bar';
 import Icon from '../../containers/icon-container/blog-icon-container';
-
+import ActionBar from './folder-action-bar';
 
 class Folder extends Component {
   static propTypes = {

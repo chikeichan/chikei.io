@@ -35,7 +35,7 @@ const windowsMap = {
     type: 'FOLDER',
     name: 'Tutorials',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['VIEW', 'HELP'],
+    actions: ['FILE', 'VIEW', 'HELP'],
     appData: {
       blogs: blogs
     }
@@ -45,7 +45,7 @@ const windowsMap = {
     type: 'BLOG',
     name: 'Hello World!',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['VIEW', 'HELP']
+    actions: ['FILE', 'VIEW', 'HELP']
   }
 } 
 

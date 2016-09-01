@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {selectIcon, openApp} from '../../actions/icons/icons';
+import {selectIcon, openBlog} from '../../actions/icons/icons';
 import Icon from '../../components/icon/icon';
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     selectIcon: id => dispatch(selectIcon(id)),
-    openApp: id=> dispatch(openApp(id))
+    openApp: id => dispatch(openBlog(id))
   }
 }
 

@@ -12,6 +12,15 @@ class WindowActionBar extends Component {
     this.state = {
       selectedAction: null
     };
+    this.cancelAction = this.cancelAction.bind(this);
+  }
+
+  cancelAction() {
+    this.setState({selectedAction: null});
+  }
+
+  componentWillReceiveProps() {
+    this.cancelAction();
   }
 
   render() {
@@ -32,7 +41,7 @@ class WindowActionBar extends Component {
               isSelected={this.state.selectedAction === action}
               isActive={Boolean(this.state.selectedAction)}
               selectAction={() => this.setState({selectedAction: action})}
-              cancelAction={() => this.setState({selectedAction: null})} />
+              cancelAction={this.cancelAction} />
           );
         })}
       </div>

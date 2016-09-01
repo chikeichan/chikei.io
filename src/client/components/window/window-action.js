@@ -29,7 +29,10 @@ class WindowAction extends Component {
   }
 
   render() {
-    const {action, isSelected, selectAction, cancelAction, isActive, menu} = this.props;
+    const {
+      action, isSelected, selectAction,
+      cancelAction, isActive, menu
+    } = this.props;
     const className = classnames(
       'window-action-bar__action',
       {'window-action-bar__action--selected': isSelected}

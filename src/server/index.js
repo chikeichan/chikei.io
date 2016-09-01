@@ -13,8 +13,8 @@ app.use(express.static('src/assets'));
 
 commonRoutes(app);
 
-if (NODE_ENV === 'development') {
-  devRoutes(app);
-}
+// if (NODE_ENV === 'development') {
+//   devRoutes(app);
+// }
 
 app.listen(8000, () => console.log('Listening on Port 8000...'));

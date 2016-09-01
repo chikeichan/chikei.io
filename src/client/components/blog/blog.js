@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
-import ActionBar from '../window/window-action-bar';
+import ActionBar from './blog-action-bar';
 import Markdown from '../markdown/markdown';
 
 class Folder extends Component {
