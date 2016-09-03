@@ -2,7 +2,7 @@
   "name": "chikei.io",
   "version": "1.0.0",
   "description": "",
-  "main": "public/server/bundle.js",
+  "main": "public/server/index.js",
   "eslintConfig": {
     "env": {
       "browser": true,
@@ -10,32 +10,14 @@
     }
   },
   "scripts": {
-    "pretest": "npm run compile",
-    "test-client": "./node_modules/.bin/tape public/test/client-test.js",
-    "test-server": "./node_modules/.bin/tape public/test/server-test.js",
-    "test": "npm run test-client | ./node_modules/.bin/tap-spec && npm run test-server | ./node_modules/.bin/tap-spec",
-    "clean": "rm -rf ./public",
-    "compile": "./node_modules/.bin/webpack",
-    "build": "npm run compile && node public/server/bundle.js",
-    "style": "npm run compile-style",
-    "compile-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css",
-    "poststyle": "node ./autoprefix.js",
-    "watch-style": "./node_modules/.bin/node-sass ./src/styles/index.scss ./public/styles/bundle.css -w",
-    "watch-compile": "./node_modules/.bin/webpack --color --progress --watch",
-    "watch-server": "./node_modules/.bin/nodemon public/server/bundle.js",
-    "prewatch-all": "npm run clean && npm run style && npm run compile",
-    "watch-all": "npm run watch-style & npm run watch-compile & npm run watch-server",
-    "watch": "NODE_ENV=development npm run watch-all"
+    "build": "NODE_ENV=development ./node_modules/.bin/gulp build",
+    "watch": "NODE_ENV=development ./node_modules/.bin/gulp watch"
   },
   "author": "Chi Kei Chan",
   "license": "ISC",
   "dependencies": {
-    "babel-polyfill": "^6.6.1",
-    "babel-preset-stage-2": "^6.13.0",
-    "babel-runtime": "^6.6.1",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
-    "highlight": "^0.2.4",
     "highlight.js": "^9.6.0",
     "marked": "^0.3.6",
     "pure-render-decorator": "^1.1.1",
@@ -46,11 +28,10 @@
     "react-redux": "^4.4.0",
     "redux": "^3.3.1",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^1.0.3",
-    "whatwg-fetch": "^1.0.0"
+    "redux-thunk": "^1.0.3"
   },
   "devDependencies": {
-    "autoprefixer": "^6.4.0",
+    "whatwg-fetch": "^1.0.0",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.6.4",
     "babel-eslint": "^6.1.2",
@@ -58,14 +39,24 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.13.0",
+    "babel-runtime": "^6.6.1",
+    "babel-polyfill": "^6.6.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
     "eslint": "^3.3.0",
-    "json-loader": "^0.5.4",
-    "ncp": "^2.0.0",
-    "node-sass": "^3.8.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-nodemon": "^2.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.9",
     "nodemon": "^1.10.0",
-    "postcss-cli": "^2.5.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
-    "webpack": "^1.12.14"
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

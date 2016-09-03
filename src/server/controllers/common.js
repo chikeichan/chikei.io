@@ -8,11 +8,11 @@ function index(req, res) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Hello World</title>
         <link href="https://fonts.googleapis.com/css?family=Lekton|Open+Sans" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css"  href="./styles/bundle.css" />
+        <link rel="stylesheet" type="text/css"  href="./styles/index.css" />
       </head>
       <body>
         <div id="root" />
-        <script src="./client/bundle.js" />
+        <script src="./client/index.js" />
       </body>
     </html>
   );
