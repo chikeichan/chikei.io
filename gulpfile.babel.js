@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import gulp from 'gulp';
 import browserify from 'browserify';
 import babelify from 'babelify';
+import watchify from 'watchify';
 import sourcemaps from 'gulp-sourcemaps';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
@@ -18,21 +19,32 @@ const clientConfig = {
   debug: true,
   output: 'index.js',
   loadMaps: true,
-  dest: './public/client'
+  dest: './public/client',
+  plugin: 'livereactload'
 };
 
 function compile(opts) {
-  const {src, debug, output, dest, loadMaps, watch, node} = opts;
-  const bundler = browserify(src, {debug, node}).transform(babelify);
+  const {src, debug, output, dest, loadMaps, watch, node, plugin} = opts;
+  const bundler = watchify(browserify(src, {debug, node, plugin}).transform(babelify));
 
-  bundler.bundle()
-    .on('error', err => console.error(err))
-    .pipe(source(output))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps}))
-    .pipe(sourcemaps.write('./'))
-    .pipe(clean({force: true}))
-    .pipe(gulp.dest(dest));
+  function rebundle() {
+    bundler.bundle()
+      .on('error', err => console.error(err))
+      .pipe(source(output))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps}))
+      .pipe(sourcemaps.write('./'))
+      .pipe(clean({force: true}))
+      .pipe(gulp.dest(dest));
+  }
+
+  if (watch) {
+    bundler.on('update', function() {
+      rebundle();
+    });
+  }
+
+  rebundle();
 }
 
 // Build Tasks
@@ -53,7 +65,7 @@ gulp.task('build:style', function () {
 gulp.task('build', ['build:client', 'build:server', 'build:style']);
 
 // Watch Tasks
-gulp.task('watch:client', () => gulp.watch('src/client/**/*.js', ['build:client']));
+gulp.task('watch:client', () => compile({...clientConfig, watch: true}));
 gulp.task('watch:server', () => gulp.watch('src/server/**/*.js', ['build:server']));
 gulp.task('watch:style', () => gulp.watch('src/styles/**/*.scss', ['build:style']));
 gulp.task('watch:all', ['watch:client', 'watch:server', 'watch:style']);
