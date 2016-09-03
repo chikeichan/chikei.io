@@ -13,6 +13,9 @@ import babel from 'gulp-babel';
 import watch from 'gulp-watch';
 import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
+import browserSync from 'browser-sync';
+
+const reload = browserSync.reload;
 
 const clientConfig = {
   src: './src/client/index.js',
@@ -20,12 +23,19 @@ const clientConfig = {
   output: 'index.js',
   loadMaps: true,
   dest: './public/client',
-  plugin: 'livereactload'
+  ignoreWatch: [' ./node_modules']
 };
 
 function compile(opts) {
-  const {src, debug, output, dest, loadMaps, watch, node, plugin} = opts;
-  const bundler = watchify(browserify(src, {debug, node, plugin}).transform(babelify));
+  const {
+    src, debug, output, dest, ignoreWatch,
+    loadMaps, watch, node, plugin
+  } = opts;
+  const bundler = watchify(
+    browserify(src, {
+      debug, node, plugin, ignoreWatch
+    }).transform(babelify)
+  );
 
   function rebundle() {
     bundler.bundle()
@@ -65,9 +75,44 @@ gulp.task('build:style', function () {
 gulp.task('build', ['build:client', 'build:server', 'build:style']);
 
 // Watch Tasks
-gulp.task('watch:client', () => compile({...clientConfig, watch: true}));
+gulp.task('watch:client', () => compile({
+  ...clientConfig,
+  watch: true,
+  plugin: 'livereactload'
+}));
+
+// watch Sass files for changes, run the Sass preprocessor with the 'sass' task and reload
+gulp.task('reload:style', () => {
+  return gulp.src('src/styles/index.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write())
+    .pipe(autoprefixer())
+    .pipe(gulp.dest('./public/styles'))
+    .pipe(reload({stream:true}))
+});
+
 gulp.task('watch:server', () => gulp.watch('src/server/**/*.js', ['build:server']));
-gulp.task('watch:style', () => gulp.watch('src/styles/**/*.scss', ['build:style']));
+gulp.task('watch:style', () => gulp.watch('src/styles/**/*.scss', ['reload:style']));
 gulp.task('watch:all', ['watch:client', 'watch:server', 'watch:style']);
-gulp.task('watch', ['watch:all'], () => nodemon({script: 'public/server/index.js'}));
+
+gulp.task('nodemon', ['watch:all'], (cb) => {
+  let started = false;
+  return nodemon({script: 'public/server/index.js'})
+    .on('start', function () {
+      if (!started) {
+        cb();
+        started = true; 
+      } 
+    });
+});
+
+gulp.task('watch', ['nodemon'], () => {
+  browserSync.init(null, {
+    proxy: "http://localhost:8000",
+    browser: "google chrome",
+    port: 8001,
+  });
+});
+
 gulp.task('default', ['watch']);
