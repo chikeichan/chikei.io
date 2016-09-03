@@ -110,7 +110,6 @@ gulp.task('nodemon', ['watch:all'], (cb) => {
 gulp.task('watch', ['nodemon'], () => {
   browserSync.init(null, {
     proxy: "http://localhost:8000",
-    browser: "google chrome",
     port: 8001,
   });
 });
