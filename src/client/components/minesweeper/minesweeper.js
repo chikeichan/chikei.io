@@ -16,7 +16,8 @@ class Minesweeper extends Component {
     startGame: PropTypes.func.isRequired,
     row: PropTypes.number.isRequired,
     col: PropTypes.number.isRequired,
-    fields: PropTypes.array.isRequired
+    fields: PropTypes.array.isRequired,
+    status: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -28,7 +29,10 @@ class Minesweeper extends Component {
   }
 
   componentDidMount() {
-    this.props.startGame.apply(this, BEGINNER);
+    const {status, startGame} = this.props;
+    if (!status) {
+      this.props.startGame.apply(this, BEGINNER);
+    }
   }
 
   renderRows() {

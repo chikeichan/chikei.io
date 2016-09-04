@@ -3,9 +3,14 @@ import {ADD_ICON, ADD_ICONS, MOVE_ICON} from '../../enums/icon-action-types';
 const initialState = {};
 
 function addIcon(state, icon) {
+  const {id} = icon;
+  const lastIcon = state[id];
   return {
     ...state,
-    [icon.id]: icon
+    [id]: {
+      ...lastIcon,
+      ...icon
+    }
   };
 }
 

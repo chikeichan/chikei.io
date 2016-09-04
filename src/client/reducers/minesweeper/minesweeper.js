@@ -18,7 +18,7 @@ const initialState = {
   isOpen: [],
   isFlag: [],
   lastClicked: null,
-  status: PENDING
+  status: null
 };
 
 function clickCell(state, index) {

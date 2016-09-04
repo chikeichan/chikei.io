@@ -18,6 +18,7 @@
   margin: 1px;
   height: 24px;
   align-items: center;
+  flex: 0 0 auto;
 }
 
 .window--selected {
@@ -35,12 +36,15 @@
 }
 
 .window-header__name {
-  flex: 1 0 auto;
   color: $window-header-title-inactive-color;
   font-family: $icon-font;
   font-size: 14px;
   padding: 0 4px;
   font-weight: bold;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .window-header__icon {
@@ -50,6 +54,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  flex: 0 0 auto;
 }
 
 .window-header__icon--minesweeper {
@@ -66,6 +71,7 @@
 
 .window-header__buttons {
   margin-right: 4px;
+  flex: 0 0 auto;
 }
 
 .window-header__button {

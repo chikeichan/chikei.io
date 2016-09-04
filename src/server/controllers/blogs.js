@@ -16,18 +16,32 @@ function getBlog(req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.send({
-        id: `BLOG__${filename.toUpperCase()}`,
-        type: 'BLOG',
-        name: filename,
-        buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-        actions: ['FILE', 'VIEW', 'HELP'],
-        appData: {
-          markdown: data
-        }
-      })
+      try {
+        const appData = getAppData(data);
+        res.send({
+          id: `BLOG__${filename.toUpperCase()}`,
+          type: 'BLOG',
+          name: appData.metadata.title,
+          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+          actions: ['FILE', 'VIEW', 'HELP'],
+          x: 150,
+          y: 70,
+          appData
+        });
+      } catch (e) {
+        next(e);
+      }
     }
   });
+}
+
+function getAppData(content) {
+  const list = content.split('****METADATA****');
+
+  return {
+    metadata: JSON.parse(list[0]),
+    markdown: list[1]
+  };
 }
 
 export default {

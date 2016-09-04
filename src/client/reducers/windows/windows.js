@@ -7,9 +7,14 @@ import {
 const initialState = {};
 
 function addWindow(state, appWindow) {
+  const {id} = appWindow;
+  const lastWindow = state[id]
   return {
     ...state,
-    [appWindow.id]: appWindow
+    [id]: {
+      ...lastWindow,
+      ...appWindow
+    }
   };
 }
 

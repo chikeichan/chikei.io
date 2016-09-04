@@ -20,7 +20,7 @@ class Markdown extends Component {
     return marked(md);
   }
 
-  highlight(el) {
+  decorate(el) {
     if (!el) {
       return;
     }
@@ -28,6 +28,14 @@ class Markdown extends Component {
     const codes = el.querySelectorAll('code');
     for (let code of codes) {
       highlightBlock(code);
+    }
+
+    const anchors = el.querySelectorAll('a');
+    for (let anchor of anchors) {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        window.open(e.target.href,'_blank');
+      });
     }
   }
 
@@ -37,7 +45,7 @@ class Markdown extends Component {
       <div 
         className={className}
         style={style}
-        ref={el => this.highlight(el)}
+        ref={el => this.decorate(el)}
         dangerouslySetInnerHTML={{__html: this.markup(markdown)}} />
     );
   }
