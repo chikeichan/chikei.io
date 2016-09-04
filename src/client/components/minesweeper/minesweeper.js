@@ -30,7 +30,6 @@ class Minesweeper extends Component {
 
   componentDidMount() {
     const {status, startGame} = this.props;
-    console.log(this.props.status)
     if (!status) {
       this.props.startGame.apply(this, BEGINNER);
     }

@@ -1,11 +1,11 @@
-$$
 {
   "title": "Tetris.js – Implementation of Tetris Using Javascript and jQuery (Part I)",
   "author": "Jacky Chan",
   "avatar": "https://avatars3.githubusercontent.com/u/8507735",
   "date": "November 18, 2014"
 }
-$$
+
+****METADATA****
 
 Re-building Tetris using simple Javascript and jQuery was one of the things I did to prepare for Hack Reactor’s technical interview. This project exposed me to some data manipulation algorithms, which ended up to be quite helpful for the interview. This tutorial assumes that you have already been introduced to jQuery. Let’s get started!
 

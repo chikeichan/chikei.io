@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import pureRender from 'pure-render-decorator';
+import classnames from 'classnames';
 import {DragSource} from 'react-dnd';
 import Window from './window';
 import {WINDOW} from '../../enums/item-types.js';
@@ -13,6 +14,9 @@ const spec = {
       x: x || defaultX,
       y: y || defaultY
     };
+  },
+  canDrag(props) {
+    return !props.isMaximized;
   }
 };
 
@@ -56,11 +60,16 @@ class WindowDnD extends Component {
       defaultX, defaultY, x, y, windowId, isSelected, isMinimized
     } = this.props;
 
+    const className = classnames({
+      'window--selected': isSelected,
+      'window--maximized': isMaximized
+    });
+
     return connectDragSource(
       <div
         onClick={e => e.stopPropagation()}
         onMouseDown={e => this.onMouseDown(e)}
-        className={isSelected && 'window--selected'}
+        className={className}
         style={{
           position: 'absolute',
           display: isMinimized ? 'none' : null,

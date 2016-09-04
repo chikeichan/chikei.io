@@ -36,7 +36,9 @@ class Folder extends Component {
           <div className="blog-content">
             <div className="blog-title">{title}</div>
             <hr/>
-            <Markdown markdown={markdown} />
+            <Markdown
+              className="blog-markdown"
+              markdown={markdown} />
             <hr/>
             <div className="blog-author-wrapper">
               <img className="blog-author-avatar" src={avatar} />
