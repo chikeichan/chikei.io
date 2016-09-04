@@ -1,6 +1,7 @@
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+import persistState from 'redux-localstorage'
 import rootReducer from './reducers';
 
 const logger = createLogger();
@@ -8,7 +9,8 @@ const logger = createLogger();
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk, logger),
+    persistState()
   );
 
   // When using WebPack, module.hot.accept should be used. In LiveReactload,

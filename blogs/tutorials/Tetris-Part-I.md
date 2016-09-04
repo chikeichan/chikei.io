@@ -1,8 +1,13 @@
-<h2 class="title">Tetris.js – Implementation of Tetris Using Javascript and jQuery (Part I)</h2>
+$$
+{
+  "title": "Tetris.js – Implementation of Tetris Using Javascript and jQuery (Part I)",
+  "author": "Jacky Chan",
+  "avatar": "https://avatars3.githubusercontent.com/u/8507735",
+  "date": "November 18, 2014"
+}
+$$
 
----
-
-Re-building Tetris using simple Javascript and jQuery was one of the things I did to prepare for Hack Reactor’s technical interview. This project exposed me to some data manipulation algorithms, which ended up to be tremendously helpful for the interview. This tutorial assumes that you have already been introduced to jQuery. Let’s get started!
+Re-building Tetris using simple Javascript and jQuery was one of the things I did to prepare for Hack Reactor’s technical interview. This project exposed me to some data manipulation algorithms, which ended up to be quite helpful for the interview. This tutorial assumes that you have already been introduced to jQuery. Let’s get started!
 
 ### 1. Building the DOM
 
@@ -287,11 +292,3 @@ Finally, after our loop, we will add another if statement so that if
 You can now save and reload your page, and see if your code works!
 
 That’s it for now. We are about a third of the way there. Next week we will define all other tetris shape, and make them rotate. Stay tuned!
-
----
-
-
-<p class="avatar">
-  <img src="https://avatars3.githubusercontent.com/u/8507735"/>
-  <p class="date">November 18, 2014</p>
-</p>
