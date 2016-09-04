@@ -233,9 +233,9 @@ Now, add the following:
 $(document).keydown(function(e){
   console.log(e.keyCode);
   if(e.keyCode === 39){
-    tetris.move('right
+    tetris.move('right');
   } else if (e.keyCode === 37){
-    tetris.move('left
+    tetris.move('left');
   }
 });
 ```
@@ -271,9 +271,9 @@ tetris.move = function(direction){
   this.fillCells(this.currentCoor,'black');
 
   if(reverse && direction === 'left'){
-    this.move('right
+    this.move('right');
   } else if (reverse && direction === 'right'){
-    this.move('left
+    this.move('left');
   }
 }
 ```
