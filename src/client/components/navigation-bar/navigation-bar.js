@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import Clock from './clock';
 import {ID_TO_WINDOW_ICON} from '../../enums/icon-types.js';
 
 class NavigationBar extends Component {
@@ -48,7 +49,7 @@ class NavigationBar extends Component {
         </div>
         <div className="navigation-bar--divider" />
         {this.renderAppDocks()}
-        <div className="navigation-bar--clock">10:14 PM</div>
+        <Clock />
       </div>
     );
   }
