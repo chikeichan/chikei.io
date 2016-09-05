@@ -31,7 +31,7 @@ class NavigationBar extends Component {
               className={className}
               onClick={() => selectWindow(id)}
               key={id}>
-              <span className={`nav-app__icon nav-app__icon--${type}`}/>
+              <span className={`nav-app__icon icon-image__${type}`}/>
               <span className="nav-app__name">{name}</span>
             </div>
           );

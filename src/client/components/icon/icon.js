@@ -17,7 +17,7 @@ class Icon extends Component {
       <div
         className="icon-container"
         onDoubleClick={() => openApp(iconId)}>
-        <div className={`icon-image ${ICON_TO_CLASSNAME[type]}`} />
+        <div className={`icon-image icon-image__${type}`} />
         <span className="icon-name" style={{color}}>{name}</span>
       </div>
     );

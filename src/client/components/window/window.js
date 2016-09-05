@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {BUTTONS_TO_CLASS, CLOSE, MINIMIZE, MAXIMIZE} from '../../enums/window-element-types';
-import {ID_TO_WINDOW_ICON} from '../../enums/icon-types.js';
 
 class Window extends Component {
   static propTypes = {
@@ -92,7 +91,7 @@ class Window extends Component {
       <div
         className="window-container">
         <div className="window-header">
-          <span className={`window-header__icon ${ID_TO_WINDOW_ICON[type]}`} />
+          <span className={`window-header__icon icon-image__${type}`} />
           <span className="window-header__name">{name}</span>
           {this.renderButtons()}
         </div>

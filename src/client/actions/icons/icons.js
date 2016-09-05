@@ -67,6 +67,6 @@ export const openBlog = id => {
           type: OPEN_APP,
           window: json
         });
-      });
+      })
   };
 }

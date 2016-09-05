@@ -1,7 +1,8 @@
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import persistState from 'redux-localstorage'
+import persistState from 'redux-localstorage';
+import reduxCatch from 'redux-catch';
 import rootReducer from './reducers';
 
 const logger = createLogger();
@@ -9,7 +10,7 @@ const logger = createLogger();
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
-    applyMiddleware(thunk, logger),
+    applyMiddleware(reduxCatch(errorHandler), thunk, logger),
     persistState()
   );
 
@@ -17,7 +18,6 @@ export default function configureStore(initialState) {
   // same result can be achieved by using "module.onReload" hook.
   if (module.onReload) {
     module.onReload(() => {
-      console.log('readload')
       const nextReducer = require('./reducers');
       store.replaceReducer(nextReducer.default || nextReducer);
 
@@ -28,4 +28,10 @@ export default function configureStore(initialState) {
   }
 
   return store;
+}
+
+function errorHandler(error, getState) {
+  console.log('hihihi')
+  console.error(error);
+  console.debug('current state', getState());
 }

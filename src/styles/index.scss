@@ -104,3 +104,50 @@ body {
 @import './minesweeper.scss';
 @import './folders.scss';
 @import './blogs.scss';
+
+.error-dialog {
+  height: 100px;
+  width: 300px;
+  padding: 0 24px;
+  font-family: $icon-font;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  font-size: 14px;
+}
+
+.error-content__wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.error-dialog__icon {
+  display: inline;
+  height: 36px;
+  width: 36px;
+  margin: 12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex: 0 0 auto;
+  background-image: url(/images/error-icon.png);
+}
+
+.error-dialog__button {
+  padding: 4px 24px;
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-left: 2px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+  border-right: 2px solid rgba(0, 0, 0, 0.8);
+  background-color: $window-base-color;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  &:active {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+    border-right: 2px solid rgba(255, 255, 255, 0.8);
+    border-top: 2px solid rgba(0, 0, 0, 0.8);
+    border-left: 2px solid rgba(0, 0, 0, 0.8);
+  }
+}

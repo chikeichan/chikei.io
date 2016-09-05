@@ -14,6 +14,13 @@ const windows = {
     name: 'Tutorials',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
     actions: ['FILE', 'VIEW', 'HELP']
+  },
+  TETRIS: {
+    id: 'TETRIS',
+    type: 'TETRIS',
+    name: 'Tetris',
+    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+    actions: ['FILE', 'VIEW', 'HELP']
   }
 } 
 
@@ -24,6 +31,8 @@ function getWindow(req, res, next) {
   switch (fixture.type) {
     case 'MINESWEEPER':
       return res.send(fixture);
+    case 'TETRIS':
+      return res.send(fixture);
     case 'FOLDER':
       return folders
         .getFolder(windowId, (err, appData) => {
@@ -33,7 +42,7 @@ function getWindow(req, res, next) {
           res.send({...fixture, appData})
         });
     default:
-      next(new Error('Uh oh..'));
+      next(new Error(`Cannot find fixture for ${fixture.type}`));
       return;
   }
 }
