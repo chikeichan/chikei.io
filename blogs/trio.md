@@ -8,19 +8,19 @@ Instead of storing a virtual DOM for diff-ing, Trio.Renderer diff each DOM node 
 # Content
 - [createTemplate](#createtemplate-)
 - From the template object
-  - [open] (#templateopen-tagname-)
-  - [close] (#templateclose-)
-  - [render] (#templaterender-data-)
-  - [addClass] (#templateaddclass-classname-)
-  - [attr] (#templateattr-name-value-)
-  - [text] (#templatetext-stringorfunction-)
-  - [style] (#templatestyle-name-value-)
-  - [if] (#templateif-valueorfunction-)
-  - [else] (#templateelse-)
-  - [each] (#templateeach-arrayorfunction-)
-  - [done] (#templatedone-)
-  - [data] (#templatedata-data-)
-  - [patch] (#templatepatch-root-data-)
+  - [open](#templateopen-tagname-)
+  - [close](#templateclose-)
+  - [render](#templaterender-data-)
+  - [addClass](#templateaddclass-classname-)
+  - [attr](#templateattr-name-value-)
+  - [text](#templatetext-stringorfunction-)
+  - [style](#templatestyle-name-value-)
+  - [if](#templateif-valueorfunction-)
+  - [else](#templateelse-)
+  - [each](#templateeach-arrayorfunction-)
+  - [done](#templatedone-)
+  - [data](#templatedata-data-)
+  - [patch](#templatepatch-root-data-)
 
 # API
 The following methods are accessed through:
