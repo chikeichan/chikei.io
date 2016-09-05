@@ -104,50 +104,123 @@ body {
 @import './minesweeper.scss';
 @import './folders.scss';
 @import './blogs.scss';
+@import './error.scss';
 
-.error-dialog {
-  height: 100px;
-  width: 300px;
-  padding: 0 24px;
-  font-family: $icon-font;
+.gameboy-wrapper {
   display: flex;
-  align-items: center;
+  width: 350px;
+  height: 600px;
+  background-color: #d3d4d9;
+  border-radius: 20px;
+  border-bottom-right-radius: 100px;
+  border-left: 4px solid rgba(255, 255, 255, 0.6);
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  border-right: 4px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  margin: 8px;
   flex-flow: column nowrap;
-  font-size: 14px;
 }
 
-.error-content__wrapper {
+.gameboy-top {
+  height: 30px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 0px rgba(255, 255, 255, 0.3);
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
 }
 
-.error-dialog__icon {
-  display: inline;
-  height: 36px;
-  width: 36px;
-  margin: 12px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+.gameboy-top-left {
+  width: 30px;
+  height: 30px;
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0px 0px rgba(255, 255, 255, 0.3);
   flex: 0 0 auto;
-  background-image: url(/images/error-icon.png);
 }
 
-.error-dialog__button {
-  padding: 4px 24px;
-  border-top: 2px solid rgba(255, 255, 255, 0.8);
-  border-left: 2px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.8);
-  border-right: 2px solid rgba(0, 0, 0, 0.8);
-  background-color: $window-base-color;
-  cursor: pointer;
-  outline: none;
+.gameboy-top-logo {
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0px 0 8px 16px;
+  color: rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.3), -1px -1px rgba(0, 0, 0, 0.02);
+  font-family: Open Sans;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 8px;
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  flex: 0 0 auto;
+}
+
+.gameboy-top-center {
+  flex: 1 0 auto;
+}
+
+.gameboy-top-right {
+  width: 30px;
+  height: 30px;
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
+  flex: 0 0 auto;
+}
+
+.gameboy-screen-wrapper {
+  width: 300px;
+  height: 220px;
+  background-color: #7a7e89;
+  margin: 24px auto;
+  border-radius: 10px;
+  border-bottom-right-radius: 50px;
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0px 0px rgba(255, 255, 255, 0.3), 0px 2px 0px rgba(255, 255, 255, 0.3);
+  border-left: 2px solid rgba(0, 0, 0, 0.3);
+  border-top: 2px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-flow: column nowrap;
   box-sizing: border-box;
-  &:active {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.8);
-    border-right: 2px solid rgba(255, 255, 255, 0.8);
-    border-top: 2px solid rgba(0, 0, 0, 0.8);
-    border-left: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+.gameboy-screen-header {
+  width: 280px;
+  height: 4px;
+  border-top: 1px solid #8e326b;
+  border-bottom: 1px solid #48465c;
+  margin: 8px auto;
+}
+
+.gameboy-screen {
+  width: 200px;
+  height: 170px;
+  margin: 0 auto;
+  background-color: #727e00;
+  border-radius: 4px;
+  border-right: 4px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    1px 0px 0px rgba(255, 255, 255, 0.3),
+    0px 1px 0px rgba(255, 255, 255, 0.3);
+  border-left: 4px solid rgba(0, 0, 0, 0.4);
+  border-top: 4px solid rgba(0, 0, 0, 0.4);
+  position: relative;
+
+  &:before {
+    content: '';
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 
+      1px 0px 0px rgba(255, 255, 255, 0.3),
+      0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    top: 50%;
+    left: -30px;
   }
 }
