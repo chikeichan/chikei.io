@@ -68,12 +68,13 @@ class Folder extends Component {
   }
 
   render() {
-    const {windowId, actions, setViewMode} = this.props;
+    const {windowId, actions, setViewMode, viewMode} = this.props;
     return (
       <Window {...this.props}>
         <ActionBar
           windowId={windowId}
           actions={actions}
+          viewMode={viewMode}
           setViewMode={setViewMode} />
         <div className="folder-container">
           {this.renderContent()}
