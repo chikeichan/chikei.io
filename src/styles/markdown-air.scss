@@ -166,7 +166,13 @@
     background-color: #282c34;
     padding: 1rem;
     text-align: left;
-    white-space: pre-wrap;
+    @media #{$mobile} {
+      white-space: pre;
+      overflow-x: auto;
+    }
+    @media #{$desktop} {
+      white-space: pre-wrap;
+    }
   }
 
   blockquote {

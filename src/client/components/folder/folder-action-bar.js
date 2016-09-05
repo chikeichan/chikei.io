@@ -5,7 +5,9 @@ import {FILE, VIEW, HELP} from '../../enums/window-element-types';
 
 class FolderActionBar extends Component {
   static propTypes = {
-    actions: PropTypes.array.isRequired
+    windowId: PropTypes.string.isRequired,
+    actions: PropTypes.array.isRequired,
+    setViewMode: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -17,6 +19,7 @@ class FolderActionBar extends Component {
   };
 
   renderActionMenu(action) {
+    const {windowId, setViewMode, viewMode} = this.props;
     switch(action) {
       case FILE:
         return (
@@ -28,8 +31,12 @@ class FolderActionBar extends Component {
       case VIEW:
         return (
           <WindowActionMenu>
-            <div>Icon</div>
-            <div>Detail</div>
+            <div
+              className={(!viewMode || viewMode === 'ICON') && 'checked'}
+              onClick={() => setViewMode(windowId, 'ICON')}>Icons</div>
+            <div
+              className={viewMode === 'DETAIL' && 'checked'}
+              onClick={() => setViewMode(windowId, 'DETAIL')}>Details</div>
           </WindowActionMenu>
         );
       case HELP:

@@ -17,7 +17,7 @@ class Minesweeper extends Component {
     row: PropTypes.number.isRequired,
     col: PropTypes.number.isRequired,
     fields: PropTypes.array.isRequired,
-    status: PropTypes.string.isRequired
+    status: PropTypes.string
   };
 
   static defaultProps = {
