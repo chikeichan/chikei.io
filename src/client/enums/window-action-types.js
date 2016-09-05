@@ -6,3 +6,4 @@ export const MOVE_WINDOW = 'MOVE_WINDOW';
 export const CLOSE_WINDOW = 'CLOSE_WINDOW';
 export const MINIMIZE_WINDOW = 'MINIMIZE_WINDOW';
 export const MAXIMIZE_WINDOW = 'MAXIMIZE_WINDOW';
+export const SET_VIEW_MODE = 'SET_VIEW_MODE';

@@ -1,5 +1,5 @@
 import {
-  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW, MINIMIZE_WINDOW,
+  ADD_WINDOW, ADD_WINDOWS, MOVE_WINDOW, MINIMIZE_WINDOW, SET_VIEW_MODE,
   SELECT_WINDOW, DESELECT_WINDOWS, CLOSE_WINDOW, MAXIMIZE_WINDOW
 } from '../../enums/window-action-types';
 
@@ -55,5 +55,12 @@ export const maximizeWindow = id => {
   return {
     type: MAXIMIZE_WINDOW,
     id
+  };
+}
+
+export const setViewMode = (id, viewMode) => {
+  return {
+    type: SET_VIEW_MODE,
+    id, viewMode
   };
 }

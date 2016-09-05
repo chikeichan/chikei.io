@@ -1,5 +1,8 @@
 import {connect} from 'react-redux';
-import {selectWindow, closeWindow, minimizeWindow, maximizeWindow} from '../../actions/windows/windows';
+import {
+  selectWindow, closeWindow, minimizeWindow,
+  maximizeWindow, setViewMode
+} from '../../actions/windows/windows';
 import Window from '../../components/window/window-dnd';
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,7 +17,8 @@ const mapDispatchToProps = dispatch => {
     selectWindow: id => dispatch(selectWindow(id)),
     closeWindow: id => dispatch(closeWindow(id)),
     minimizeWindow: id => dispatch(minimizeWindow(id)),
-    maximizeWindow: id => dispatch(maximizeWindow(id))
+    maximizeWindow: id => dispatch(maximizeWindow(id)),
+    setViewMode: (id, viewMode) => dispatch(setViewMode(id, viewMode))
   };
 }
 

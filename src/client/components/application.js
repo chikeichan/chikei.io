@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {MINESWEEPER, FOLDER, BLOG} from '../enums/icon-types';
 import Window from '../containers/window-container/window-container';
 import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
-import Folder from '../components/folder/folder';
+import Folder from '../containers/folder-container/folder-container';
 import Blog from '../components/blog/blog';
 
 const TYPE_TO_COMPONENT = {

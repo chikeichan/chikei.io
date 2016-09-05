@@ -7,7 +7,7 @@ class MinesweeperHeader extends Component {
   static propTypes = {
     bombs: PropTypes.number.isRequired,
     opened: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
+    status: PropTypes.string,
     restartGame: PropTypes.func.isRequired
   };
 

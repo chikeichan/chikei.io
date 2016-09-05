@@ -9,12 +9,12 @@
   border-right: 2px solid rgba(255, 255, 255, 0.7);
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .window--maximized {
   .blog-container {
-    width: calc(100% - 4px);
+    width: calc(100% - 10px);
     flex: 1 0 auto;
     box-sizing: border-box;
   }
@@ -67,10 +67,11 @@
 
 .blog-content {
   padding: 8px 24px;
-  height: 100%;
   box-sizing: border-box;
   max-width: 700px;
   margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
 
   hr {
     height: 2px;
