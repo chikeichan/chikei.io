@@ -15,7 +15,7 @@ class Gameboy extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.isOn) {
+    if(!this.props.isOn && nextProps.isOn) {
       const startup = new Audio('./sounds/gameboy-startup.wav');
       startup.play();
     }
@@ -29,6 +29,7 @@ class Gameboy extends Component {
         'gameboy-screen-on': isOn
       }
     );
+
     return (
       <div className="gameboy-wrapper">
         <div className="gameboy-top">

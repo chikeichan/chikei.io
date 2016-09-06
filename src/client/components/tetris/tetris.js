@@ -24,7 +24,7 @@ class Tetris extends Component {
   render() {
     const {actions} = this.props;
     return (
-      <Window {...this.props}>
+      <Window {...this.props} isAutoHide={true}>
         <ActionBar actions={actions} />
         <Gameboy isOn={this.state.isOn}>
           <div className="tetris-wrapper">
