@@ -56,13 +56,14 @@ class WindowDnD extends Component {
 
   render() {
     const {
-      connectDragSource, isDragging, selectWindow, isMaximized,
+      connectDragSource, isDragging, selectWindow, isMaximized, isAutoHide,
       defaultX, defaultY, x, y, windowId, isSelected, isMinimized
     } = this.props;
 
     const className = classnames({
       'window--selected': isSelected,
-      'window--maximized': isMaximized
+      'window--maximized': isMaximized,
+      'window--autohide': isAutoHide
     });
 
     return connectDragSource(

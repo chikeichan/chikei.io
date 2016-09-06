@@ -31,10 +31,12 @@ function moveWindow(state, id, x, y) {
 }
 
 function openApp(state, appWindow) {
-  if (state[appWindow.id]) {
+  const lastWindow = state[appWindow.id];
+  if (lastWindow) {
     return {
       ...state,
       [appWindow.id]: {
+        ...lastWindow,
         ...appWindow,
         isMinimized: false
       }

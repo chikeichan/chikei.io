@@ -32,6 +32,23 @@
   }
 }
 
+.window--autohide {
+  .window-container {
+    border-top: 2px solid rgba(255, 255, 255, 0);
+    border-left: 2px solid rgba(255, 255, 255, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    border-right: 1px solid rgba(0, 0, 0, 0);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0);
+    background-color: rgba($window-base-color, 0);
+  }
+  .window-header {
+    opacity: 0;
+  }
+  .window-action-bar {
+    opacity: 0;
+  }
+}
+
 .window-header {
   background-color: $window-header-inactive-color;
 }
@@ -56,18 +73,6 @@
   background-repeat: no-repeat;
   background-position: center center;
   flex: 0 0 auto;
-}
-
-.window-header__icon--minesweeper {
-  background-image: url(/images/minesweeper-icon.png);
-}
-
-.window-header__icon--folder {
-  background-image: url(/images/folder-icon.png);
-}
-
-.window-header__icon--blog {
-  background-image: url(/images/note-icon.png);
 }
 
 .window-header__buttons {

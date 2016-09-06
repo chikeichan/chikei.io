@@ -54,14 +54,22 @@
   display: inline-block;
 }
 
-.minesweeper--icon {
+.icon-image__MINESWEEPER {
   background-image: url(../images/minesweeper-icon.png);
 }
 
-.folder--icon {
+.icon-image__FOLDER {
   background-image: url(../images/folder-icon.png);
 }
 
-.blog--icon {
+.icon-image__BLOG {
   background-image: url(../images/note-icon.png);
+}
+
+.icon-image__TETRIS {
+  background-image: url(../images/tetris-icon.gif);
+}
+
+.icon-image__ERROR {
+  background-image: url(../images/error-icon.png);
 }

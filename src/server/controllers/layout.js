@@ -8,6 +8,11 @@ const icons =[
     id: 'MINESWEEPER',
     type: 'MINESWEEPER',
     name: 'Minesweeper'
+  },
+  {
+    id: 'TETRIS',
+    type: 'TETRIS',
+    name: 'Tetris'
   }
 ];
 

@@ -58,6 +58,7 @@
     "livereactload": "^3.0.0",
     "nodemon": "^1.10.0",
     "react-proxy": "^1.1.8",
+    "redux-catch": "^1.2.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0",
     "vinyl-buffer": "^1.0.0",

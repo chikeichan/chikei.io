@@ -17,4 +17,22 @@ commonRoutes(app);
 //   devRoutes(app);
 // }
 
+app.use((err, req, res, next) => {
+  if (err) {
+    return res
+      .status(500)
+      .send({
+        id: 'ERROR',
+        type: 'ERROR',
+        name: 'Oops!',
+        buttons: ['CLOSE'],
+        actions: [],
+        appData: {
+          errorMessage: err.message
+        }
+      });
+  }
+  next();
+});
+
 app.listen(8000, () => console.log('Listening on Port 8000...'));
