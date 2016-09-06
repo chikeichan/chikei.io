@@ -3,26 +3,34 @@ import classnames from 'classnames';
 
 class Gameboy extends Component {
   static propTypes = {
-    isOn: PropTypes.bool
   };
 
   static defaultProps = {
-    isOn: false
   };
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.isOn !== this.props.isOn;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOn: false
+    };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(!this.props.isOn && nextProps.isOn) {
+  componentWillMount() {
+    setTimeout(() => this.toggleOn(), 0);
+  }
+
+  toggleOn() {
+    const {isOn} = this.state;
+    if (!isOn) {
       const startup = new Audio('./sounds/gameboy-startup.wav');
       startup.play();
     }
+    this.setState({isOn: !isOn});
   }
 
   render() {
-    const {children, isOn} = this.props;
+    const {children} = this.props;
+    const {isOn} = this.state;
     const statusClass = classnames(
       'gameboy-screen',
       {
@@ -30,12 +38,24 @@ class Gameboy extends Component {
       }
     );
 
+    const switchClass = classnames(
+      'gameboy-switch',
+      {'gameboy-switch-on': isOn}
+    );
+
     return (
       <div className="gameboy-wrapper">
-        <div className="gameboy-top">
+        <div 
+          onClick={() => this.toggleOn()}
+          className="gameboy-top">
           <div className="gameboy-top-left"/>
           <div className="gameboy-top-logo">Minkendo</div>
-          <div className="gameboy-top-center"/>
+          <div className="gameboy-top-center">
+            <div className={switchClass}>
+              <div className="gameboy-on-switch"></div>
+              <div className="gameboy-off-switch"></div>
+            </div>
+          </div>
           <div className="gameboy-top-right"/>
         </div>
         <div className="gameboy-screen-wrapper">

@@ -21,6 +21,7 @@
   box-shadow: 0px 2px 0px rgba(255, 255, 255, 0.3);
   display: flex;
   flex-flow: row nowrap;
+  cursor: pointer;
 }
 
 .gameboy-top-left {
@@ -50,6 +51,58 @@
 
 .gameboy-top-center {
   flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+
+.gameboy-switch {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 5px;
+  width: 30px;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin: -3px 12px;
+  padding: 0 1px;
+  border-right: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.gameboy-switch-on {
+  .gameboy-on-switch {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    border-right: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .gameboy-off-switch {
+    background-color: none;
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.gameboy-on-switch,
+.gameboy-off-switch {
+  width: 15px;
+  height: 5px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.gameboy-off-switch {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .gameboy-top-right {
@@ -322,6 +375,7 @@
   border-right: 2px solid rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   position: relative;
+  cursor: pointer;
 
   &:before {
     content: '';
@@ -365,4 +419,3 @@
   position: relative;
   padding: 0 24px 24px 24px;
 }
-

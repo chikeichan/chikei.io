@@ -19,8 +19,8 @@ const windows = {
     id: 'TETRIS',
     type: 'TETRIS',
     name: 'Tetris',
-    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'VIEW', 'HELP']
+    buttons: [],
+    actions: []
   }
 } 
 
