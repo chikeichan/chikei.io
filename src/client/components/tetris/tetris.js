@@ -4,17 +4,62 @@ import Window from '../../containers/window-container/window-container';
 import ActionBar from './tetris-action-bar';
 import Gameboy from '../gameboy/gameboy';
 
+function UP(pos) {
+  return [pos[0], pos[1] - 1];
+}
+
+function DOWN(pos) {
+  return [pos[0], pos[1] + 1];
+}
+
+function LEFT(pos) {
+  return [pos[0] - 1, pos[1]];
+}
+
+function RIGHT(pos) {
+  return [pos[0] + 1, pos[1]];
+}
+
 const SHAPE_TO_COOR = {
-  L: (x, y) => [[x, y], [x, y - 1], [x, y - 2], [x + 1, y]],
-  J: (x, y) => [[x, y], [x, y - 1], [x, y - 2], [x - 1, y]],
-  O: (x, y) => [[x, y], [x + 1, y], [x, y - 1], [x + 1, y - 1]],
-  S: (x, y) => [[x, y], [x, y - 1], [x + 1, y], [x + 1, y + 1]],
-  Z: (x, y) => [[x, y], [x + 1, y], [x + 1, y - 1], [x, y + 1]],
-  T: (x, y) => [[x, y], [x, y - 1], [x + 1, y], [x - 1, y]],
-  I: (x, y) => [[x, y], [x, y - 1], [x, y - 2], [x, y + 1]]
+  L0: (x, y) => [ [x, y], UP([x, y]), DOWN([x, y]), DOWN(RIGHT([x, y])) ],
+  L1: (x, y) => [ [x, y], LEFT([x, y]), RIGHT([x, y]), DOWN(LEFT([x, y])) ],
+  L2: (x, y) => [ [x, y], UP([x, y]), DOWN([x, y]), UP(LEFT([x, y])) ],
+  L3: (x, y) => [ [x, y], LEFT([x, y]), RIGHT([x, y]), UP(RIGHT([x, y])) ],
+  J0: (x, y) => [ [x, y], UP([x, y]), DOWN([x, y]), DOWN(LEFT([x, y])) ],
+  J1: (x, y) => [ [x, y], LEFT([x, y]), RIGHT([x, y]), UP(LEFT([x, y])) ],
+  J2: (x, y) => [ [x, y], UP([x, y]), DOWN([x, y]), UP(RIGHT([x, y])) ],
+  J3: (x, y) => [ [x, y], LEFT([x, y]), RIGHT([x, y]), DOWN(RIGHT([x, y])) ],
+  O0: (x, y) => [ [x, y], RIGHT([x, y]), UP([x, y]), UP(RIGHT([x, y])) ],
+  O1: (x, y) => [ [x, y], RIGHT([x, y]), UP([x, y]), UP(RIGHT([x, y])) ],
+  O2: (x, y) => [ [x, y], RIGHT([x, y]), UP([x, y]), UP(RIGHT([x, y])) ],
+  O3: (x, y) => [ [x, y], RIGHT([x, y]), UP([x, y]), UP(RIGHT([x, y])) ],
+  S0: (x, y) => [ [x, y], UP([x, y]), RIGHT([x, y]), DOWN(RIGHT([x, y])) ],
+  S1: (x, y) => [ [x, y], RIGHT([x, y]), DOWN([x, y]), DOWN(LEFT([x, y])) ],
+  S2: (x, y) => [ [x, y], UP([x, y]), RIGHT([x, y]), DOWN(RIGHT([x, y])) ],
+  S3: (x, y) => [ [x, y], RIGHT([x, y]), DOWN([x, y]), DOWN(LEFT([x, y])) ],
+  Z0: (x, y) => [ [x, y], RIGHT([x, y]), DOWN([x, y]), RIGHT(UP([x, y])) ],
+  Z1: (x, y) => [ [x, y], LEFT([x, y]), DOWN([x, y]), DOWN(RIGHT([x, y])) ],
+  Z2: (x, y) => [ [x, y], RIGHT([x, y]), DOWN([x, y]), RIGHT(UP([x, y])) ],
+  Z3: (x, y) => [ [x, y], LEFT([x, y]), DOWN([x, y]), DOWN(RIGHT([x, y])) ],
+  T0: (x, y) => [ [x, y], DOWN([x, y]), RIGHT([x, y]), LEFT([x, y]) ],
+  T1: (x, y) => [ [x, y], DOWN([x, y]), LEFT([x, y]), UP([x, y]) ],
+  T2: (x, y) => [ [x, y], UP([x, y]), RIGHT([x, y]), LEFT([x, y]) ],
+  T3: (x, y) => [ [x, y], DOWN([x, y]), RIGHT([x, y]), UP([x, y]) ],
+  I0: (x, y) => [ [x, y], UP([x, y]), UP(UP([x, y])), DOWN([x, y]) ],
+  I1: (x, y) => [ [x, y], RIGHT([x, y]), RIGHT(RIGHT([x, y])), LEFT([x, y]) ],
+  I2: (x, y) => [ [x, y], UP([x, y]), UP(UP([x, y])), DOWN([x, y]) ],
+  I3: (x, y) => [ [x, y], RIGHT([x, y]), RIGHT(RIGHT([x, y])), LEFT([x, y]) ]
 };
 
+const SHAPE_KEYS = Object.keys(SHAPE_TO_COOR);
+
 const ORIGIN = [4, 2];
+
+const STATUS = {
+  GAMEOVER: 'GAMEOVER',
+  PAUSE: 'PAUSE',
+  PREGAME: 'PREGAME'
+};
 
 class Tetris extends Component {
   static propTypes = {
@@ -27,8 +72,13 @@ class Tetris extends Component {
     super(props);
     this.state = {
       fields: this.makeFields(),
-      currentShape: ['L', 'J', 'O', 'S', 'Z', 'T', 'I'][Math.floor(Math.random() * 7)],
-      currentPos: ORIGIN
+      currentShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
+      nextShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
+      currentPos: ORIGIN,
+      status: null,
+      score: 0,
+      lines: 0,
+      level: 5
     };
     this.onKeyPress = this.onKeyPress.bind(this);
     this.loseOrSpawn = this.loseOrSpawn.bind(this);
@@ -43,7 +93,6 @@ class Tetris extends Component {
 
   componentWillMount() {
     window.addEventListener('keydown', this.onKeyPress);
-    setTimeout(() => this.setState({isOn: true}), 0);
     this.calculateFrame();
   }
 
@@ -55,19 +104,16 @@ class Tetris extends Component {
     switch(e.keyCode) {
       // Left
       case 37:
-        this.move(-1, 0);
-        return;
+        return this.move(-1, 0);
       // Up
       case 38:
-        return;
+        return this.rotate();
       // Right
       case 39:
-        this.move(1, 0);
-        return;
+        return this.move(1, 0);
       // Down
       case 40:
-        this.move(0, 1);
-        return;
+        return this.move(0, 1);
       default:
         return;
     }
@@ -83,6 +129,19 @@ class Tetris extends Component {
       const x = pos[0];
       return isValid && fields[y] && fields[y][x] === false;
     }, true);
+  }
+
+  rotate() {
+    const {fields, currentPos, currentShape} = this.state;
+    const direction = Number(currentShape[1]);
+    const nextDirection = direction === 3 ? 0 : direction + 1;
+    const nextShape = `${currentShape[0]}${nextDirection}`
+    const shape = this.getShape(currentPos[0], currentPos[1], nextShape);
+    const isValid = this.isValid(shape, fields);
+
+    if (isValid) {
+      this.setState({currentShape: nextShape});
+    }
   }
 
   move(offsetX = 0, offsetY = 0, onSuccess = () => {}, onFailure = () => {}) {
@@ -105,7 +164,7 @@ class Tetris extends Component {
   }
 
   loseOrSpawn(onSpawn) {
-    const {fields, currentPos, currentShape} = this.state;
+    const {fields, currentPos, currentShape, nextShape} = this.state;
     const isOk = fields[0].reduce((ok, n) => ok && n === false, true);
 
 
@@ -115,40 +174,61 @@ class Tetris extends Component {
       this.setState({
         fields: mergedFields,
         currentPos: ORIGIN,
-        currentShape: ['L', 'J', 'O', 'S', 'Z', 'T', 'I'][Math.floor(Math.random() * 7)]
+        currentShape: nextShape,
+        nextShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)]
       }, this.calculateNextFrame);
     } else {
-
+      this.setState({status: STATUS.GAMEOVER});
     }
   }
 
+  killRows() {
+    const {fields, score, lines} = this.state;
+    const adjFields = fields
+      .reduce((aField, row) => {
+        const clear = row.reduce((shouldClear, cell) => shouldClear && cell, true);
+        if (!clear) {
+          aField.push(row);
+        }
+        return aField;
+      }, []);
+
+    const newRows = 24 - adjFields.length;
+    const nextFields = [
+      ...Array(newRows).fill(Array(10).fill(false)),
+      ...adjFields
+    ];
+
+    this.setState({
+      fields: nextFields,
+      lines: lines + newRows,
+      score: score + (newRows * 100 + (newRows - 1) * newRows * 10)
+    });
+  }
+
   calculateFrame() {
-    console.log('calculating')
-    this.move(
-      0, 1,
-      this.calculateNextFrame,
-      this.loseOrSpawn
-    );
+    this.move(0, 1, this.calculateNextFrame, this.loseOrSpawn);
+    this.killRows();
   }
 
   calculateNextFrame() {
-    setTimeout(this.calculateFrame, 200)
+    setTimeout(this.calculateFrame, 500/this.state.level);
   }
 
-  renderRow(row) {
+  renderRow(row, rowIndex) {
     return (
-      <div className="tetris-row"> 
-        {row.map(cell => this.renderCell(cell))}
+      <div key={`row-${rowIndex}`} className="tetris-row"> 
+        {row.map((cell, cellIndex) => this.renderCell(cell, cellIndex, rowIndex))}
       </div>
     );
   }
 
-  renderCell(cell) {
+  renderCell(cell, cellIndex, rowIndex) {
     const className = classnames(
       'tetris-cell',
       {'tetris-cell__block': cell}
     );
-    return <div className={className} />;
+    return <div key={`row-${rowIndex}-cell-${cellIndex}`} className={className} />;
   }
 
   mergeShapeWithFields(shape, fields) {
@@ -156,7 +236,7 @@ class Tetris extends Component {
       const y = pos[1];
       const x = pos[0];
       merged[y] = merged[y].map((n, i) => i === x ? true : n);
-      return merged
+      return merged;
     }, [...fields]);
   }
 
@@ -164,7 +244,14 @@ class Tetris extends Component {
     const {fields, currentPos, currentShape} = this.state;
     const shape = this.getShape(currentPos[0], currentPos[1], currentShape);
     const mergedFields = this.mergeShapeWithFields(shape, fields);
-    return mergedFields.map(row => this.renderRow(row));
+    return mergedFields.map((row, rowIndex) => this.renderRow(row, rowIndex));
+  }
+
+  renderPreview() {
+    const fields = Array(4).fill(Array(4).fill(false));
+    const shape = this.getShape(1, 2, this.state.nextShape);
+    const mergedFields = this.mergeShapeWithFields(shape, fields);
+    return mergedFields.map((row, rowIndex) => this.renderRow(row, rowIndex));
   }
 
   render() {
@@ -181,7 +268,37 @@ class Tetris extends Component {
                 {this.renderGame()}
               </div>
             </div>
-            <div className="tetris-game-info" />
+            <div className="tetris-game-info">
+              <div className="tetris-score-wrapper">
+                <div className="tetris-score-header">
+                  <div className="tetris-score-header-text-wrapper">
+                    <div className="tetris-score-header-text">SCORE</div>
+                  </div>
+                </div>
+                <div className="tetris-score-body">
+                  <div className="tetris-score">
+                    {this.state.score}
+                  </div>
+                </div>
+              </div>
+              <div className="tetris-card-wrapper">
+                  <div className="tetris-card-body-wrapper">
+                    <div className="tetris-card-header-text">LEVEL</div>
+                    <div className="tetris-card-text">{this.state.level}</div>
+                  </div>
+              </div>
+              <div className="tetris-card-wrapper">
+                  <div className="tetris-card-body-wrapper">
+                    <div className="tetris-card-header-text">LINES</div>
+                    <div className="tetris-card-text">{this.state.lines}</div>
+                  </div>
+              </div>
+              <div className="tetris-card-wrapper tetris-preview">
+                  <div className="tetris-card-body-wrapper">
+                    {this.renderPreview()}
+                  </div>
+              </div>
+            </div>
           </div>
         </Gameboy>
       </Window>
