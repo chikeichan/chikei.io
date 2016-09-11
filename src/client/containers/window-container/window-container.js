@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
     closeWindow: id => dispatch(closeWindow(id)),
     minimizeWindow: id => dispatch(minimizeWindow(id)),
     maximizeWindow: id => dispatch(maximizeWindow(id)),
-    setViewMode: (id, viewMode) => dispatch(setViewMode(id, viewMode))
+    setViewMode: (viewMode) => dispatch(setViewMode(viewMode))
   };
 }
 

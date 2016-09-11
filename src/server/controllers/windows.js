@@ -1,32 +1,9 @@
-import folders from './folders';
-
-const windows = {
-  MINESWEEPER: {
-    id: 'MINESWEEPER',
-    type: 'MINESWEEPER',
-    name: 'Minesweeper',
-    buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
-    actions: ['GAME', 'HELP']
-  },
-  TUTORIALS: {
-    id: 'TUTORIALS',
-    type: 'FOLDER',
-    name: 'Tutorials',
-    buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'VIEW', 'HELP']
-  },
-  TETRIS: {
-    id: 'TETRIS',
-    type: 'TETRIS',
-    name: 'Tetris',
-    buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
-    actions: ['GAME', 'HELP']
-  }
-} 
+import Folders from '../models/folders';
+import Windows from '../models/windows';
 
 function getWindow(req, res, next) {
   const {windowId} = req.params;
-  const fixture = windows[windowId] || {};
+  const fixture = Windows.get(windowId);
 
   switch (fixture.type) {
     case 'MINESWEEPER':
@@ -34,7 +11,7 @@ function getWindow(req, res, next) {
     case 'TETRIS':
       return res.send(fixture);
     case 'FOLDER':
-      return folders
+      return Folders
         .getFolder(windowId, (err, appData) => {
           if (err) {
             return next(err);
@@ -42,8 +19,8 @@ function getWindow(req, res, next) {
           res.send({...fixture, appData})
         });
     default:
-      next(new Error(`Cannot find fixture for ${fixture.type}`));
-      return;
+      return next(new Error(`Cannot find fixture for ${fixture.type}`));
+      
   }
 }
 

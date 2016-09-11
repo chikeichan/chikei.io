@@ -31,7 +31,6 @@ export default function configureStore(initialState) {
 }
 
 function errorHandler(error, getState) {
-  console.log('hihihi')
   console.error(error);
   console.debug('current state', getState());
 }

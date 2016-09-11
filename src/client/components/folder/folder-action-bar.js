@@ -32,11 +32,11 @@ class FolderActionBar extends Component {
         return (
           <WindowActionMenu>
             <div
-              className={(!viewMode || viewMode === 'ICON') && 'checked'}
-              onClick={() => setViewMode(windowId, 'ICON')}>Icons</div>
+              className={(viewMode === 'ICON') && 'checked'}
+              onClick={() => setViewMode('ICON')}>Icons</div>
             <div
               className={viewMode === 'DETAIL' && 'checked'}
-              onClick={() => setViewMode(windowId, 'DETAIL')}>Details</div>
+              onClick={() => setViewMode('DETAIL')}>Details</div>
           </WindowActionMenu>
         );
       case HELP:

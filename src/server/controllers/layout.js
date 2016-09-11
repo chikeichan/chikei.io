@@ -1,24 +1,8 @@
-const icons =[
-  {
-    id: 'TUTORIALS',
-    type: 'FOLDER',
-    name: 'Tutorials'
-  },
-  {
-    id: 'MINESWEEPER',
-    type: 'MINESWEEPER',
-    name: 'Minesweeper'
-  },
-  {
-    id: 'TETRIS',
-    type: 'TETRIS',
-    name: 'Tetris'
-  }
-];
+import Icons from '../models/icons'
 
 function getLayout(req, res) {
   const fixture = {
-    icons,
+    icons: Icons.getAll(),
     windows: []
   };
 

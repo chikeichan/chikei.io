@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import express from 'express';
 
 import commonRoutes from './routers/common-routes';
-import devRoutes from './routers/dev-routes';
+import errorHandler from './middlewares/error-handler';
 
 const app = express();
 const {NODE_ENV} = process.env;
@@ -13,26 +13,7 @@ app.use(express.static('src/assets'));
 
 commonRoutes(app);
 
-// if (NODE_ENV === 'development') {
-//   devRoutes(app);
-// }
-
-app.use((err, req, res, next) => {
-  if (err) {
-    return res
-      .status(500)
-      .send({
-        id: 'ERROR',
-        type: 'ERROR',
-        name: 'Oops!',
-        buttons: ['CLOSE'],
-        actions: [],
-        appData: {
-          errorMessage: err.message
-        }
-      });
-  }
-  next();
-});
+// Inject Error Handling middleware
+app.use(errorHandler);
 
 app.listen(8000, () => console.log('Listening on Port 8000...'));

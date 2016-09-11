@@ -58,9 +58,9 @@ export const maximizeWindow = id => {
   };
 }
 
-export const setViewMode = (id, viewMode) => {
+export const setViewMode = (viewMode) => {
   return {
     type: SET_VIEW_MODE,
-    id, viewMode
+    viewMode
   };
 }
