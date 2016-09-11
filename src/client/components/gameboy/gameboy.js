@@ -3,9 +3,29 @@ import classnames from 'classnames';
 
 class Gameboy extends Component {
   static propTypes = {
+    onShutDown: PropTypes.func,
+    onStartUp: PropTypes.func,
+    onLeftClick: PropTypes.func,
+    onRightClick: PropTypes.func,
+    onUpClick: PropTypes.func,
+    onDownClick: PropTypes.func,
+    onAButton: PropTypes.func,
+    onBButton: PropTypes.func,
+    onStart: PropTypes.func,
+    onSelect: PropTypes.func
   };
 
   static defaultProps = {
+    onShutDown() {},
+    onStartUp() {},
+    onLeftClick() {},
+    onRightClick() {},
+    onUpClick() {},
+    onDownClick() {},
+    onAButton() {},
+    onBButton() {},
+    onStart() {},
+    onSelect() {}
   };
 
   constructor(props) {
@@ -21,15 +41,22 @@ class Gameboy extends Component {
 
   toggleOn() {
     const {isOn} = this.state;
+    const {onStartUp, onShutDown} = this.props;
     if (!isOn) {
       const startup = new Audio('./sounds/gameboy-startup.wav');
       startup.play();
+      onStartUp();
+    } else {
+      onShutDown();
     }
     this.setState({isOn: !isOn});
   }
 
   render() {
-    const {children} = this.props;
+    const {
+      children, onDownClick, onUpClick, onRightClick,
+      onLeftClick, onAButton, onBButton, onStart, onSelect
+    } = this.props;
     const {isOn} = this.state;
     const statusClass = classnames(
       'gameboy-screen',
@@ -79,30 +106,30 @@ class Gameboy extends Component {
         <div className="gameboy-control">
           <div className="gameboy-dpad">
             <div className="gameboy-dpad-row gameboy-dpad-row--one">
-              <div className="gameboy-dpad-up"/>
+              <div className="gameboy-dpad-up" onClick={onUpClick}/>
             </div>
             <div className="gameboy-dpad-row gameboy-dpad-row--two">
-              <div className="gameboy-dpad-left"/>
+              <div className="gameboy-dpad-left" onClick={onLeftClick}/>
               <div className="gameboy-dpad-center"/>
-              <div className="gameboy-dpad-right"/>
+              <div className="gameboy-dpad-right" onClick={onRightClick}/>
             </div>
             <div className="gameboy-dpad-row gameboy-dpad-row--three">
-              <div className="gameboy-dpad-down"/>
+              <div className="gameboy-dpad-down" onClick={onDownClick}/>
             </div>
           </div>
           <div className="gameboy-buttons">
-            <div className="gameboy-button-a"/>
+            <div className="gameboy-button-a" onClick={onAButton}/>
             <div className="gameboy-button-divider"/>
-            <div className="gameboy-button-b"/>
+            <div className="gameboy-button-b" onClick={onBButton}/>
           </div>
         </div>
         <div className="gameboy-alt-buttons">
           <div className="gameboy-alt-button">
-            <div className="gameboy-alt-select"/>
+            <div className="gameboy-alt-select" onClick={onSelect}/>
             SELECT
           </div>
           <div className="gameboy-alt-button">
-            <div className="gameboy-alt-start"/>
+            <div className="gameboy-alt-start" onClick={onStart}/>
             START
           </div>
         </div>

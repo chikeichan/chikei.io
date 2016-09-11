@@ -85,6 +85,10 @@ class Tetris extends Component {
     this.loseOrSpawn = this.loseOrSpawn.bind(this);
     this.calculateFrame = this.calculateFrame.bind(this);
     this.calculateNextFrame = this.calculateNextFrame.bind(this);
+    this.pauseGame = this.pauseGame.bind(this);
+    this.startGame = this.startGame.bind(this);
+    this.move = this.move.bind(this);
+    this.rotate = this.rotate.bind(this);
   }
 
   makeFields() {
@@ -229,8 +233,7 @@ class Tetris extends Component {
     switch(status) {
       case STATUS.PAUSE:
       case STATUS.PREGAME:
-        this.setState({status: STATUS.INPROGRESS});
-        this.calculateFrame();
+        this.setState({status: STATUS.INPROGRESS}, this.calculateFrame);
         return;
       case STATUS.GAMEOVER:
         this.setState({
@@ -240,10 +243,8 @@ class Tetris extends Component {
           currentPos: ORIGIN,
           status: STATUS.INPROGRESS,
           score: 0,
-          lines: 0,
-          level: 1
-        });
-        this.calculateFrame();
+          lines: 0
+        }, this.calculateFrame);
         return;
       case STATUS.INPROGRESS:
       default:
@@ -256,10 +257,14 @@ class Tetris extends Component {
 
     switch(status) {
       case STATUS.INPROGRESS:
-        this.setState({status: STATUS.PAUSE});
-        if (this.timeout) {
-          clearTimeout(this.timeout);
-        }
+        this.setState(
+          {status: STATUS.PAUSE},
+          () => {
+            if (this.timeout) {
+              clearTimeout(this.timeout);
+            }
+          }
+        );
         return;
       case STATUS.GAMEOVER:
       case STATUS.PAUSE:
@@ -346,12 +351,23 @@ class Tetris extends Component {
 
   render() {
     const {actions} = this.props;
+    const {status, level} = this.state;
     return (
       <Window 
         {...this.props}
-        isAutoHide={this.state.status === STATUS.INPROGRESS}>
-        <ActionBar actions={actions} />
-        <Gameboy>
+        isAutoHide={status === STATUS.INPROGRESS}>
+        <ActionBar
+          actions={actions}
+          currentLevel={level}
+          changeLevel={(lvl) => this.setState({level: lvl})}/>
+        <Gameboy
+          onShutDown={this.pauseGame}
+          onAButton={this.rotate}
+          onBButton={this.rotate}
+          onDownClick={() => this.move(0, 1)}
+          onRightClick={() => this.move(1, 0)}
+          onLeftClick={() => this.move(-1, 0)}
+          onStart={status === STATUS.INPROGRESS ? this.pauseGame : this.startGame}>
           <div className="tetris-wrapper">
             {this.renderModal()}
             <div className="tetris-game-background">
