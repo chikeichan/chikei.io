@@ -153,6 +153,7 @@
   border-top: 4px solid rgba(0, 0, 0, 0.4);
   position: relative;
   display: flex;
+  overflow: hidden;
 
   &:before {
     content: '';

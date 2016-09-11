@@ -4,7 +4,7 @@ import Window from '../containers/window-container/window-container';
 import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
 import Folder from '../containers/folder-container/folder-container';
 import Blog from '../components/blog/blog';
-import Tetris from '../components/tetris/tetris';
+import Tetris from '../containers/tetris-container/tetris-container';
 import ErrorDialog from '../containers/error-container/error-container';
 
 const TYPE_TO_COMPONENT = {
