@@ -3,7 +3,8 @@ import {saveTetris} from '../../actions/tetris/tetris';
 import Tetris from '../../components/tetris/tetris';
 
 const mapStateToProps = (state) => {
-  return {};
+  const {tetris} = state;
+  return {savedData: tetris};
 }
 
 const mapDispatchToProps = dispatch => {

@@ -64,7 +64,8 @@ const STATUS = {
 
 class Tetris extends Component {
   static propTypes = {
-    saveTetris: PropTypes.func.isRequired
+    saveTetris: PropTypes.func.isRequired,
+    savedData: PropTypes.object
   };
 
   constructor(props) {
@@ -77,7 +78,8 @@ class Tetris extends Component {
       status: STATUS.PREGAME,
       score: 0,
       lines: 0,
-      level: 1
+      level: 1,
+      ...props.savedData
     };
     this.onKeyPress = this.onKeyPress.bind(this);
     this.loseOrSpawn = this.loseOrSpawn.bind(this);
@@ -100,6 +102,7 @@ class Tetris extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeyPress);
+    this.props.saveTetris({});
   }
 
   onKeyPress(e) {
