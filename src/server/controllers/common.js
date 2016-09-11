@@ -1,13 +1,9 @@
 import React from 'react';
-import {renderToStaticMarkup, renderToString} from 'react-dom/server';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import {renderToStaticMarkup} from 'react-dom/server';
 
 import Icons from '../models/icons';
 import Windows from '../models/Windows';
 
-import rootReducer from '../../client/reducers';
-import App from '../../client/app';
 
 const preloadedState = {
   icons: Icons.getAll(),
@@ -17,7 +13,6 @@ const preloadedState = {
 const stringifiedState = JSON.stringify(preloadedState);
 
 function index(req, res) {
-  const store = createStore(rootReducer);
   const html = renderToStaticMarkup(
     <html>
       <head>

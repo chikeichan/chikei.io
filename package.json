@@ -2,7 +2,7 @@
   "name": "chikei.io",
   "version": "1.0.0",
   "description": "",
-  "main": "public/server/server/index.js",
+  "main": "public/server/index.js",
   "eslintConfig": {
     "env": {
       "browser": true,

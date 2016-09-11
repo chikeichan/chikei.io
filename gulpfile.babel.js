@@ -60,7 +60,7 @@ function compile(opts) {
 // Build Tasks
 gulp.task('build:client', () => compile(clientConfig));
 gulp.task('build:server', () => {
-  return gulp.src('src/**/*.js')
+  return gulp.src('src/server/**/*.js')
       .pipe(babel({
         "presets": ["es2015", "react", "stage-2"],
         "plugins": ["transform-decorators-legacy"]
@@ -99,9 +99,9 @@ gulp.task('watch:server', () => gulp.watch('src/server/**/*.js', ['build:server'
 gulp.task('watch:style', () => gulp.watch('src/styles/**/*.scss', ['reload:style']));
 gulp.task('watch:all', ['watch:client', 'watch:server', 'watch:style']);
 
-gulp.task('nodemon', ['watch:all'], (cb) => {
+gulp.task('nodemon', ['build', 'watch:all'], (cb) => {
   let started = false;
-  return nodemon({script: 'public/server/server/index.js'})
+  return nodemon({script: 'public/server/index.js'})
     .on('start', function () {
       if (!started) {
         cb();
