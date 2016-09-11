@@ -64,9 +64,7 @@ const STATUS = {
 
 class Tetris extends Component {
   static propTypes = {
-  };
-
-  static defaultProps = {
+    saveTetris: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -263,6 +261,7 @@ class Tetris extends Component {
             if (this.timeout) {
               clearTimeout(this.timeout);
             }
+            this.props.saveTetris(this.state);
           }
         );
         return;
