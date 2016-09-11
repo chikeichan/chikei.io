@@ -58,7 +58,8 @@ const ORIGIN = [4, 2];
 const STATUS = {
   GAMEOVER: 'GAMEOVER',
   PAUSE: 'PAUSE',
-  PREGAME: 'PREGAME'
+  PREGAME: 'PREGAME',
+  INPROGRESS: 'INPROGRESS'
 };
 
 class Tetris extends Component {
@@ -75,10 +76,10 @@ class Tetris extends Component {
       currentShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
       nextShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
       currentPos: ORIGIN,
-      status: null,
+      status: STATUS.PREGAME,
       score: 0,
       lines: 0,
-      level: 5
+      level: 1
     };
     this.onKeyPress = this.onKeyPress.bind(this);
     this.loseOrSpawn = this.loseOrSpawn.bind(this);
@@ -93,7 +94,6 @@ class Tetris extends Component {
 
   componentWillMount() {
     window.addEventListener('keydown', this.onKeyPress);
-    this.calculateFrame();
   }
 
   componentWillUnmount() {
@@ -114,6 +114,13 @@ class Tetris extends Component {
       // Down
       case 40:
         return this.move(0, 1);
+      // Enter
+      case 13:
+        return this.startGame();
+      // Escape
+      case 27:
+        e.preventDefault();
+        return this.pauseGame();
       default:
         return;
     }
@@ -132,7 +139,12 @@ class Tetris extends Component {
   }
 
   rotate() {
-    const {fields, currentPos, currentShape} = this.state;
+    const {fields, currentPos, currentShape, status} = this.state;
+
+    if (status !== STATUS.INPROGRESS) {
+      return;
+    }
+
     const direction = Number(currentShape[1]);
     const nextDirection = direction === 3 ? 0 : direction + 1;
     const nextShape = `${currentShape[0]}${nextDirection}`
@@ -145,7 +157,12 @@ class Tetris extends Component {
   }
 
   move(offsetX = 0, offsetY = 0, onSuccess = () => {}, onFailure = () => {}) {
-    const {fields, currentPos, currentShape} = this.state;
+    const {fields, currentPos, currentShape, status} = this.state;
+
+    if (status !== STATUS.INPROGRESS) {
+      return;
+    }
+
     const x = currentPos[0] + offsetX;
     const y = currentPos[1] + offsetY;
     const shape = this.getShape(x, y, currentShape);
@@ -165,7 +182,7 @@ class Tetris extends Component {
 
   loseOrSpawn(onSpawn) {
     const {fields, currentPos, currentShape, nextShape} = this.state;
-    const isOk = fields[0].reduce((ok, n) => ok && n === false, true);
+    const isOk = fields[2].reduce((ok, n) => ok && n === false, true);
 
 
     if (isOk) {
@@ -206,13 +223,59 @@ class Tetris extends Component {
     });
   }
 
+  startGame() {
+    const {status} = this.state;
+
+    switch(status) {
+      case STATUS.PAUSE:
+      case STATUS.PREGAME:
+        this.setState({status: STATUS.INPROGRESS});
+        this.calculateFrame();
+        return;
+      case STATUS.GAMEOVER:
+        this.setState({
+          fields: this.makeFields(),
+          currentShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
+          nextShape: SHAPE_KEYS[Math.floor(Math.random() * SHAPE_KEYS.length)],
+          currentPos: ORIGIN,
+          status: STATUS.INPROGRESS,
+          score: 0,
+          lines: 0,
+          level: 1
+        });
+        this.calculateFrame();
+        return;
+      case STATUS.INPROGRESS:
+      default:
+        return;
+    }
+  }
+
+  pauseGame() {
+    const {status} = this.state;
+
+    switch(status) {
+      case STATUS.INPROGRESS:
+        this.setState({status: STATUS.PAUSE});
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
+        return;
+      case STATUS.GAMEOVER:
+      case STATUS.PAUSE:
+      case STATUS.PREGAME:
+      default:
+        return;
+    }
+  }
+
   calculateFrame() {
     this.move(0, 1, this.calculateNextFrame, this.loseOrSpawn);
     this.killRows();
   }
 
   calculateNextFrame() {
-    setTimeout(this.calculateFrame, 500/this.state.level);
+    this.timeout = setTimeout(this.calculateFrame, 500/this.state.level);
   }
 
   renderRow(row, rowIndex) {
@@ -241,7 +304,12 @@ class Tetris extends Component {
   }
 
   renderGame() {
-    const {fields, currentPos, currentShape} = this.state;
+    const {fields, currentPos, currentShape, status} = this.state;
+
+    if (status === STATUS.PREGAME) {
+      return fields.map((row, rowIndex) => this.renderRow(row, rowIndex));
+    }
+
     const shape = this.getShape(currentPos[0], currentPos[1], currentShape);
     const mergedFields = this.mergeShapeWithFields(shape, fields);
     return mergedFields.map((row, rowIndex) => this.renderRow(row, rowIndex));
@@ -249,9 +317,31 @@ class Tetris extends Component {
 
   renderPreview() {
     const fields = Array(4).fill(Array(4).fill(false));
+
+    if (this.state.status === STATUS.PREGAME) {
+      return fields.map((row, rowIndex) => this.renderRow(row, rowIndex));
+    }
+
     const shape = this.getShape(1, 2, this.state.nextShape);
     const mergedFields = this.mergeShapeWithFields(shape, fields);
     return mergedFields.map((row, rowIndex) => this.renderRow(row, rowIndex));
+  }
+
+  renderModal() {
+    const {status} = this.state;
+    const itemText = classnames({
+      'START GAME': status === STATUS.PREGAME,
+      'RESUME': status === STATUS.PAUSE,
+      'NEW GAME': status === STATUS.GAMEOVER,
+    });
+
+    return status === STATUS.INPROGRESS ? null : (
+      <div className="tetris-modal">
+        <div className="tetris-pause-menu">
+          <div className="tetris-pause-menu-item">{itemText}</div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -259,10 +349,11 @@ class Tetris extends Component {
     return (
       <Window 
         {...this.props}
-        isAutoHide={true}>
+        isAutoHide={this.state.status === STATUS.INPROGRESS}>
         <ActionBar actions={actions} />
         <Gameboy>
           <div className="tetris-wrapper">
+            {this.renderModal()}
             <div className="tetris-game-background">
               <div className="tetris-game-field">
                 {this.renderGame()}
