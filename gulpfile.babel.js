@@ -69,6 +69,8 @@ gulp.task('build:server', () => {
         output: {
             filename: 'index.js'
         },
+        devtool: 'source-map',
+        debug: true,
         module: {
             loaders: [
                 {

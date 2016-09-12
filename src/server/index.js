@@ -14,6 +14,6 @@ app.use(express.static('src/assets'));
 commonRoutes(app);
 
 // Inject Error Handling middleware
-app.use(errorHandler);
+// app.use(errorHandler);
 
 app.listen(8000, () => console.log('Listening on Port 8000...'));

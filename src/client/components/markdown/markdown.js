@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import marked from 'marked';
+import window from 'global/window';
 import {highlightBlock} from 'highlight.js'
 
 marked.setOptions({

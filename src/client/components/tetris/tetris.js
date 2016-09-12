@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import window from 'global/window';
 import Window from '../../containers/window-container/window-container';
 import ActionBar from './tetris-action-bar';
 import Gameboy from '../gameboy/gameboy';

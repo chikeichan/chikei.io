@@ -1,13 +1,12 @@
+import window from 'global/window';
 import {addIcons} from './icons/icons';
 import {addWindows} from './windows/windows';
+
 export const bootstrap = () => {
-  const req = new Request('/layout');
+  const json = window.__PRELOADED_STATE__ || {};
+  const {icons = [], windows = []} = json;
   return dispatch => {
-    return fetch(req, {method: 'GET'})
-      .then(res => res.json())
-      .then(json => {
-        dispatch(addIcons(json.icons))
-        dispatch(addWindows(json.windows))
-      });
+    dispatch(addIcons(icons));
+    dispatch(addWindows(windows));
   }
 }
