@@ -55,6 +55,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.9",
+    "gulp-webpack": "^1.5.0",
     "livereactload": "^3.0.0",
     "nodemon": "^1.10.0",
     "react-proxy": "^1.1.8",

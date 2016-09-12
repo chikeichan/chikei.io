@@ -14,6 +14,7 @@ import watch from 'gulp-watch';
 import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import browserSync from 'browser-sync';
+import webpack from 'gulp-webpack';
 
 const reload = browserSync.reload;
 
@@ -61,12 +62,34 @@ function compile(opts) {
 gulp.task('build:client', () => compile(clientConfig));
 gulp.task('build:server', () => {
   return gulp.src('src/server/**/*.js')
-      .pipe(babel({
-        "presets": ["es2015", "react", "stage-2"],
-        "plugins": ["transform-decorators-legacy"]
+      .pipe(webpack({
+        name: 'server',
+        entry: './src/server/index.js',
+        target: 'node',
+        output: {
+            filename: 'index.js'
+        },
+        module: {
+            loaders: [
+                {
+                    test: /.js/,
+                    loader: 'babel',
+                    exclude: /node_modules/,
+                    query: {
+                        presets: ['es2015', 'react', 'stage-2'],
+                        plugins: ['transform-decorators-legacy']
+                    }
+                },
+                {
+                    test: /\.json?$/,
+                    loader: 'json'
+                }
+            ]
+        }
       }))
       .pipe(gulp.dest('./public/server'));
 });
+
 gulp.task('build:style', function () {
   return gulp.src('src/styles/index.scss')
     .pipe(sourcemaps.init())
