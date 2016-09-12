@@ -4,6 +4,7 @@ import gulp from 'gulp';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import watchify from 'watchify';
+import envify from 'envify/custom';
 import sourcemaps from 'gulp-sourcemaps';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
@@ -14,9 +15,9 @@ import watch from 'gulp-watch';
 import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import browserSync from 'browser-sync';
-import webpack from 'gulp-webpack';
 
 const reload = browserSync.reload;
+const {NODE_ENV} = process.env;
 
 const clientConfig = {
   src: './src/client/index.js',
@@ -32,11 +33,13 @@ function compile(opts) {
     src, debug, output, dest, ignoreWatch,
     loadMaps, watch, node, plugin
   } = opts;
-  const bundler = watchify(
+  const bundler = watch ? watchify(
     browserify(src, {
       debug, node, plugin, ignoreWatch
-    }).transform(babelify)
-  );
+    }).transform(babelify).transform(envify({NODE_ENV}))
+  ) : browserify(src, {
+    debug, node, plugin, ignoreWatch
+  }).transform(babelify).transform(envify({NODE_ENV}));
 
   function rebundle() {
     bundler.bundle()
@@ -61,35 +64,9 @@ function compile(opts) {
 // Build Tasks
 gulp.task('build:client', () => compile(clientConfig));
 gulp.task('build:server', () => {
-  return gulp.src('src/server/**/*.js')
-      .pipe(webpack({
-        name: 'server',
-        entry: './src/server/index.js',
-        target: 'node',
-        output: {
-            filename: 'index.js'
-        },
-        devtool: 'source-map',
-        debug: true,
-        module: {
-            loaders: [
-                {
-                    test: /.js/,
-                    loader: 'babel',
-                    exclude: /node_modules/,
-                    query: {
-                        presets: ['es2015', 'react', 'stage-2'],
-                        plugins: ['transform-decorators-legacy']
-                    }
-                },
-                {
-                    test: /\.json?$/,
-                    loader: 'json'
-                }
-            ]
-        }
-      }))
-      .pipe(gulp.dest('./public/server'));
+  return gulp.src('src/**/*.js')
+      .pipe(babel())
+      .pipe(gulp.dest('./public/compiled'));
 });
 
 gulp.task('build:style', function () {
@@ -100,7 +77,7 @@ gulp.task('build:style', function () {
     .pipe(autoprefixer())
     .pipe(gulp.dest('./public/styles'));
 });
-gulp.task('build', ['build:client', 'build:server', 'build:style']);
+gulp.task('build', ['build:client', 'build:server', 'build:style'], cb => cb());
 
 // Watch Tasks
 gulp.task('watch:client', () => compile({
@@ -120,13 +97,13 @@ gulp.task('reload:style', () => {
     .pipe(reload({stream:true}))
 });
 
-gulp.task('watch:server', () => gulp.watch('src/server/**/*.js', ['build:server']));
+gulp.task('watch:server', () => gulp.watch('src/**/*.js', ['build:server']));
 gulp.task('watch:style', () => gulp.watch('src/styles/**/*.scss', ['reload:style']));
 gulp.task('watch:all', ['watch:client', 'watch:server', 'watch:style']);
 
-gulp.task('nodemon', ['build', 'watch:all'], (cb) => {
+gulp.task('nodemon', ['build:server', 'build:style', 'watch:all'], (cb) => {
   let started = false;
-  return nodemon({script: 'public/server/index.js'})
+  return nodemon({script: 'public/compiled/server/index.js'})
     .on('start', function () {
       if (!started) {
         cb();

@@ -64,13 +64,13 @@ function renderHTML(path = '') {
 
 function index(req, res, next) {
   const html = renderHTML();
-  res.end(html);
+  res.send(html);
 }
 
 function windowPath(req, res, next) {
   const {path} = req.params;
   const html = renderHTML(path);
-  res.end(html);
+  res.send(html);
 }
 
 export default {

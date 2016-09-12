@@ -9,7 +9,9 @@ class Clock extends Component {
     this.getNewTime = this.getNewTime.bind(this);
   }
   componentWillMount() {
-    setInterval(this.getNewTime, 60000);
+    if (typeof window !== 'undefined') {
+      setInterval(this.getNewTime, 60000);
+    }
   }
 
   getNewTime() {
