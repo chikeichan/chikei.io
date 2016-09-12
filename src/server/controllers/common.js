@@ -10,7 +10,7 @@ import rootReducer from '../../client/reducers';
 import App from '../../client/app';
 
 
-function renderHTML(path = '') {
+function renderHTML(path = '', blogId = '') {
   const icons = Icons.getAll();
   const windows = [];
 
@@ -53,6 +53,7 @@ function renderHTML(path = '') {
         </script>
         <script>window.__PRELOADED_STATE__ = ${stringifiedState}</script>
         <script>window.__PRELOADED_APPS__ = "${path}"</script>
+        <script>window.__PRELOADED_BLOGS__ = "${blogId}"</script>
       </head>
       <body>
         <div id="root">${html}</div>
@@ -73,7 +74,14 @@ function windowPath(req, res, next) {
   res.send(html);
 }
 
+function blogPath(req, res, next) {
+  const {path} = req.params;
+  const html = renderHTML(undefined, path);
+  res.send(html);
+}
+
 export default {
   index,
-  windowPath
+  windowPath,
+  blogPath
 };

@@ -1,5 +1,5 @@
 import window from 'global/window';
-import {addIcons, openApp} from './icons/icons';
+import {addIcons, openApp, openBlog} from './icons/icons';
 import {addWindows} from './windows/windows';
 
 export const bootstrap = () => {
@@ -7,12 +7,18 @@ export const bootstrap = () => {
   const {icons = [], windows = []} = json;
 
   const app = window.__PRELOADED_APPS__;
+  const blog = window.__PRELOADED_BLOGS__;
 
   return dispatch => {
     dispatch(addIcons(icons));
     dispatch(addWindows(windows));
+
     if (app) {
       dispatch(openApp(app));
+    }
+
+    if (blog) {
+      dispatch(openBlog(blog));
     }
   }
 }

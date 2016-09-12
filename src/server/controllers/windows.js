@@ -19,7 +19,7 @@ function getWindow(req, res, next) {
           res.send({...fixture, appData})
         });
     default:
-      return next(new Error(`Cannot find fixture for ${windowId}`));
+      return next(new Error(`Cannot find application for ${windowId}`));
       
   }
 }
