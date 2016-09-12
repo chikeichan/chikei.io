@@ -23,7 +23,7 @@ class ErrorDialog extends Component {
       return;
     }
 
-    const startup = new Audio('./sounds/error.wav');
+    const startup = new Audio('/sounds/error.wav');
     startup.play();
   }
 

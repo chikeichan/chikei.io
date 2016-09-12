@@ -44,7 +44,7 @@ class Gameboy extends Component {
     const {onStartUp, onShutDown} = this.props;
     if (!isOn) {
       if (typeof Audio !== 'undefined') {
-        const startup = new Audio('./sounds/gameboy-startup.wav');
+        const startup = new Audio('/sounds/gameboy-startup.wav');
         startup.play();
       }
       onStartUp();

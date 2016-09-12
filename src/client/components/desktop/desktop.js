@@ -51,7 +51,7 @@ class Desktop extends Component {
     if (typeof Audio === 'undefined') {
       return;
     }
-    const startup = new Audio('./sounds/startup.mp3');
+    const startup = new Audio('/sounds/startup.mp3');
     startup.play();
   }
 

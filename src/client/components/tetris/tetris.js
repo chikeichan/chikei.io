@@ -98,11 +98,11 @@ class Tetris extends Component {
   }
 
   componentWillMount() {
-    window.addEventListener('keydown', this.onKeyPress);
+    window.addEventListener && window.addEventListener('keydown', this.onKeyPress);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyPress);
+    window.removeEventListener && window.removeEventListener('keydown', this.onKeyPress);
     this.props.saveTetris({});
   }
 

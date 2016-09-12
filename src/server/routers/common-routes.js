@@ -7,5 +7,6 @@ export default function commonRoutes(app) {
   app.get('/layout', layout.getLayout);
   app.get('/windows/:windowId', windows.getWindow);
   app.get('/tutorials/:filename', blogs.getBlog);
+  app.get('/w/:path', common.windowPath);
   app.get('/', common.index);
 }
