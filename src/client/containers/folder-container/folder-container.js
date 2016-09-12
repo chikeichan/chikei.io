@@ -3,9 +3,8 @@ import {setViewMode} from '../../actions/windows/windows';
 import Folder from '../../components/folder/folder';
 
 const mapStateToProps = (state, ownProps) => {
-  const {windowId} = ownProps;
-  const appWindow = state.windows[windowId];
-  return {viewMode: appWindow.viewMode};
+  const viewMode = state.layout.folderViewMode || 'ICON';
+  return {viewMode};
 }
 
 const mapDispatchToProps = dispatch => {

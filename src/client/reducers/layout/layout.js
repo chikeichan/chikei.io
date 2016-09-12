@@ -1,18 +1,18 @@
 import {SELECT_ICON, DESELECT_ICONS, OPEN_APP} from '../../enums/icon-action-types';
 import {
   SELECT_WINDOW, DESELECT_WINDOWS, CLOSE_WINDOW,
-  MINIMIZE_WINDOW
+  MINIMIZE_WINDOW, SET_VIEW_MODE
 } from '../../enums/window-action-types';
 
 const initialState = {
   selectedIcon: {},
-  selectedWindow: {}
+  selectedWindow: {},
+  folderViewMode: 'ICON'
 };
 
 function selectIcon(state, iconId) {
   return {
     ...state,
-    // selectedWindow: {},
     selectedIcon: {[iconId]: true}
   };
 }
@@ -41,6 +41,13 @@ function closeWindow(state, id) {
   };
 }
 
+function setViewMode(state, folderViewMode) {
+  return {
+    ...state,
+    folderViewMode
+  };
+}
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case SELECT_ICON:
@@ -55,6 +62,8 @@ export default function(state=initialState, action) {
       return closeWindow(state, action.id);
     case OPEN_APP:
       return selectWindow(state, action.window.id);
+    case SET_VIEW_MODE:
+      return setViewMode(state, action.viewMode);
     default:
       return state;
   }

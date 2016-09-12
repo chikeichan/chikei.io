@@ -1,13 +1,24 @@
-import {addIcons} from './icons/icons';
+import window from 'global/window';
+import {addIcons, openApp, openBlog} from './icons/icons';
 import {addWindows} from './windows/windows';
+
 export const bootstrap = () => {
-  const req = new Request('/layout');
+  const json = window.__PRELOADED_STATE__ || {};
+  const {icons = [], windows = []} = json;
+
+  const app = window.__PRELOADED_APPS__;
+  const blog = window.__PRELOADED_BLOGS__;
+
   return dispatch => {
-    return fetch(req, {method: 'GET'})
-      .then(res => res.json())
-      .then(json => {
-        dispatch(addIcons(json.icons))
-        dispatch(addWindows(json.windows))
-      });
+    dispatch(addIcons(icons));
+    dispatch(addWindows(windows));
+
+    if (app) {
+      dispatch(openApp(app));
+    }
+
+    if (blog) {
+      dispatch(openBlog(blog));
+    }
   }
 }

@@ -19,7 +19,11 @@ class ErrorDialog extends Component {
   }
 
   componentWillMount() {
-    const startup = new Audio('./sounds/error.wav');
+    if (typeof Audio === 'undefined') {
+      return;
+    }
+
+    const startup = new Audio('/sounds/error.wav');
     startup.play();
   }
 

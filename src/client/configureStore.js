@@ -8,9 +8,17 @@ import rootReducer from './reducers';
 const logger = createLogger();
 
 export default function configureStore(initialState) {
+  let middleware;
+
+  if (process.env.NODE_ENV === "development") {
+    middleware = applyMiddleware(reduxCatch(errorHandler), thunk, logger);
+  } else {
+    middleware = applyMiddleware(reduxCatch(errorHandler), thunk);
+  }
+
   const store = createStore(
     rootReducer,
-    applyMiddleware(reduxCatch(errorHandler), thunk, logger),
+    middleware,
     persistState()
   );
 
@@ -31,7 +39,6 @@ export default function configureStore(initialState) {
 }
 
 function errorHandler(error, getState) {
-  console.log('hihihi')
   console.error(error);
   console.debug('current state', getState());
 }

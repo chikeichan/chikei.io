@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
+import window from 'global/window';
 import Window from '../../containers/window-container/window-container';
 import ActionBar from './tetris-action-bar';
 import Gameboy from '../gameboy/gameboy';
@@ -97,11 +98,11 @@ class Tetris extends Component {
   }
 
   componentWillMount() {
-    window.addEventListener('keydown', this.onKeyPress);
+    window.addEventListener && window.addEventListener('keydown', this.onKeyPress);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyPress);
+    window.removeEventListener && window.removeEventListener('keydown', this.onKeyPress);
     this.props.saveTetris({});
   }
 

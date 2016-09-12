@@ -5,6 +5,7 @@ const initialState = {};
 function addIcon(state, icon) {
   const {id} = icon;
   const lastIcon = state[id];
+
   return {
     ...state,
     [id]: {
@@ -15,7 +16,15 @@ function addIcon(state, icon) {
 }
 
 function addIcons(state, icons) {
-  return icons.reduce(addIcon, state);
+  const retState = icons
+    .reduce((newState, icon) => {
+      const {id} = icon;
+      newState[id] = state[id];
+      return newState;
+    }, {});
+
+  return icons
+    .reduce(addIcon, retState);
 }
 
 function moveIcon(state, id, x, y) {

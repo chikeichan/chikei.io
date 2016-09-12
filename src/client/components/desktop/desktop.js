@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import window from 'global/window';
 import Icon from '../../containers/icon-container/icon-container';
 import Application from '../application';
 
@@ -43,13 +44,14 @@ class Desktop extends Component {
 
   componentWillMount() {
     this.startUp();
-    this.props.setLoading(true);
-    this.props.bootstrap()
-      .then(() => this.props.setLoading(false));
+    this.props.bootstrap();
   }
 
   startUp() {
-    const startup = new Audio('./sounds/startup.mp3');
+    if (typeof Audio === 'undefined') {
+      return;
+    }
+    const startup = new Audio('/sounds/startup.mp3');
     startup.play();
   }
 

@@ -40,10 +40,9 @@ export const deselectIcons = () => {
 }
 
 export const openApp = id => {
-  const req = new Request(`/windows/${id}`);
   return dispatch => {
     dispatch(setLoading(true));
-    return fetch(req, {method: 'GET'})
+    return fetch(`/windows/${id}`, {method: 'GET'})
       .then(res => res.json())
       .then(json => {
         dispatch(setLoading(false));
@@ -56,10 +55,9 @@ export const openApp = id => {
 }
 
 export const openBlog = id => {
-  const req = new Request(`/tutorials/${id}`);
   return dispatch => {
     dispatch(setLoading(true));
-    return fetch(req, {method: 'GET'})
+    return fetch(`/tutorials/${id}`, {method: 'GET'})
       .then(res => res.json())
       .then(json => {
         dispatch(setLoading(false));
