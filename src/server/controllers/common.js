@@ -51,7 +51,7 @@ function renderHTML(path = '', blog = { id: '' }) {
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Hello World</title>
+        <title>chikei.io | From Financial Controller to Model-View-Controller</title>
         <link href="https://fonts.googleapis.com/css?family=Lekton|Open+Sans" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"  href="/styles/index.css" />
         <script>

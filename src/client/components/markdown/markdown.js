@@ -28,8 +28,9 @@ class Markdown extends Component {
     const anchors = el.querySelectorAll('a');
     for (let anchor of anchors) {
       anchor.addEventListener('click', e => {
-        e.preventDefault();
-        window.open(e.target.href,'_blank');
+        // e.preventDefault();
+        // console.log(e.target.href);
+        // window.open(e.target.href,'_blank');
       });
     }
   }

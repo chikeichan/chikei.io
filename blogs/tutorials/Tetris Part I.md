@@ -11,7 +11,7 @@ Re-building Tetris using simple Javascript and jQuery was one of the things I di
 
 ### 1. Building the DOM
 
-[Check out this part on GitHub](https://github.com/chikeichan/tetris.js/commit/61544fd18bad5ca766c7bf4869d779a6d253ea84)
+[Check out this part on GitHub](#app=MINESWEEPER)
 
 We will start with building the *Playfield*, which is simply a table that is 10 cells wide and 22 cells tall. We will want each row and cell to have a number id so that we can reference to them easily using jQuery. For example:
 
@@ -85,7 +85,7 @@ Saves everything and open *index.html* with your browser. You should see the fol
 
 ### 2. Draw on the Grid
 
-[Check out this part on GitHub](https://github.com/chikeichan/tetris.js/commit/f29aa5c410c2ccbc462f7a1c94c34f0494fe3a85)
+<a href="https://github.com/chikeichan/tetris.js/commit/f29aa5c410c2ccbc462f7a1c94c34f0494fe3a85" target="_blank">Check out this part on GitHub</a>
 
 We first need a method to draw something on the grid. Basically, we want a method that:
 
