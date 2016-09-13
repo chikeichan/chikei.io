@@ -1,6 +1,6 @@
 import window from 'global/window';
 import {addIcons, openApp, openBlog} from './icons/icons';
-import {addWindows} from './windows/windows';
+import {addWindows, addWindow} from './windows/windows';
 
 export const bootstrap = () => {
   const json = window.__PRELOADED_STATE__ || {};
@@ -13,12 +13,12 @@ export const bootstrap = () => {
     dispatch(addIcons(icons));
     dispatch(addWindows(windows));
 
-    if (app) {
-      dispatch(openApp(app));
-    }
+    // if (app) {
+    //   dispatch(openApp(app));
+    // }
 
-    if (blog) {
-      dispatch(openBlog(blog));
-    }
+    // if (blog) {
+    //   dispatch(openBlog(blog));
+    // }
   }
 }

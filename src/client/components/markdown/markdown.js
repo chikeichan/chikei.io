@@ -1,12 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import marked from 'marked';
 import window from 'global/window';
 import {highlightBlock} from 'highlight.js'
-
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true
-});
 
 class Markdown extends Component {
   static propTypes = {
@@ -18,7 +12,7 @@ class Markdown extends Component {
   }
 
   markup(md) {
-    return marked(md);
+    return md;
   }
 
   decorate(el) {

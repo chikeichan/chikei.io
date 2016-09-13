@@ -6,11 +6,13 @@ import {Provider} from 'react-redux';
 
 import Icons from '../models/icons';
 import Windows from '../models/windows';
+import Blogs from '../models/blogs';
+
 import rootReducer from '../../client/reducers';
 import App from '../../client/app';
 
 
-function renderHTML(path = '', blogId = '') {
+function renderHTML(path = '', blog = { id: '' }) {
   const icons = Icons.getAll();
   const windows = [];
 
@@ -22,8 +24,18 @@ function renderHTML(path = '', blogId = '') {
     windows: {}
   }
 
+  if (path) {
+    const appWindow = Windows.get(path);
+    initialState.windows[appWindow.id] = appWindow;
+    windows.push(appWindow);
+  }
+
+  if (blog.fixture) {
+    initialState.windows[blog.fixture.id] = blog.fixture;
+    windows.push(blog.fixture);
+  }
+
   const stringifiedState = JSON.stringify({icons, windows});
-  
   // Create a new Redux store instance
   const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
@@ -53,7 +65,7 @@ function renderHTML(path = '', blogId = '') {
         </script>
         <script>window.__PRELOADED_STATE__ = ${stringifiedState}</script>
         <script>window.__PRELOADED_APPS__ = "${path}"</script>
-        <script>window.__PRELOADED_BLOGS__ = "${blogId}"</script>
+        <script>window.__PRELOADED_BLOGS__ = "${blog.id}"</script>
       </head>
       <body>
         <div id="root">${html}</div>
@@ -76,8 +88,18 @@ function windowPath(req, res, next) {
 
 function blogPath(req, res, next) {
   const {path} = req.params;
-  const html = renderHTML(undefined, path);
-  res.send(html);
+  Blogs.getBlog(path, (err, blog) => {
+    if (err) {
+      return next(err);
+    }
+
+    const html = renderHTML(undefined, {
+      id: path,
+      fixture: blog
+    });
+
+    res.send(html);
+  });
 }
 
 export default {
