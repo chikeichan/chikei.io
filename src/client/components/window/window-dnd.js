@@ -74,8 +74,8 @@ class WindowDnD extends Component {
         style={{
           position: 'absolute',
           display: isMinimized ? 'none' : null,
-          top: isMaximized ? 0 : y || defaultY,
-          left: isMaximized ? 0 : x || defaultX,
+          top: isMaximized ? 0 : y || defaultY || 0,
+          left: isMaximized ? 0 : x || defaultX || 0,
           opacity: isDragging ? 0 : 1,
           height: isMaximized ? '100%' : null,
           width: isMaximized ? '100%' : null

@@ -24,6 +24,15 @@ const WINDOWS = {
 
 export default class Windows {
   static get(id) {
-    return WINDOWS[id] || {};
+    return WINDOWS[id] || {
+      id: 'ERROR',
+      type: 'ERROR',
+      name: 'Oops!',
+      buttons: ['CLOSE'],
+      actions: [],
+      appData: {
+        errorMessage: 'Uh oh... Something went wrong'
+      }
+    };
   }
 }

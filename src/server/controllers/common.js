@@ -64,8 +64,6 @@ function renderHTML(path = '', blog = { id: '' }) {
           ga('send', 'pageview');
         </script>
         <script>window.__PRELOADED_STATE__ = ${stringifiedState}</script>
-        <script>window.__PRELOADED_APPS__ = "${path}"</script>
-        <script>window.__PRELOADED_BLOGS__ = "${blog.id}"</script>
       </head>
       <body>
         <div id="root">${html}</div>
@@ -82,15 +80,19 @@ function index(req, res, next) {
 
 function windowPath(req, res, next) {
   const {path} = req.params;
-  const html = renderHTML(path);
-  res.send(html);
+  try {
+    const html = renderHTML(path);
+    res.send(html);
+  } catch (e) {
+    res.send(renderHTML('ERROR'));
+  }
 }
 
 function blogPath(req, res, next) {
   const {path} = req.params;
   Blogs.getBlog(path, (err, blog) => {
     if (err) {
-      return next(err);
+      return res.send(renderHTML('ERROR'));
     }
 
     const html = renderHTML(undefined, {
