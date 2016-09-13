@@ -1,7 +1,7 @@
 import {SET_LOADING} from '../../enums/system-action-types';
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   errorMessage: null
 };
 
