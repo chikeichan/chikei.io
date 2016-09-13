@@ -36,7 +36,9 @@ class Gameboy extends Component {
   }
 
   componentWillMount() {
-    setTimeout(() => this.toggleOn(), 0);
+    if (typeof window !== 'undefined') {
+      setTimeout(() => this.toggleOn(), 0);
+    }
   }
 
   toggleOn() {

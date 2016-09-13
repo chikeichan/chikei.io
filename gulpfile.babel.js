@@ -15,6 +15,7 @@ import watch from 'gulp-watch';
 import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import browserSync from 'browser-sync';
+import webpack from 'gulp-webpack';
 
 const reload = browserSync.reload;
 const {NODE_ENV} = process.env;
@@ -64,9 +65,33 @@ function compile(opts) {
 // Build Tasks
 gulp.task('build:client', () => compile(clientConfig));
 gulp.task('build:server', () => {
-  return gulp.src('src/**/*.js')
-      .pipe(babel())
-      .pipe(gulp.dest('./public/compiled'));
+  return gulp.src('src/server/index.js')
+    .pipe(webpack({
+      name: 'server',
+      entry: './src/server/index.js',
+      target: 'node',
+      output: {
+          filename: 'index.js'
+      },
+      module: {
+        loaders: [
+          {
+            test: /.js/,
+            loader: 'babel',
+            exclude: /node_modules/,
+            query: {
+                presets: ['es2015', 'react', 'stage-2'],
+                plugins: ['transform-decorators-legacy']
+            }
+          },
+          {
+            test: /\.json?$/,
+            loader: 'json'
+          }
+        ]
+      }
+    }))
+    .pipe(gulp.dest('./public/server'));
 });
 
 gulp.task('build:style', function () {
@@ -103,7 +128,7 @@ gulp.task('watch:all', ['watch:client', 'watch:server', 'watch:style']);
 
 gulp.task('nodemon', ['build:server', 'build:style', 'watch:all'], (cb) => {
   let started = false;
-  return nodemon({script: 'public/compiled/server/index.js'})
+  return nodemon({script: 'public/server/index.js'})
     .on('start', function () {
       if (!started) {
         cb();

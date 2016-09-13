@@ -1,5 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import md from 'markdown';
+import marked from 'marked';
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true
+});
 
 export default class Blogs {
   static getBlog(filename, cb) {
@@ -10,7 +16,16 @@ export default class Blogs {
 
       try {
         const appData = this.getAppData(data);
-        cb(null, appData);
+        cb(null, {
+          id: `BLOG__${filename.toUpperCase()}`,
+          type: 'BLOG',
+          name: appData.metadata.title,
+          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+          actions: ['FILE', 'VIEW', 'HELP'],
+          x: 150,
+          y: 70,
+          appData
+        });
       } catch (e) {
         cb(e, null);
       }
@@ -22,7 +37,7 @@ export default class Blogs {
 
     return {
       metadata: JSON.parse(list[0]),
-      markdown: list[1]
+      markdown: marked(list[1])
     };
   }
 }

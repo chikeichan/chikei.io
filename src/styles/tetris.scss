@@ -1,0 +1,175 @@
+
+.tetris-wrapper {
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  border-left: 10px solid $gameboy-tile-color;
+  box-sizing: border-box;
+}
+
+.tetris-game-background {
+  width: 100px;
+  background-color: $gameboy-tile-color;
+  background-image: linear-gradient(335deg, $gameboy-screen-color 2px, transparent 2px),
+  linear-gradient(155deg, rgba($gameboy-screen-color, 0.6) 2px, transparent 2px),
+  linear-gradient(335deg, $gameboy-screen-color 2px, transparent 2px),
+  linear-gradient(155deg, rgba($gameboy-screen-color, 0.6) 2px, transparent 2px);
+  background-size: 6px 6px;
+  background-position: 0px 6px, 10px 7px, 15px 9px, 1px -2px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin: 0 2px;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.tetris-game-field {
+  flex: 1 0 auto;
+  background-color: $gameboy-screen-color;
+  width: 80px;
+  border-left: 1px solid $gameboy-tile-color;
+  border-right: 1px solid $gameboy-tile-color;
+  flex-flow: column nowrap;
+}
+
+.tetris-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.tetris-cell {
+  width: 8px;
+  height: 8px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+.tetris-cell__block {
+  background-color: rgba($gameboy-tile-color, 0.4);
+  border: 1px solid $gameboy-tile-color;
+}
+
+.tetris-game-info {
+  background-color: $gameboy-tile-color;
+  flex: 1 0 auto;
+}
+
+.tetris-score-wrapper {
+  margin: 14px 0 5px 0;
+  font-family: monospace;
+  color: $gameboy-tile-color;
+}
+
+.tetris-score-header {
+  background-color: rgba($gameboy-screen-color, 0.5);
+  display: flex;
+  flex-flow: coloum nowrap;
+  justify-content: center;
+  font-weight: bold;
+  height: 14px;
+  border-top: 2px solid $gameboy-screen-color;
+  border-bottom: 2px solid $gameboy-screen-color;
+}
+
+.tetris-score-header-text-wrapper {
+  background-color: #727e00;
+  padding: 2px;
+  border-radius: 3px;
+  position: relative;
+  top: -12px;
+  height: 18px;
+}
+
+.tetris-score-header-text {
+  background-color: $gameboy-screen-color;
+  border: 1px solid $gameboy-tile-color;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 2px 16px;
+}
+
+.tetris-score-body {
+  background-color: $gameboy-screen-color;
+  border-top: 2px solid rgba($gameboy-tile-color, 0.5);
+  border-bottom: 2px solid rgba($gameboy-tile-color, 0.5);
+  box-shadow: 0 2px 0 $gameboy-screen-color;
+  text-align: right;
+}
+
+.tetris-score {
+  padding: 0px 8px;
+  font-size: 12px;
+}
+
+.tetris-card-wrapper {
+  margin: 4px 16px;
+  background-color: $gameboy-screen-color;
+  color: $gameboy-tile-color;
+  border-radius: 4px;
+  padding: 2px;
+  font-family: monospace;
+}
+
+.tetris-card-body-wrapper {
+  border: 1px solid $gameboy-tile-color;
+  border-radius: 4px;
+}
+
+.tetris-card-header-text {
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.tetris-card-text {
+  line-height: 12px;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.tetris-preview {
+  display: inline-block;
+  margin: -2px 0 0 30px;
+  .tetris-card-body-wrapper {
+    padding: 4px;
+  }
+}
+
+.tetris-modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.tetris-pause-menu {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  background-color: $gameboy-screen-color;
+  padding: 12px;
+  border-radius: 3px;
+  border: 4px double $gameboy-tile-color;
+  box-shadow: 1px 1px 1px #272820;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  &:before {
+    content: '';
+    width: 4px;
+    height: 0px;
+    border: 4px solid transparent;
+    border-left: 4px solid $gameboy-tile-color;
+    flex: 1 0 auto;
+  }
+}

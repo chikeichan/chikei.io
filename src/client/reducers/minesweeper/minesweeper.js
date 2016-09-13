@@ -9,17 +9,7 @@ import {MINESWEEPER} from '../../enums/icon-types';
 
 const {WIN, LOSE, PENDING} = STATUS;
 
-const initialState = {
-  col: 0,
-  row: 0,
-  bombs: 0,
-  totalOpen: 0,
-  fields: [],
-  isOpen: [],
-  isFlag: [],
-  lastClicked: null,
-  status: null
-};
+const initialState = initializeGame(10, 10, 10);
 
 function clickCell(state, index) {
   const {isFlag, isOpen, col, row, bombs, fields} = state;

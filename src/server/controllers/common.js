@@ -6,11 +6,13 @@ import {Provider} from 'react-redux';
 
 import Icons from '../models/icons';
 import Windows from '../models/windows';
+import Blogs from '../models/blogs';
+
 import rootReducer from '../../client/reducers';
 import App from '../../client/app';
 
 
-function renderHTML(path = '', blogId = '') {
+function renderHTML(path = '', blog = { id: '' }) {
   const icons = Icons.getAll();
   const windows = [];
 
@@ -22,8 +24,18 @@ function renderHTML(path = '', blogId = '') {
     windows: {}
   }
 
+  if (path) {
+    const appWindow = Windows.get(path);
+    initialState.windows[appWindow.id] = appWindow;
+    windows.push(appWindow);
+  }
+
+  if (blog.fixture) {
+    initialState.windows[blog.fixture.id] = blog.fixture;
+    windows.push(blog.fixture);
+  }
+
   const stringifiedState = JSON.stringify({icons, windows});
-  
   // Create a new Redux store instance
   const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
@@ -39,7 +51,7 @@ function renderHTML(path = '', blogId = '') {
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Hello World</title>
+        <title>chikei.io | From Financial Controller to Model-View-Controller</title>
         <link href="https://fonts.googleapis.com/css?family=Lekton|Open+Sans" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"  href="/styles/index.css" />
         <script>
@@ -52,8 +64,6 @@ function renderHTML(path = '', blogId = '') {
           ga('send', 'pageview');
         </script>
         <script>window.__PRELOADED_STATE__ = ${stringifiedState}</script>
-        <script>window.__PRELOADED_APPS__ = "${path}"</script>
-        <script>window.__PRELOADED_BLOGS__ = "${blogId}"</script>
       </head>
       <body>
         <div id="root">${html}</div>
@@ -70,14 +80,28 @@ function index(req, res, next) {
 
 function windowPath(req, res, next) {
   const {path} = req.params;
-  const html = renderHTML(path);
-  res.send(html);
+  try {
+    const html = renderHTML(path);
+    res.send(html);
+  } catch (e) {
+    res.send(renderHTML('ERROR'));
+  }
 }
 
 function blogPath(req, res, next) {
   const {path} = req.params;
-  const html = renderHTML(undefined, path);
-  res.send(html);
+  Blogs.getBlog(path, (err, blog) => {
+    if (err) {
+      return res.send(renderHTML('ERROR'));
+    }
+
+    const html = renderHTML(undefined, {
+      id: path,
+      fixture: blog
+    });
+
+    res.send(html);
+  });
 }
 
 export default {

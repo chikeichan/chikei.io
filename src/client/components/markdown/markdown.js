@@ -1,12 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import marked from 'marked';
 import window from 'global/window';
 import {highlightBlock} from 'highlight.js'
-
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true
-});
 
 class Markdown extends Component {
   static propTypes = {
@@ -18,7 +12,7 @@ class Markdown extends Component {
   }
 
   markup(md) {
-    return marked(md);
+    return md;
   }
 
   decorate(el) {
@@ -34,8 +28,9 @@ class Markdown extends Component {
     const anchors = el.querySelectorAll('a');
     for (let anchor of anchors) {
       anchor.addEventListener('click', e => {
-        e.preventDefault();
-        window.open(e.target.href,'_blank');
+        // e.preventDefault();
+        // console.log(e.target.href);
+        // window.open(e.target.href,'_blank');
       });
     }
   }
