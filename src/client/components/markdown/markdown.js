@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import window from 'global/window';
-import {highlightBlock} from 'highlight.js'
 
 class Markdown extends Component {
   static propTypes = {
@@ -20,26 +19,17 @@ class Markdown extends Component {
       return;
     }
 
-    const codes = el.querySelectorAll('code');
-    for (let code of codes) {
-      highlightBlock(code);
-    }
-
-    const anchors = el.querySelectorAll('a');
-    for (let anchor of anchors) {
-      anchor.addEventListener('click', e => {
-        // e.preventDefault();
-        // console.log(e.target.href);
-        // window.open(e.target.href,'_blank');
-      });
-    }
+    // const codes = el.querySelectorAll('code');
+    // for (let code of codes) {
+    //   // highlight(code, Prism.languages.html);
+    // }
   }
 
   render() {
     const {className, style, markdown} = this.props;
     return (
       <div 
-        className={className}
+        className={`markdown-wrapper ${className}`}
         style={style}
         ref={el => this.decorate(el)}
         dangerouslySetInnerHTML={{__html: this.markup(markdown)}} />

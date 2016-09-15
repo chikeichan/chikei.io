@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import Window from '../../containers/window-container/window-container';
-import ActionBar from './blog-action-bar';
+import ActionBar from './code-action-bar';
 import Markdown from '../markdown/markdown';
 
-class Blog extends Component {
+class Code extends Component {
   static propTypes = {
     appData: PropTypes.object.isRequired
   };
@@ -12,10 +12,7 @@ class Blog extends Component {
     appData: {
       markdown: '',
       metadata: {
-        title: '',
-        author: '',
-        date: '',
-        avatar: ''
+        title: ''
       }
     }
   };
@@ -32,21 +29,11 @@ class Blog extends Component {
     return (
       <Window {...this.props}>
         <ActionBar actions={actions} />
-        <div className="blog-container">
-          <div className="blog-content">
-            <div className="blog-title">{title}</div>
-            <hr/>
+        <div className="code-container">
+          <div className="code-content">
             <Markdown
-              className="blog-markdown"
+              className="code-markdown"
               markdown={markdown} />
-            <hr/>
-            <div className="blog-author-wrapper">
-              <img className="blog-author-avatar" src={avatar} />
-              <div className="blog-meta">
-                <span className="blog-author">{author}</span>
-                <span className="blog-date">{date}</span>
-              </div>
-            </div>
           </div>
         </div>
       </Window>
@@ -54,4 +41,4 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+export default Code;

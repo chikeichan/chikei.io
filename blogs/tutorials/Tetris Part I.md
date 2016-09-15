@@ -11,9 +11,9 @@ Re-building Tetris using simple Javascript and jQuery was one of the things I di
 
 ### 1. Building the DOM
 
-[Check out this part on GitHub](#app=MINESWEEPER)
+[Check out this part on GitHub](#code=tetris-build-the-dom.md)
 
-We will start with building the *Playfield*, which is simply a table that is 10 cells wide and 22 cells tall. We will want each row and cell to have a number id so that we can reference to them easily using jQuery. For example:
+We will start with building the __Playfield__, which is simply a table that is 10 cells wide and 22 cells tall. We will want each row and cell to have a number id so that we can reference to them easily using jQuery. For example:
 
 ```html
 <tr class='0'>

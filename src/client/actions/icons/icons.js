@@ -68,3 +68,18 @@ export const openBlog = id => {
       })
   };
 }
+
+export const openCode = id => {
+  return dispatch => {
+    dispatch(setLoading(true));
+    return fetch(`/code-samples/${id}`, {method: 'GET'})
+      .then(res => res.json())
+      .then(json => {
+        dispatch(setLoading(false));
+        dispatch({
+          type: OPEN_APP,
+          window: json
+        });
+      })
+  };
+}
