@@ -1,10 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import {MINESWEEPER, FOLDER, BLOG, ERROR, TETRIS, CODE} from '../enums/icon-types';
+import {
+  MINESWEEPER, FOLDER, BLOG, ERROR,
+  TETRIS, CODE, DEMO
+} from '../enums/icon-types';
 import Window from '../containers/window-container/window-container';
 import Minesweeper from '../containers/minesweeper-container/minesweeper-container';
 import Folder from '../containers/folder-container/folder-container';
 import Blog from '../components/blog/blog';
 import Code from '../components/code/code';
+import Demo from '../components/demo/demo';
 import Tetris from '../containers/tetris-container/tetris-container';
 import ErrorDialog from '../containers/error-container/error-container';
 
@@ -14,7 +18,8 @@ const TYPE_TO_COMPONENT = {
   [BLOG]: Blog,
   [ERROR]: ErrorDialog,
   [TETRIS]: Tetris,
-  [CODE]: Code
+  [CODE]: Code,
+  [DEMO]: Demo
 };
 
 class Application extends Component {
