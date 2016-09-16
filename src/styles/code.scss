@@ -1,14 +1,12 @@
 .code-container {
-  width: 700px;
-  height: 600px;
+  max-width: 700px;
+  max-height: 600px;
   background-color: #282c34;
   font-family: Open Sans;
   border-top: 2px solid rgba(0, 0, 0, 0.7);
   border-left: 2px solid rgba(0, 0, 0, 0.7);
   border-bottom: 2px solid rgba(255, 255, 255, 0.7);
   border-right: 2px solid rgba(255, 255, 255, 0.7);
-  // overflow-x: hidden;
-  // overflow-y: auto;
   overflow: auto;
   display: flex;
   flex-flow: column nowrap;
@@ -16,7 +14,7 @@
 
 .window--maximized {
   .code-container {
-    width: calc(100% - 8px);
+    width: calc(100% - 4px);
     flex: 1 0 auto;
     box-sizing: border-box;
   }
@@ -38,7 +36,51 @@
 
 .code-markdown {
   pre {
+    font-size: 0.8rem;
     margin: 0;
-    padding: 0.8rem;
+    padding: 0 8px 8px 0;
   }
 }
+
+
+pre.line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre.line-numbers > code {
+  position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em; /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.line-numbers-rows > span {
+  pointer-events: none;
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: rgba(255, 255, 255, 0.3);
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+

@@ -16,5 +16,5 @@
   <body>    
     <table id='playfield'></table>
   </body>
-</html> 
+</html>
 ```

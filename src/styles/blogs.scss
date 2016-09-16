@@ -12,6 +12,17 @@
   background-color: rgba(255, 255, 255, 0.75);
 
   @include window-scrollbar();
+
+  pre {
+    font-size: 0.8rem;
+    @media #{$mobile} {
+      white-space: pre;
+      overflow-x: auto;
+    }
+    @media #{$desktop} {
+      white-space: pre-wrap;
+    }
+  }
 }
 
 .window--maximized {

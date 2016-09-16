@@ -33,6 +33,7 @@ class Code extends Component {
           <div className="code-content">
             <Markdown
               className="code-markdown"
+              lineNumbers={true}
               markdown={markdown} />
           </div>
         </div>

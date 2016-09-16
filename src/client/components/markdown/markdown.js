@@ -14,15 +14,51 @@ class Markdown extends Component {
     return md;
   }
 
+  addLineNumbers(el) {
+    const codes = el.querySelectorAll('code');
+    for (let code of codes) {
+      // works only for <code> wrapped inside <pre> (not inline)
+      const pre = code.parentNode;
+      const clsReg = /\s*\bline-numbers\b\s*/;
+
+      // Abort if line numbers already exists
+      if (code.querySelector(".line-numbers-rows")) {
+        return;
+      }
+
+      // Add the class "line-numbers" to the <pre>
+      if (!clsReg.test(pre.className)) {
+        pre.className += ' line-numbers';
+      }
+
+      var match = code.textContent.match(/\n(?!$)/g);
+      var linesNum = match ? match.length + 1 : 1;
+      var lineNumbersWrapper;
+
+      var lines = new Array(linesNum + 1);
+      lines = lines.join('<span></span>');
+
+      lineNumbersWrapper = document.createElement('span');
+      lineNumbersWrapper.setAttribute('aria-hidden', 'true');
+      lineNumbersWrapper.className = 'line-numbers-rows';
+      lineNumbersWrapper.innerHTML = lines;
+
+      if (pre.hasAttribute('data-start')) {
+        pre.style.counterReset = 'linenumber ' + (parseInt(pre.getAttribute('data-start'), 10) - 1);
+      }
+
+      code.appendChild(lineNumbersWrapper);
+    }
+  }
+
   decorate(el) {
     if (!el) {
       return;
     }
 
-    // const codes = el.querySelectorAll('code');
-    // for (let code of codes) {
-    //   // highlight(code, Prism.languages.html);
-    // }
+    if (this.props.lineNumbers) {
+      this.addLineNumbers(el);
+    }
   }
 
   render() {

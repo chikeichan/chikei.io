@@ -1,11 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import md from 'markdown';
-import marked from 'marked';
-// marked.setOptions({
-//   renderer: new marked.Renderer(),
-//   gfm: true
-// });
+import marked from '../../lib/marked';
 
 export default class Codes {
   static getCode(filename, cb) {
