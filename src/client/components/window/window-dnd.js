@@ -60,7 +60,7 @@ class WindowDnD extends Component {
       defaultX, defaultY, x, y, windowId, isSelected, isMinimized
     } = this.props;
 
-    const className = classnames({
+    const className = classnames('window', {
       'window--selected': isSelected,
       'window--maximized': isMaximized,
       'window--autohide': isAutoHide

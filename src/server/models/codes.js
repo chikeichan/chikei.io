@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import marked from '../../lib/marked';
 
-export default class Blogs {
-  static getBlog(filename, cb) {
-    fs.readFile(`${process.cwd()}/blogs/tutorials/${filename}`, {encoding: "utf-8"}, (err, data) => {
+export default class Codes {
+  static getCode(filename, cb) {
+    fs.readFile(`${process.cwd()}/blogs/code-samples/${filename}`, {encoding: "utf-8"}, (err, data) => {
       if (err) {
         return cb(err, null);
       }
@@ -12,8 +12,8 @@ export default class Blogs {
       try {
         const appData = this.getAppData(data);
         cb(null, {
-          id: `BLOG__${filename.toUpperCase()}`,
-          type: 'BLOG',
+          id: `CODE__${filename.toUpperCase()}`,
+          type: 'CODE',
           name: appData.metadata.title,
           buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
           actions: ['FILE', 'VIEW', 'HELP'],

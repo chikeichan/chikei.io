@@ -63,8 +63,13 @@
 }
 
 .icon-image__BLOG {
+  background-image: url(../images/wordpad-icon.png);
+}
+
+.icon-image__CODE {
   background-image: url(../images/note-icon.png);
 }
+
 
 .icon-image__TETRIS {
   background-image: url(../images/tetris-icon.gif);
@@ -72,4 +77,8 @@
 
 .icon-image__ERROR {
   background-image: url(../images/error-icon.png);
+}
+
+.icon-image__DEMO {
+  background-image: url(../images/ie-icon.png);
 }

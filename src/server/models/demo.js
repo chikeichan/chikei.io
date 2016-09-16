@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import marked from '../../lib/marked';
 
-export default class Blogs {
-  static getBlog(filename, cb) {
-    fs.readFile(`${process.cwd()}/blogs/tutorials/${filename}`, {encoding: "utf-8"}, (err, data) => {
+export default class Demo {
+  static getDemo(id, cb) {
+    fs.readFile(`${process.cwd()}/blogs/demo/${id}`, {encoding: "utf-8"}, (err, data) => {
       if (err) {
         return cb(err, null);
       }
@@ -12,13 +11,13 @@ export default class Blogs {
       try {
         const appData = this.getAppData(data);
         cb(null, {
-          id: `BLOG__${filename.toUpperCase()}`,
-          type: 'BLOG',
+          id: `DEMO__${id.toUpperCase()}`,
+          type: 'DEMO',
           name: appData.metadata.title,
-          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-          actions: ['FILE', 'VIEW', 'HELP'],
-          x: 150,
-          y: 70,
+          buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
+          actions: [],
+          x: 450,
+          y: 100,
           appData
         });
       } catch (e) {
@@ -32,7 +31,7 @@ export default class Blogs {
 
     return {
       metadata: JSON.parse(list[0]),
-      markdown: marked(list[1])
+      markdown: list[1]
     };
   }
 }

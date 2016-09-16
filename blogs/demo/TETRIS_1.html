@@ -1,0 +1,38 @@
+{
+  "title": "Tetris.js",
+  "author": "Jacky Chan",
+  "avatar": "https://avatars3.githubusercontent.com/u/8507735",
+  "date": "November 18, 2014"
+}
+****METADATA****
+<table id='tetris-playfield_1'></table>
+
+<style>
+  #tetris-playfield_1 td {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid black;
+  }
+
+  #tetris-playfield_1 {
+    border-collapse: collapse;
+    margin: 4px;
+  }
+</style>
+
+<script>
+  var element = document.querySelector('#tetris-playfield_1');
+  element.innerHTML = '';
+
+  for(var i = 0; i < 22; i++) {
+    var row = document.createElement('tr');
+    row.className = 'row-' + i;
+    for (var j = 0; j < 10; j++){
+      var td = document.createElement('td');
+      td.className = 'td-' + j;
+      row.appendChild(td);
+    }
+    element.appendChild(row);
+  }
+</script>

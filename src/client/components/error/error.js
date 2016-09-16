@@ -9,9 +9,7 @@ class ErrorDialog extends Component {
   };
 
   static defaultProps = {
-    appData: {
-      errorMessage: 'Uh oh... Something went wrong'
-    }
+    appData: {}
   };
 
   shouldComponentUpdate(nextProps) {
@@ -29,7 +27,7 @@ class ErrorDialog extends Component {
 
   render() {
     const {appData, closeWindow, windowId} = this.props;
-    const {errorMessage} = appData;
+    const {errorMessage = 'Uh oh... Something went wrong'} = appData;
 
     return (
       <Window {...this.props}>
