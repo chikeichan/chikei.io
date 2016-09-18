@@ -114,3 +114,70 @@ body {
 @import './gameboy.scss';
 @import './tetris.scss';
 
+.code-reader-wrapper {
+  background: $window-base-color;
+  margin: 2px 4px 4px 4px;
+  border-top: 2px solid rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.7);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  border-right: 2px solid rgba(255, 255, 255, 0.7);
+  font-family: $icon-font;
+}
+
+.code-reader__nav {
+  background-color: white;
+  font-size: 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 400px;
+}
+
+.code-reader-item-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 2px;
+  cursor: pointer;
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -12px;
+    border-top: 1px dotted rgba(0, 0, 0, 0.4);
+    width: 10px;
+  }
+}
+
+.code-reader-item-icon {
+  height: 16px;
+  width: 16px;
+  margin: 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex: 0 0 auto;
+}
+
+.code-reader-item-name {
+  font-family: $icon-font;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.code-reader__nav-dir--content {
+  margin-left: 24px;
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    border-left: 1px dotted rgba(0, 0, 0, 0.4);
+    height: calc(100% - 9px);
+  }
+}

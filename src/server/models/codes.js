@@ -6,17 +6,17 @@ export default class Codes {
   static getFolder(id, cb) {
     const cwd = process.cwd();
 
-    try {
-      this.readdir(id, `${cwd}/blogs/code-samples/${id}/`, dirData => {
-        cb(null, {
-          ...dirData,
-          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-          actions: ['FILE', 'HELP']
-        });
-      })
-    } catch (e) {
-      cb(e, null);
-    }
+    this.readdir(id, `${cwd}/blogs/code-samples/${id}/`, (err, dirData) => {
+      if (err) {
+        return cb(err, null);
+      }
+
+      cb(null, {
+        ...dirData,
+        buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+        actions: ['FILE', 'HELP']
+      });
+    });
   }
 
   static readdir(name, dir, cb) {
@@ -30,38 +30,49 @@ export default class Codes {
     let counter = 0;
     fs.readdir(dir, (err, filenames) => {
       if (err) {
-        throw err;
+        return cb(err, null);
       }
 
       if (!filenames.length) {
-        cb(dirData);
+        return cb(null, dirData);
       }
 
       filenames.forEach((filename, i) => {
         const path = `${dir}/${filename}`; 
         fs.stat(path, (err, stat) => {
           if (err) {
-            throw err;
+            return cb(err, null);
           }
 
           if (stat.isFile()) {
-            dirData.appData[i] = {
-              id: path,
-              name: filename,
-              type: 'CODE'
-            };
-            counter++;
-            if (counter === filenames.length) {
-              cb(dirData);
-            }
+            this.getCode(path, (err, d) => {
+              if (err) {
+                return cb(err, null);
+              }
+
+              dirData.appData[i] = {
+                id: path,
+                name: filename,
+                type: 'CODE',
+                appData: d
+              };
+              counter++;
+              if (counter === filenames.length) {
+                return cb(null, dirData);
+              }
+            });
           }
 
           if (stat.isDirectory()) {
-            this.readdir(filename, path, d => {
+            this.readdir(filename, path, (err, d) => {
+              if (err) {
+                return cb(err, null);
+              }
+
               dirData.appData[i] = d;
               counter++;
               if (counter === filenames.length) {
-                cb(dirData);
+                return cb(null, dirData);
               }
             });
           }
@@ -70,36 +81,27 @@ export default class Codes {
     });
   }
 
-  // static getCode(filename, cb) {
-  //   fs.readFile(`${process.cwd()}/blogs/code-samples/${filename}`, {encoding: "utf-8"}, (err, data) => {
-  //     if (err) {
-  //       return cb(err, null);
-  //     }
+  static getCode(path, cb) {
+    fs.readFile(path, {encoding: "utf-8"}, (err, data) => {
+      if (err) {
+        return cb(err, null);
+      }
 
-  //     try {
-  //       const appData = this.getAppData(data);
-  //       cb(null, {
-  //         id: `CODE__${filename.toUpperCase()}`,
-  //         type: 'CODE',
-  //         name: appData.metadata.title,
-  //         buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-  //         actions: ['FILE', 'VIEW', 'HELP'],
-  //         x: 150,
-  //         y: 70,
-  //         appData
-  //       });
-  //     } catch (e) {
-  //       cb(e, null);
-  //     }
-  //   });
-  // }
+      try {
+        const appData = this.getAppData(data);
+        return cb(null, appData);
+      } catch (e) {
+        return cb(e, null);
+      }
+    });
+  }
 
-  // static getAppData(content) {
-  //   const list = content.split('****METADATA****');
+  static getAppData(content) {
+    const list = content.split('****METADATA****');
 
-  //   return {
-  //     metadata: JSON.parse(list[0]),
-  //     markdown: marked(list[1])
-  //   };
-  // }
+    return {
+      metadata: JSON.parse(list[0]),
+      markdown: marked(list[1])
+    };
+  }
 }
