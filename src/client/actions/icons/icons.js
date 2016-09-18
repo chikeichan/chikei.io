@@ -98,3 +98,18 @@ export const openDemo = id => {
       })
   };
 }
+
+export const openCodeDir = id => {
+  return dispatch => {
+    dispatch(setLoading(true));
+    return fetch(`/code-dir/${id}`, {method: 'GET'})
+      .then(res => res.json())
+      .then(json => {
+        dispatch(setLoading(false));
+        dispatch({
+          type: OPEN_APP,
+          window: json
+        });
+      })
+  };
+}

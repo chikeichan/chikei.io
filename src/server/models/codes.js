@@ -6,61 +6,70 @@ export default class Codes {
   static getFolder(id, cb) {
     const cwd = process.cwd();
 
-    fs.readdir(`${cwd}/blogs/code-samples/${id}/`, (err, files) => {
-      if (err) {
-        return cb(err, null);
-      }
-      try {
-        return this.getFilesData(id, files, cb);
-      } catch (e) {
-        return cb(e);
-      }
-    });
+    try {
+      this.readdir(id, `${cwd}/blogs/code-samples/${id}/`, dirData => {
+        cb(null, {
+          ...dirData,
+          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+          actions: ['FILE', 'HELP']
+        });
+      })
+    } catch (e) {
+      cb(e, null);
+    }
   }
 
-  static getFilesData(path, files, cb) {
-    const cwd = process.cwd();
+  static readdir(name, dir, cb) {
+    let dirData = {
+      id: dir,
+      name: name,
+      type: 'CODE_DIR',
+      appData: []
+    };
 
-    let appData = [];
     let counter = 0;
+    fs.readdir(dir, (err, filenames) => {
+      if (err) {
+        throw err;
+      }
 
-    files.forEach((filename, i) => {
-      fs.readFile(`${cwd}/blogs/code-samples/${path}/${filename}`, {encoding: "utf-8"}, (err, data) => {
-        if (err) {
-          return cb(err, null);
-        }
+      if (!filenames.length) {
+        cb(dirData);
+      }
 
-        const metadata = this.getMetadata(data);
+      filenames.forEach((filename, i) => {
+        const path = `${dir}/${filename}`; 
+        fs.stat(path, (err, stat) => {
+          if (err) {
+            throw err;
+          }
 
-        appData[i] = {
-          id: filename,
-          name: filename,
-          type: 'CODE',
-          ...metadata
-        };
-
-        counter++;
-
-        if (counter === files.length) {
-          cb(null, {
-            id: `CODE_DIR_${path}`,
-            type: 'FOLDER',
-            name: path,
-            buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-            actions: ['FILE', 'VIEW', 'HELP'],
-            appData: {
-              blogs: appData
+          if (stat.isFile()) {
+            dirData.appData[i] = {
+              id: path,
+              name: filename,
+              type: 'CODE'
+            };
+            counter++;
+            if (counter === filenames.length) {
+              cb(dirData);
             }
-          });
-        }
+          }
+
+          if (stat.isDirectory()) {
+            this.readdir(filename, path, d => {
+              dirData.appData[i] = d;
+              counter++;
+              if (counter === filenames.length) {
+                cb(dirData);
+              }
+            });
+          }
+        });
       });
     });
   }
 
-  static getMetadata(content) {
-    const list = content.split('****METADATA****');
-    return JSON.parse(list[0]);
-  }
   // static getCode(filename, cb) {
   //   fs.readFile(`${process.cwd()}/blogs/code-samples/${filename}`, {encoding: "utf-8"}, (err, data) => {
   //     if (err) {

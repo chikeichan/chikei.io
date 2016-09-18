@@ -29,14 +29,15 @@
   height: inherit;
   flex: 1 0 auto;
 
+}
+
+.code-markdown {
   @media #{$desktop} {
     pre {
       white-space: pre;
     }
   }
-}
 
-.code-markdown {
   pre {
     font-size: 0.8rem;
     margin: 0;

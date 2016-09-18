@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import window from 'global/window';
-import {openApp, openBlog, openCode, openDemo} from '../actions/icons/icons';
+import {openApp, openBlog, openCode, openDemo, openCodeDir} from '../actions/icons/icons';
 
 const mapDispatchToProps = dispatch => {
   return {
     openApp: id => dispatch(openApp(id)),
     openDemo: id => dispatch(openDemo(id)),
     openBlog: id => dispatch(openBlog(id)),
-    openCode: id => dispatch(openCode(id))
+    openCode: id => dispatch(openCode(id)),
+    openCodeDir: id => dispatch(openCodeDir(id))
   };
 }
 
@@ -36,8 +37,8 @@ class RouteService extends Component {
         return this.props.openDemo(params[1]);
       case "blog":
         return this.props.openBlog(params[1]);
-      case "code":
-        return this.props.openCode(params[1]);
+      case "codedir":
+        return this.props.openCodeDir(params[1]);
       default:
         return;
     }

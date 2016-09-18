@@ -9,7 +9,7 @@ export default function commonRoutes(app) {
   app.get('/layout', layout.getLayout);
   app.get('/windows/:windowId', windows.getWindow);
   app.get('/tutorials/:filename', blogs.getBlog);
-  app.get('/code-samples/:filename', codes.getCode);
+  app.get('/code-dir/:foldername', codes.getCodeDir);
   app.get('/demo/:id', demo.getDemo);
   app.get('/w/:path', common.windowPath);
   app.get('/b/:path', common.blogPath);

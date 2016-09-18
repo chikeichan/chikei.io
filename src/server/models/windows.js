@@ -11,7 +11,9 @@ const WINDOWS = {
     type: 'FOLDER',
     name: 'Tutorials',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'VIEW', 'HELP']
+    actions: ['FILE', 'VIEW', 'HELP'],
+    x: 100,
+    y: 50
   },
   TETRIS: {
     id: 'TETRIS',
