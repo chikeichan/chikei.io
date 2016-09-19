@@ -31,7 +31,7 @@ class FolderDetailItem extends Component {
         onDoubleClick={() => openBlog(iconId)}
         onMouseDown={() => selectIcon(iconId)}>
         <td>
-          <span className={`folder-detail-item-icon__${type}`} />
+          <span className={`folder-detail-item-icon icon-image__${type}`} />
           {name}
         </td>
         <td>{author}</td>

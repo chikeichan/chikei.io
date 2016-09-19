@@ -3,26 +3,97 @@ import path from 'path';
 import marked from '../../lib/marked';
 
 export default class Codes {
-  static getCode(filename, cb) {
-    fs.readFile(`${process.cwd()}/blogs/code-samples/${filename}`, {encoding: "utf-8"}, (err, data) => {
+  static getFolder(id, cb) {
+    const cwd = process.cwd();
+
+    this.readdir(id, `${cwd}/blogs/code-samples/${id}/`, (err, dirData) => {
+      if (err) {
+        return cb(err, null);
+      }
+
+      cb(null, {
+        ...dirData,
+        buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
+        actions: ['FILE', 'HELP'],
+        x: 100,
+        y: 100
+      });
+    });
+  }
+
+  static readdir(name, dir, cb) {
+    let dirData = {
+      id: dir,
+      name: name,
+      type: 'CODE_DIR',
+      appData: []
+    };
+
+    let counter = 0;
+    fs.readdir(dir, (err, filenames) => {
+      if (err) {
+        return cb(err, null);
+      }
+
+      if (!filenames.length) {
+        return cb(null, dirData);
+      }
+
+      filenames.forEach((filename, i) => {
+        const path = `${dir}/${filename}`; 
+        fs.stat(path, (err, stat) => {
+          if (err) {
+            return cb(err, null);
+          }
+
+          if (stat.isFile()) {
+            this.getCode(path, (err, d) => {
+              if (err) {
+                return cb(err, null);
+              }
+
+              dirData.appData[i] = {
+                id: path,
+                name: filename,
+                type: 'CODE',
+                appData: d
+              };
+              counter++;
+              if (counter === filenames.length) {
+                return cb(null, dirData);
+              }
+            });
+          }
+
+          if (stat.isDirectory()) {
+            this.readdir(filename, path, (err, d) => {
+              if (err) {
+                return cb(err, null);
+              }
+
+              dirData.appData[i] = d;
+              counter++;
+              if (counter === filenames.length) {
+                return cb(null, dirData);
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+
+  static getCode(path, cb) {
+    fs.readFile(path, {encoding: "utf-8"}, (err, data) => {
       if (err) {
         return cb(err, null);
       }
 
       try {
         const appData = this.getAppData(data);
-        cb(null, {
-          id: `CODE__${filename.toUpperCase()}`,
-          type: 'CODE',
-          name: appData.metadata.title,
-          buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-          actions: ['FILE', 'VIEW', 'HELP'],
-          x: 150,
-          y: 70,
-          appData
-        });
+        return cb(null, appData);
       } catch (e) {
-        cb(e, null);
+        return cb(e, null);
       }
     });
   }

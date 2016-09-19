@@ -25,7 +25,7 @@ We will start with building the __Playfield__, which is simply a table that is 1
 
 If we want to select cell *#1* using jQuery, we can simply select it using jQuery selector `$(‘.0’).find(‘#1’)`. Since we want a 10X22 grid, we will need 22 rows, and within each row, 10 cells. Instead of manually typing out all 220 lines of html, we can use jQuery’s *append* method to help build our table. We first need to create an *index.html* file with the following code:
 
-[Source](#code=tetris-build-the-dom.md)
+[Source](#codedir=Tetris-Part-I)
 ```html
 <!DOCTYPE html>
 <html>

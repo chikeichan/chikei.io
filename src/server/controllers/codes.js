@@ -1,8 +1,8 @@
 import Codes from '../models/codes';
 
-function getCode(req, res, next) {
-  const {filename} = req.params;
-  Codes.getCode(filename, (err, fixture) => {
+function getCodeDir(req, res, next) {
+  const {foldername} = req.params;
+  Codes.getFolder(foldername, (err, fixture) => {
     if (err) {
       return next(err);
     }
@@ -12,5 +12,5 @@ function getCode(req, res, next) {
 }
 
 export default {
-  getCode
+  getCodeDir
 };
