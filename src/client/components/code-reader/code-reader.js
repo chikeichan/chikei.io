@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
+import classnames from 'classnames';
 import Window from '../../containers/window-container/window-container';
 import ActionBar from './code-reader-action-bar';
 import NavFolder from './code-reader-nav-folder';
+import Code from '../code/code';
 
 class CodeReader extends Component {
   static propTypes = {
@@ -12,6 +14,14 @@ class CodeReader extends Component {
     appData: []
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      markdown: '',
+      selectedId: ''
+    };
+  }
+
   renderName(name, iconClassName = '') {
     return (
       <div className="code-reader-item-wrapper">
@@ -21,22 +31,28 @@ class CodeReader extends Component {
     );
   }
 
-  renderFile(id, name, level = 0) {
+  renderFile(id, name, markdown) {
+    const className = classnames(
+      'code-reader__nav-file',
+      {'code-reader__nav-file--selected': this.state.selectedId === id}
+    );
+
     return (
       <div
         key={id}
-        className={`code-reader__nav-file code-reader__nav-file--${level}`}>
+        className={className}
+        onClick={() => this.setState({markdown, selectedId: id})}>
         {this.renderName(name, 'icon-image__CODE')}
       </div>
     );
   }
 
-  renderDir(id, name, files, level = 0) {
+  renderDir(id, name, files) {
     return (
       <NavFolder
         key={id}
         name={name} >
-        {this.renderNav(files, level + 1)}
+        {this.renderNav(files)}
       </NavFolder>
     );
   }
@@ -55,11 +71,12 @@ class CodeReader extends Component {
       })
       .map(file => {
         const {appData, name, type, id} = file;
+        const {markdown, metadata} = appData;
         switch (type) {
           case 'CODE':
-            return this.renderFile(id, name, level);
+            return this.renderFile(id, metadata.title, markdown);
           case 'CODE_DIR':
-            return this.renderDir(id, name, appData, level);
+            return this.renderDir(id, name, appData);
           default:
             return;
         }
@@ -68,8 +85,6 @@ class CodeReader extends Component {
 
   render() {
     const {appData, actions, id, name, type} = this.props;
-    console.log(this.props);
-
     return (
       <Window {...this.props}>
         <ActionBar actions={actions} />
@@ -77,6 +92,7 @@ class CodeReader extends Component {
           <div className="code-reader__nav">
             {this.renderDir(id, name, appData, 0)}
           </div>
+          <Code markdown={this.state.markdown}/>
         </div>
       </Window>
     );

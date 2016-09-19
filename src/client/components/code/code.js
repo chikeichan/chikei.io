@@ -1,43 +1,31 @@
 import React, {Component, PropTypes} from 'react';
-import Window from '../../containers/window-container/window-container';
-import ActionBar from './code-action-bar';
 import Markdown from '../markdown/markdown';
 
 class Code extends Component {
   static propTypes = {
-    appData: PropTypes.object.isRequired
+    markdown: PropTypes.string.isRequired,
+    metadata: PropTypes.object
   };
 
   static defaultProps = {
-    appData: {
-      markdown: '',
-      metadata: {
-        title: ''
-      }
-    }
+    markdown: ''
   };
 
   shouldComponentUpdate(nextProps) {
-    return this.props.appData.markdown !== nextProps.markdown;
+    return this.props.markdown !== nextProps.markdown;
   }
 
   render() {
-    const {appData, actions} = this.props;
-    const {metadata, markdown} = appData;
-    const {title, author, date, avatar} = metadata;
-
+    const {metadata, markdown} = this.props;
     return (
-      <Window {...this.props}>
-        <ActionBar actions={actions} />
-        <div className="code-container">
-          <div className="code-content">
-            <Markdown
-              className="code-markdown"
-              lineNumbers={true}
-              markdown={markdown} />
-          </div>
+      <div className="code-container">
+        <div className="code-content">
+          <Markdown
+            className="code-markdown"
+            lineNumbers={true}
+            markdown={markdown} />
         </div>
-      </Window>
+      </div>
     );
   }
 }

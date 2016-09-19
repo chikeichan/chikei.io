@@ -43,11 +43,18 @@ class CodeReaderNavFolder extends Component {
   render() {
     const {isOpen} = this.state;
     const {name, children} = this.props;
+    const className = classnames(
+      'code-reader__nav-dir',
+      {
+        'code-reader__nav-dir--opened': isOpen,
+        'code-reader__nav-dir--closed': !isOpen
+      }
+    );
     return (
-      <div className="code-reader__nav-dir">
+      <div className={className}>
         {this.renderName(name)}
         <div className="code-reader__nav-dir--content">
-          {isOpen && children}
+          {children}
         </div>
       </div>
     );
