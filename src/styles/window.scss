@@ -243,7 +243,8 @@
 
 .window-menu {
   position: absolute;
-  width: 150px;
+  min-width: 150px;
+  white-space: nowrap;
   top: 23px;
   left: 0px;
   background-color: $window-base-color;
@@ -272,10 +273,37 @@
     &.checked {
       &:before {
         content: '\2713 ';
-        content: '\2713 ';
         position: absolute;
         left: 4px;
         top: 4px;
+      }
+    }
+
+    &.fb-share-btn,
+    &.li-share-btn {
+      padding-left: 24px; 
+      &:before {
+        content: '';
+        height: 16px;
+        width: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: absolute;
+        left: 4px;
+        top: 4px;
+      }
+    }
+
+    &.fb-share-btn {
+      &:before {
+        background-image: url(../images/facebook-share-logo.png);
+      }
+    }
+
+    &.li-share-btn {
+      &:before {
+        background-image: url(../images/linkedin-share-logo.png);
       }
     }
 
