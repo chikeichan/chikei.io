@@ -129,9 +129,10 @@ body {
 .code-reader__nav {
   background-color: white;
   font-size: 14px;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   padding-right: 12px;
+  width: 150px;
 }
 
 .code-reader-item-wrapper {
@@ -163,7 +164,7 @@ body {
 
 .code-reader-item-name {
   font-family: $icon-font;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   padding-right: 4px;
   text-overflow: ellipsis;
