@@ -1,8 +1,15 @@
 @media #{$mobile} {
   .navigation-bar {
+    // background: $navigation-mobile-bar-color !important;
     background: 
-      linear-gradient(rgba(#c3f5ff, 1), #0b717b, #0b717b) !important;
+      linear-gradient(
+        90deg,
+        rgba($navigation-mobile-bar-color, 0.6),
+        $navigation-mobile-bar-color,
+        $navigation-mobile-bar-color
+        ) !important;
     border: none !important;
+    border-bottom: 2px solid black !important;
     height: 40px !important;
   }
 
@@ -21,21 +28,49 @@
     background-color: transparent !important;
     border: none !important;
     color: rgba(255, 255, 255, 0.8) !important;
-    font-weight: normal !important;
+    font-size: 14px !important;
+  }
+
+  .navigation-bar--divider__mobile {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    width: 1px;
+    margin: 0 4px;
+    display: block;
+    height: 100%;
   }
 
   .navigation-bar--divider {
-    border: none !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
-    width: 1px !important;
+    display: none !important;
   }
 
   .navigation-bar-start-button__logo {
-    background-image: url(../images/window-mobile-logo.png) !important;
+    background-image: url(../images/window-mobile-logo.svg) !important;
     margin: none !important;
-    height: 24px !important;
-    width: 24px !important;
+    height: 32px !important;
+    width: 32px !important;
   }
+
+  .mobile-close-button {
+    display: inline-block !important;
+    background-image: url(../images/close_button.png);
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 4px;
+    filter: invert(100%);
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:active {
+      opacity: 1;
+    }
+  }
+}
+
+.mobile-close-button {
+  display: none;
 }
 
 .navigation-bar {

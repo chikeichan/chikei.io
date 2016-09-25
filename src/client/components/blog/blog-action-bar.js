@@ -21,7 +21,7 @@ class BlogActionBar extends Component {
   getUrl() {
     const {blogId} = this.props;
     const encoded = encodeURIComponent(blogId.replace(/BLOG__/g, ''));
-    return `http://www.chikei.io/b/${encoded}`;
+    return `http://104.198.104.19:8000/b/${encoded}`;
   }
 
   renderActionMenu(action) {

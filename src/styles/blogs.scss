@@ -39,9 +39,11 @@
 .window {
   @media #{$mobile} {
     .blog-container {
-      width: calc(100% - 8px);
+      width: 100%;
       flex: 1 0 auto;
       box-sizing: border-box;
+      border: none;
+      margin: 0 !important;
     }
   }
 }

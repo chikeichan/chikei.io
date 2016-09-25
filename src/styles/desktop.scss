@@ -8,6 +8,11 @@
   }
   @media #{$mobile} {
     flex: 1 0 auto;
-    background-color: $default-mobile-background-color
+    background:
+      linear-gradient(
+        0deg,
+        #025192,
+        $default-mobile-background-color
+        ) !important;
   }
 }

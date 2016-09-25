@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 import Clock from './clock';
+import MobileClose from '../../containers/navigation-bar-container/mobile-close-button-container';
 import {ID_TO_WINDOW_ICON} from '../../enums/icon-types.js';
 
 class NavigationBar extends Component {
@@ -45,11 +46,13 @@ class NavigationBar extends Component {
       <div className="navigation-bar">
         <div className="navigation-bar-start-button">
           <div className="navigation-bar-start-button__logo" />
-          Start
+          <div className="navigation-bar--divider__mobile" />
+          <div className="navigation-bar-start">Start</div>
         </div>
         <div className="navigation-bar--divider" />
         {this.renderAppDocks()}
         <Clock />
+        <MobileClose />
       </div>
     );
   }
