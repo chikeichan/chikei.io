@@ -1,3 +1,43 @@
+@media #{$mobile} {
+  .navigation-bar {
+    background: 
+      linear-gradient(rgba(#c3f5ff, 1), #0b717b, #0b717b) !important;
+    border: none !important;
+    height: 40px !important;
+  }
+
+  .navigation-bar-start-button {
+    background-color: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: normal !important;
+  }
+
+  .nav-app-wrapper {
+    display: none !important;
+  }
+
+  .navigation-bar--clock {
+    background-color: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: normal !important;
+  }
+
+  .navigation-bar--divider {
+    border: none !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    width: 1px !important;
+  }
+
+  .navigation-bar-start-button__logo {
+    background-image: url(../images/window-mobile-logo.png) !important;
+    margin: none !important;
+    height: 24px !important;
+    width: 24px !important;
+  }
+}
+
 .navigation-bar {
   height: 30px;
   flex: 0 0 auto;

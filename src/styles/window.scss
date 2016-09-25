@@ -32,6 +32,19 @@
   }
 }
 
+@media #{$mobile} {
+  .window:not(.window--selected),
+  .window-header,
+  .window-action-bar {
+    display: none !important;
+  }
+
+  .window-container {
+    background-color: #00404a !important;
+    border: none !important;
+  }
+}
+
 .window--autohide {
   .window-container {
     border-top: 2px solid rgba(255, 255, 255, 0);

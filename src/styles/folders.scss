@@ -27,6 +27,16 @@
   }
 }
 
+.window {
+  @media #{$mobile} {
+    .folder-container {
+      width: calc(100% - 10px);
+      flex: 1 0 auto;
+      box-sizing: border-box;
+    }
+  }
+}
+
 .folder-detail-item-icon {
   height: 16px;
   width: 16px;
