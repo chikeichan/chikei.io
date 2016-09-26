@@ -24,7 +24,6 @@ class FolderActionBar extends Component {
       case FILE:
         return (
           <WindowActionMenu>
-            <div className="divider"/>
             <div onClick={this.context.closeWindow}>Exit</div>
           </WindowActionMenu>
         );

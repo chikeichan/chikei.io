@@ -3,9 +3,10 @@ export const GAME = 'GAME';
 export const EDIT = 'EDIT';
 export const VIEW = 'VIEW';
 export const HELP = 'HELP';
+export const SHARE = 'SHARE';
 
 export const ACTIONS_TYPES = {
-  FILE, EDIT, VIEW, HELP, GAME
+  FILE, EDIT, VIEW, HELP, GAME, SHARE
 };
 
 export const ACTIONS_TO_CLASS = {
@@ -21,6 +22,7 @@ export const ACTIONS_TO_DISPLAY_NAME = {
   [EDIT]: 'Edit',
   [VIEW]: 'View',
   [HELP]: 'Help',
+  [SHARE]: 'Share',
   [GAME]: 'Game'
 };
 

@@ -25,9 +25,10 @@ class Clock extends Component {
     const m = timestamp.getMinutes();
     const mm = m < 10 ? `0${m}` : m;
     const p = H < 12 ? 'AM' : 'PM';
+    const hh = h === 0 && p === 'PM' ? 12 : h;
 
     return (
-  		<div className="navigation-bar--clock">{`${h}:${mm} ${p}`}</div>
+  		<div className="navigation-bar--clock">{`${hh}:${mm} ${p}`}</div>
     );
 	}
 }

@@ -11,7 +11,9 @@
   overflow-y: auto;
   background-color: rgba(255, 255, 255, 0.75);
 
-  @include window-scrollbar();
+  @media #{$desktop} {
+    @include window-scrollbar();
+  }
 
   pre {
     font-size: 0.8rem;
@@ -30,6 +32,19 @@
     width: calc(100% - 8px);
     flex: 1 0 auto;
     box-sizing: border-box;
+  }
+}
+
+
+.window {
+  @media #{$mobile} {
+    .blog-container {
+      width: 100%;
+      flex: 1 0 auto;
+      box-sizing: border-box;
+      border: none;
+      margin: 0 !important;
+    }
   }
 }
 

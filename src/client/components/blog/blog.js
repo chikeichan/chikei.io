@@ -25,13 +25,15 @@ class Blog extends Component {
   }
 
   render() {
-    const {appData, actions} = this.props;
+    const {appData, actions, id} = this.props;
     const {metadata, markdown} = appData;
     const {title, author, date, avatar} = metadata;
 
     return (
       <Window {...this.props}>
-        <ActionBar actions={actions} />
+        <ActionBar
+          actions={actions}
+          blogId={id} />
         <div className="blog-container">
           <div className="blog-content">
             <div className="blog-title">{title}</div>

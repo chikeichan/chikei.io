@@ -32,6 +32,24 @@
   }
 }
 
+@media #{$mobile} {
+  .window:not(.window--selected),
+  .window-header {
+    display: none !important;
+  }
+
+  .window-container {
+    border: none !important;
+    background-color: white !important;
+  }
+
+  .window-action-bar {
+    color: $window-header-active-color !important;
+    background-color: rgba($navigation-mobile-bar-color, 0.2) !important;
+    margin: 0 !important;
+  }
+}
+
 .window--autohide {
   .window-container {
     border-top: 2px solid rgba(255, 255, 255, 0);
@@ -243,7 +261,8 @@
 
 .window-menu {
   position: absolute;
-  width: 150px;
+  min-width: 150px;
+  white-space: nowrap;
   top: 23px;
   left: 0px;
   background-color: $window-base-color;
@@ -272,10 +291,37 @@
     &.checked {
       &:before {
         content: '\2713 ';
-        content: '\2713 ';
         position: absolute;
         left: 4px;
         top: 4px;
+      }
+    }
+
+    &.fb-share-btn,
+    &.li-share-btn {
+      padding-left: 24px; 
+      &:before {
+        content: '';
+        height: 16px;
+        width: 16px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: absolute;
+        left: 4px;
+        top: 4px;
+      }
+    }
+
+    &.fb-share-btn {
+      &:before {
+        background-image: url(../images/facebook-share-logo.png);
+      }
+    }
+
+    &.li-share-btn {
+      &:before {
+        background-image: url(../images/linkedin-share-logo.png);
       }
     }
 
@@ -287,3 +333,22 @@
     }
   }
 }
+
+@media #{$mobile} {
+  .window-menu {
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: none;
+    div {
+      background-color: rgba($navigation-mobile-bar-color, 0.4);
+      border: 1px solid transparent;
+      &.divider {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid black;
+        border-bottom: 0;
+      }
+    }
+  }
+}
+

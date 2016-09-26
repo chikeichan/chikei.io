@@ -12,11 +12,11 @@ export default class Blogs {
       try {
         const appData = this.getAppData(data);
         cb(null, {
-          id: `BLOG__${filename.toUpperCase()}`,
+          id: `BLOG__${filename}`,
           type: 'BLOG',
           name: appData.metadata.title,
           buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-          actions: ['FILE', 'VIEW', 'HELP'],
+          actions: ['FILE', 'SHARE'],
           x: 150,
           y: 70,
           appData
