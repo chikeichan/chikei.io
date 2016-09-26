@@ -4,14 +4,14 @@ const WINDOWS = {
     type: 'MINESWEEPER',
     name: 'Minesweeper',
     buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
-    actions: ['GAME', 'HELP']
+    actions: ['GAME']
   },
   TUTORIALS: {
     id: 'TUTORIALS',
     type: 'FOLDER',
-    name: 'Tutorials',
+    name: 'Blogs',
     buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-    actions: ['FILE', 'VIEW', 'HELP'],
+    actions: ['FILE', 'VIEW'],
     x: 100,
     y: 50
   },
@@ -20,7 +20,7 @@ const WINDOWS = {
     type: 'TETRIS',
     name: 'Tetris',
     buttons: ['MINIMIZE', 'NO_MAXIMIZE', 'CLOSE'],
-    actions: ['GAME', 'HELP']
+    actions: ['GAME']
   }
 };
 

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import classnames from 'classnames';
 import pureRender from 'pure-render-decorator';
 import {DragSource} from 'react-dnd';
 import Icon from './icon';
@@ -55,13 +56,17 @@ class IconDnD extends Component {
       defaultX, defaultY, x, y
     } = this.props;
 
+    const className = classnames(
+      'icon-wrapper',
+      {'icon--selected': isSelected}
+    );
+
     return connectDragSource(
       <div
-        className={isSelected && 'icon--selected'}
+        className={className}
         onClick={e => e.stopPropagation()}
         onMouseDown={this.selectIcon}
         style={{
-          position: 'absolute',
           top: y || defaultY,
           left: x || defaultX,
           opacity: isDragging ? 0.5 : 1

@@ -14,7 +14,7 @@ export default class Codes {
       cb(null, {
         ...dirData,
         buttons: ['MINIMIZE', 'MAXIMIZE', 'CLOSE'],
-        actions: ['FILE', 'HELP'],
+        actions: ['FILE'],
         x: 100,
         y: 100
       });
