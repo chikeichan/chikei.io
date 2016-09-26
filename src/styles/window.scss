@@ -34,13 +34,19 @@
 
 @media #{$mobile} {
   .window:not(.window--selected),
-  .window-header,
-  .window-action-bar {
+  .window-header {
     display: none !important;
   }
 
   .window-container {
     border: none !important;
+    background-color: white !important;
+  }
+
+  .window-action-bar {
+    color: $window-header-active-color !important;
+    background-color: rgba($navigation-mobile-bar-color, 0.2) !important;
+    margin: 0 !important;
   }
 }
 
@@ -327,3 +333,22 @@
     }
   }
 }
+
+@media #{$mobile} {
+  .window-menu {
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: none;
+    div {
+      background-color: rgba($navigation-mobile-bar-color, 0.4);
+      border: 1px solid transparent;
+      &.divider {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid black;
+        border-bottom: 0;
+      }
+    }
+  }
+}
+

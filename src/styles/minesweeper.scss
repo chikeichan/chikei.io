@@ -149,3 +149,25 @@
 .minesweeper-row {
   white-space: nowrap;
 }
+
+@media #{$mobile} {
+  .minesweeper-container {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: $window-base-color;
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  .minesweeper-header {
+    width: 100%;
+  }
+
+  .minesweeper-gameboard {
+    overflow: auto;
+    max-width: 100%;
+  }
+}
