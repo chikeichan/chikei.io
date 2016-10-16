@@ -6,26 +6,32 @@
   padding: 12px 8px;
 }
 
-.icon--selected {
-  .icon-name {
-    background-color: $icon-active-color;
-    border: 1px dotted $icon-dotted-color;
-    color: rgba(255, 255, 255, 0.9) !important;
-    white-space: normal;
+@media #{$desktop} {
+  .icon-wrapper {
+    position: absolute;
   }
 
-  .icon-image {
-    &:after {
-      content: "";
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      display: block;
-      top: 9px;
-      left: 18px;
-      opacity: 0.6;
+  .icon--selected {
+    .icon-name {
       background-color: $icon-active-color;
       border: 1px dotted $icon-dotted-color;
+      color: rgba(255, 255, 255, 0.9) !important;
+      white-space: normal;
+    }
+
+    .icon-image {
+      &:after {
+        content: "";
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        display: block;
+        top: 9px;
+        left: 18px;
+        opacity: 0.6;
+        background-color: $icon-active-color;
+        border: 1px dotted $icon-dotted-color;
+      }
     }
   }
 }
@@ -96,4 +102,39 @@
 
 .icon-image__LINKEDIN {
   background-image: url(../images/linkedin-share-logo.png);
+}
+
+@media #{$mobile} {
+  .icon-container {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 4px 8px;
+    margin: 4px;
+    width: calc(25vw - 8px);
+    height: calc(25vw - 8px);
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .icon--selected {
+    .icon-container {
+      background-color: $icon-active-color;
+      border: 1px dotted $icon-dotted-color;
+      color: rgba(255, 255, 255, 0.9) !important;
+      white-space: normal;
+    }
+    
+    .icon-name {
+      color: rgba(255, 255, 255, 0.9) !important;
+      white-space: normal;
+    }
+  }
+
+  .icon-wrapper {
+    position: static;
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+  }
 }

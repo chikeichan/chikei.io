@@ -1,0 +1,14 @@
+{
+ "blogs": [
+  {
+    "id": "Tetris Part I.md",
+    "name": "Tetris Part I.md",
+    "type": "BLOG",
+    "title": "Tetris.js – Implementation of Tetris Using Javascript and jQuery (Part I)",
+    "author": "Jacky Chan",
+    "avatar": "https://avatars3.githubusercontent.com/u/8507735",
+    "date": "November 18, 2014",
+    "heroImageUrl": "../images/tetris-hero.jpg"
+  }
+ ]
+}

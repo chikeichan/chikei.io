@@ -36,6 +36,9 @@ class FolderActionBar extends Component {
             <div
               className={viewMode === 'DETAIL' && 'checked'}
               onClick={() => setViewMode('DETAIL')}>Details</div>
+            <div
+              className={viewMode === 'PREVIEW' && 'checked'}
+              onClick={() => setViewMode('PREVIEW')}>Previews</div>
           </WindowActionMenu>
         );
       case HELP:

@@ -1,6 +1,6 @@
 // Base Variables;
-$mobile: "screen and (max-width : 425px)";
-$desktop: "screen and (min-width : 426px)";
+$mobile: "screen and (max-width : 768px)";
+$desktop: "screen and (min-width : 769px)";
 
 // Desktop
 $default-desktop-background-color: #008080;
@@ -90,7 +90,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .app-wrapper {

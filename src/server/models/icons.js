@@ -2,7 +2,7 @@ const ICONS = {
   TUTORIALS: {
     id: 'TUTORIALS',
     type: 'FOLDER',
-    name: 'Tutorials'
+    name: 'Blogs'
   },
   MINESWEEPER: {
     id: 'MINESWEEPER',
