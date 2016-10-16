@@ -34,7 +34,6 @@ class FolderDetailItem extends Component {
           <span className={`folder-detail-item-icon icon-image__${type}`} />
           {name}
         </td>
-        <td>{author}</td>
         <td>{date}</td>
       </tr>
     );

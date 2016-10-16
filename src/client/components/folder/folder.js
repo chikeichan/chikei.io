@@ -38,7 +38,6 @@ class Folder extends Component {
         <tbody>
           <tr>
             <th>Filename</th>
-            <th>Author</th>
             <th>Date</th>
           </tr>
           {blogs.map(blog => this.renderDetail(blog))}
@@ -56,14 +55,38 @@ class Folder extends Component {
     );
   }
 
+  renderPreviews() {
+    const {blogs} = this.props.appData;
+    return (
+      <div className="folder-previews">
+        {blogs.map(blog => this.renderPreview(blog))}
+      </div>
+    );
+  }
+
+  renderPreview(blog) {
+    const {heroImageUrl, title, avatar, author, date, id} = blog;
+    return (
+      <div key={id} className="folder-preview-container">
+        <div
+          className="folder-preview-hero-image"
+          style={{backgroundImage: `url(${heroImageUrl})`}} />
+        <div className="folder-preview-title">{title}</div>
+        <span className="folder-preview-date">{date}</span>
+      </div>
+    );
+  }
+
   renderContent() {
     const {viewMode} = this.props;
     switch(viewMode) {
       case 'DETAIL':
         return this.renderDetails();
       case 'ICON':
-      default:
         return this.renderIcons();
+      case 'PREVIEW':
+      default:
+        return this.renderPreviews();
     }
   }
 

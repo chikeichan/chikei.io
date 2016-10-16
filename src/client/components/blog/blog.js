@@ -27,7 +27,7 @@ class Blog extends Component {
   render() {
     const {appData, actions, id} = this.props;
     const {metadata, markdown} = appData;
-    const {title, author, date, avatar} = metadata;
+    const {title, author, date, avatar, heroImageUrl} = metadata;
 
     return (
       <Window {...this.props}>
@@ -35,6 +35,9 @@ class Blog extends Component {
           actions={actions}
           blogId={id} />
         <div className="blog-container">
+          <div
+            className="blog-hero-image"
+            style={{backgroundImage: `url(${heroImageUrl})`}} />
           <div className="blog-content">
             <div className="blog-title">{title}</div>
             <hr/>
