@@ -9,6 +9,7 @@ class Folder extends Component {
     appData: PropTypes.object.isRequired,
     actions: PropTypes.array.isRequired,
     setViewMode: PropTypes.func.isRequired,
+    openApp: PropTypes.func.isRequired,
     viewMode: PropTypes.string
   };
 
@@ -66,8 +67,12 @@ class Folder extends Component {
 
   renderPreview(blog) {
     const {heroImageUrl, title, avatar, author, date, id} = blog;
+    const {openApp} = this.props;
     return (
-      <div key={id} className="folder-preview-container">
+      <div
+        key={id}
+        className="folder-preview-container"
+        onClick={() => openApp(id)}>
         <div
           className="folder-preview-hero-image"
           style={{backgroundImage: `url(${heroImageUrl})`}} />
